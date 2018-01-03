@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b12d6f8e-1e9c-409f-b507-d967c9fcb1fd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lectures/w4111-L1-s2018-Introduction.html" afterPath="$PROJECT_DIR$/Lectures/w4111-L1-s2018-Introduction.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Notebooks/w4111-L1-s2018-Introduction.ipynb" afterPath="$PROJECT_DIR$/Notebooks/w4111-L1-s2018-Introduction.ipynb" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Slides/~$cs4111-lecture1-v0.5.pptx" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Slides/cs4111-lecture1-v0.5.pptx" afterPath="$PROJECT_DIR$/Slides/cs4111-lecture1-v0.5.pptx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -17,7 +18,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="lecture1.sql" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lecture1.sql">
           <provider selected="true" editor-type-id="text-editor">
@@ -44,73 +45,14 @@
       <file leaf-file-name="Connection" pinned="false" current-in-tab="false">
         <entry file="db://a378fb33-fcaa-4a92-a9a1-db1691dd1287/console#Connection">
           <provider selected="true" editor-type-id="0.CONSOLE">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" current-schema="mysql" />
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" current-schema="mysql" />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="date_valid" pinned="false" current-in-tab="false">
         <entry file="db://a378fb33-fcaa-4a92-a9a1-db1691dd1287/object#[schema/function][finalexamhw5/date_valid]">
           <provider selected="true" editor-type-id="0.CODE">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Appearances" pinned="false" current-in-tab="false">
-        <entry file="db://a378fb33-fcaa-4a92-a9a1-db1691dd1287/object#[schema/table][finalexamhw5/Appearances]">
-          <provider selected="true" editor-type-id="1.DATA">
-            <state row-count="400" readonly="false">
-              <columns>
-                <column name="yearID" position="0" visible="true" />
-                <column name="teamID" position="1" visible="true" />
-                <column name="lgID" position="2" visible="true" />
-                <column name="playerID" position="3" visible="true" />
-                <column name="G_all" position="4" visible="true" />
-                <column name="GS" position="5" visible="true" />
-                <column name="G_batting" position="6" visible="true" />
-                <column name="G_defense" position="7" visible="true" />
-                <column name="G_p" position="8" visible="true" />
-                <column name="G_c" position="9" visible="true" />
-                <column name="G_1b" position="10" visible="true" />
-                <column name="G_2b" position="11" visible="true" />
-                <column name="G_3b" position="12" visible="true" />
-                <column name="G_ss" position="13" visible="true" />
-                <column name="G_lf" position="14" visible="true" />
-                <column name="G_cf" position="15" visible="true" />
-                <column name="G_rf" position="16" visible="true" />
-                <column name="G_of" position="17" visible="true" />
-                <column name="G_dh" position="18" visible="true" />
-                <column name="G_ph" position="19" visible="true" />
-                <column name="G_pr" position="20" visible="true" />
-              </columns>
-              <sorting>
-                <column name="yearID" index="1" direction="ASCENDING" />
-              </sorting>
-              <content-types />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="players" pinned="false" current-in-tab="false">
-        <entry file="db://a378fb33-fcaa-4a92-a9a1-db1691dd1287/object#[schema/table][finalexamhw5/players]">
-          <provider selected="true" editor-type-id="1.DATA">
-            <state row-count="200" readonly="false">
-              <columns>
-                <column name="playerID" position="0" visible="true" />
-                <column name="birthYear" position="1" visible="true" />
-                <column name="birthMonth" position="2" visible="true" />
-                <column name="birthDay" position="3" visible="true" />
-                <column name="birthCountry" position="4" visible="true" />
-                <column name="birthState" position="5" visible="true" />
-                <column name="birthCity" position="6" visible="true" />
-                <column name="nameFirst" position="7" visible="true" />
-                <column name="nameLast" position="8" visible="true" />
-                <column name="nameGiven" position="9" visible="true" />
-              </columns>
-              <sorting>
-                <column name="birthYear" index="1" direction="ASCENDING" />
-              </sorting>
-              <content-types />
-            </state>
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
           </provider>
         </entry>
       </file>
@@ -161,7 +103,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -176,7 +118,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -241,6 +183,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -278,40 +226,42 @@
       <option name="presentableId" value="Default" />
       <updated>1514841707416</updated>
       <workItem from="1514841708944" duration="1880000" />
+      <workItem from="1514995726589" duration="24000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1880000" />
+    <option name="totallyTimeSpent" value="1904000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1826" height="996" extended-state="1" />
+    <frame x="0" y="23" width="1826" height="996" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295964" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964602" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295964" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Graph Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964602" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17320628" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="MaxCompute Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="MaxCompute Job Explorer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Graph Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Running Info" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Graph Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1748879" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="MaxCompute Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="MaxCompute Job Explorer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Graph Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Running Info" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Running Result" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="MaxCompute Project Explorer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Running Result" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="MaxCompute Project Explorer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -325,71 +275,51 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/lecture1.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="db://[Connection] CONSOLE - Connection">
       <provider selected="true" editor-type-id="0.CONSOLE">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" current-schema="mysql" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" current-schema="mysql">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="db://[Connection] FUNCTION - finalexamhw5.date_valid">
       <provider selected="true" editor-type-id="0.CODE">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" />
-      </provider>
-    </entry>
-    <entry file="db://[Connection] TABLE - finalexamhw5.Appearances">
-      <provider selected="true" editor-type-id="1.DATA">
-        <state row-count="0" readonly="false">
-          <columns>
-            <column name="yearID" position="0" visible="true" />
-            <column name="teamID" position="1" visible="true" />
-            <column name="lgID" position="2" visible="true" />
-            <column name="playerID" position="3" visible="true" />
-            <column name="G_all" position="4" visible="true" />
-            <column name="GS" position="5" visible="true" />
-            <column name="G_batting" position="6" visible="true" />
-            <column name="G_defense" position="7" visible="true" />
-            <column name="G_p" position="8" visible="true" />
-            <column name="G_c" position="9" visible="true" />
-            <column name="G_1b" position="10" visible="true" />
-            <column name="G_2b" position="11" visible="true" />
-            <column name="G_3b" position="12" visible="true" />
-            <column name="G_ss" position="13" visible="true" />
-            <column name="G_lf" position="14" visible="true" />
-            <column name="G_cf" position="15" visible="true" />
-            <column name="G_rf" position="16" visible="true" />
-            <column name="G_of" position="17" visible="true" />
-            <column name="G_dh" position="18" visible="true" />
-            <column name="G_ph" position="19" visible="true" />
-            <column name="G_pr" position="20" visible="true" />
-          </columns>
-          <sorting>
-            <column name="yearID" index="1" direction="ASCENDING" />
-          </sorting>
-          <content-types />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="db://[Connection] TABLE - finalexamhw5.players">
-      <provider selected="true" editor-type-id="1.DATA">
-        <state row-count="0" readonly="false">
-          <columns>
-            <column name="playerID" position="0" visible="true" />
-            <column name="birthYear" position="1" visible="true" />
-            <column name="birthMonth" position="2" visible="true" />
-            <column name="birthDay" position="3" visible="true" />
-            <column name="birthCountry" position="4" visible="true" />
-            <column name="birthState" position="5" visible="true" />
-            <column name="birthCity" position="6" visible="true" />
-            <column name="nameFirst" position="7" visible="true" />
-            <column name="nameLast" position="8" visible="true" />
-            <column name="nameGiven" position="9" visible="true" />
-          </columns>
-          <sorting>
-            <column name="birthYear" index="1" direction="ASCENDING" />
-          </sorting>
-          <content-types />
+    <entry file="file://$PROJECT_DIR$/index.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="300">
+            <caret line="20" column="61" lean-forward="false" selection-start-line="20" selection-start-column="61" selection-end-line="20" selection-end-column="61" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
+    <entry file="db://[Connection] CONSOLE - Connection">
+      <provider selected="true" editor-type-id="0.CONSOLE">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" current-schema="mysql" />
+      </provider>
+    </entry>
+    <entry file="db://[Connection] FUNCTION - finalexamhw5.date_valid">
+      <provider selected="true" editor-type-id="0.CODE">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="db://[Connection] TABLE - finalexamhw5.Appearances" />
+    <entry file="db://[Connection] TABLE - finalexamhw5.players" />
     <entry file="file://$PROJECT_DIR$/lecture1.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
