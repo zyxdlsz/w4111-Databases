@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b12d6f8e-1e9c-409f-b507-d967c9fcb1fd" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Slides/~$cs4111-lecture1-v0.5.pptx" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Slides/cs4111-lecture1-v0.5.pptx" afterPath="$PROJECT_DIR$/Slides/cs4111-lecture1-v0.5.pptx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" />
-    </list>
+    <list default="true" id="b12d6f8e-1e9c-409f-b507-d967c9fcb1fd" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -226,12 +222,12 @@
       <option name="presentableId" value="Default" />
       <updated>1514841707416</updated>
       <workItem from="1514841708944" duration="1880000" />
-      <workItem from="1514995726589" duration="24000" />
+      <workItem from="1514995726589" duration="145000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1904000" />
+    <option name="totallyTimeSpent" value="2025000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1826" height="996" extended-state="0" />
