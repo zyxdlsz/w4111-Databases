@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b12d6f8e-1e9c-409f-b507-d967c9fcb1fd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CodeSamples/baseball.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DataAndSchema/Batting.csv" afterPath="$PROJECT_DIR$/DataAndSchema/Batting.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Notebooks/.ipynb_checkpoints/w4111-L2-s2018-ModelRelational-checkpoint.ipynb" afterPath="$PROJECT_DIR$/Notebooks/.ipynb_checkpoints/w4111-L2-s2018-ModelRelational-checkpoint.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Notebooks/w4111-L1-s2018-Introduction.ipynb" afterPath="$PROJECT_DIR$/Notebooks/w4111-L1-s2018-Introduction.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Notebooks/w4111-L2-s2018-ModelRelational.ipynb" afterPath="$PROJECT_DIR$/Notebooks/w4111-L2-s2018-ModelRelational.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.md" afterPath="$PROJECT_DIR$/index.md" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -269,12 +263,12 @@
       <option name="presentableId" value="Default" />
       <updated>1514841707416</updated>
       <workItem from="1514841708944" duration="1880000" />
-      <workItem from="1514995726589" duration="2016000" />
+      <workItem from="1514995726589" duration="2128000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3896000" />
+    <option name="totallyTimeSpent" value="4008000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1826" height="996" extended-state="0" />

@@ -21,7 +21,7 @@ There are four subdirectories in this project:
 1. [Lectures](./Lectures) contains HTML pages and PPT for each of the lectures. Direct web links for
 viewing the HTML lectures are:
     - [Lecture 1: Introduction and Overview](./Lectures/w4111-L1-s2018-Introduction.html)
-    - [Lecture 2: Start Working with databases](./Lectures/W4111-L2-ModelRelational.html)
+    - [Lecture 2: Start Working with databases](./Lectures/W4111-L2-s2018-ModelRelational.html)
 1. [CodeSamples](./CodeSamples) contains the same programs from lectures.
 1. [DataAndSchema](./DataAndSchema) contains SQL, CSV and other data files used in projects.
 1. [Notebooks](./Notebooks) contains the [Jupyter](http://jupyter.org/) Notebooks used
