@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>w4111-L1-s2018-Introduction</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>w4111-L3-SelectAndWeb</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11821,9 +11821,9 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Databases">Introduction to Databases<a class="anchor-link" href="#Introduction-to-Databases">&#182;</a></h1><p>From the <a href="http://bulletin.columbia.edu/columbia-college/departments-instruction/computer-science/#coursestext">Columbia University Bulletin</a></p>
-<p>"The fundamentals of database design and application development using databases: entity-relationship modeling, logical design of relational databases, relational data definition and manipulation languages, SQL, query processing, transaction processing. Programming projects are required."</p>
-
+<p><h1 style="display:none;">Test</h1></p>
+<p><h1 style="display:none;">Test</h1></p>
+<h1 id="Introduction-to-Databases:-Query-and-Web-Application">Introduction to Databases: Query and Web Application<a class="anchor-link" href="#Introduction-to-Databases:-Query-and-Web-Application">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -11831,429 +11831,762 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="About-your-instructor">About your instructor<a class="anchor-link" href="#About-your-instructor">&#182;</a></h2><ul>
-<li>Academic experience<ul>
-<li>Ph.D. in Computer Science, Columbia University, 1989</li>
-<li>Joined Columbia as full time <em>Professor of Professional Practice</em>, 01-Jan-2018</li>
-<li>8 semesters as an adjunct professor teaching Topics in Computer Science<ul>
-<li>Cloud Computing</li>
-<li>Web and Internet Application Development</li>
-<li>Web Application Servers and Applications</li>
-<li>W4111 - Introduction to Databases</li>
+<h2 id="Web-and-REST-Applications:-Introduction">Web and REST Applications: Introduction<a class="anchor-link" href="#Web-and-REST-Applications:-Introduction">&#182;</a></h2><h3 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h3><p><strong>Simple Web Application</strong>
+<br><br><br>
+<img src="../images/webapp.jpeg">
+<br><br></p>
+<ul>
+<li>The web browser (Chrome, Internet Explorer/Edge, Firefox, Safari, ...)<ul>
+<li>Retrieves files via Hypertext Transfer Protocol (HTTP) from a web server</li>
+<li>Common file types<ul>
+<li>HTML</li>
+<li>JPEG</li>
+<li>CSS</li>
+<li>JavaScript</li>
 </ul>
 </li>
+<li>Assembles the files into web pages that it renders.</li>
+<li>Some of the JavaScript files make <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">Representational State Transfer (REST)</a> API calls<ul>
+<li>Retrieves data (JSON) that plugs into the web pages using HTTP.</li>
+<li>Creates, Updates, Deletes data by sending HTTP requests.</li>
+</ul>
+</li>
+<li><a href="https://angularjs.org/">AngularJS</a> is a common library and framework for building browser UIs.</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>30 years industry experience<ul>
-<li><a href="https://en.wikipedia.org/wiki/IBM_Fellow">IBM Fellow</a>, Chief Architect for <a href="https://en.wikipedia.org/wiki/IBM_Software_Group_(SWG">IBM Software Group</a></li>
-<li>Microsoft Technical Fellow</li>
-<li>Executive Vice President, Chief Technology Officer, <a href="https://www.ca.com/us.html">CA Technologies</a></li>
-<li>Vice President, CTO, Senior Fellow, <a href="https://en.wikipedia.org/wiki/Dell_Software">Dell Software Group</a></li>
-<li>Co-Founder and CTO, <a href="https://seekatv.com/">Seeka TV</a></li>
+<li>The <a href="https://en.wikipedia.org/wiki/Application_server#Application_Server_definition">web application server</a><ul>
+<li>Receives HTTP requests.</li>
+<li>Executes programs/functions that implement application logic, and may access one or more databases.</li>
+<li>Reurns response codes and optional JSON data.</li>
+<li>NodeJS, J2EE, etc. are examples of web application servers.</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>Publications<ul>
-<li>Approximately 60 technical publications.</li>
-<li>Authored, co-authored several standards in web applications.</li>
-<li>12 patents.</li>
+<li>Mobile devices also use the REST API. The mobile application<ul>
+<li>May simply be a browser</li>
+<li>A <a href="https://www.techopedia.com/definition/27568/native-mobile-app">native module application</a> installed on the device.
+<br><br>   </li>
+</ul>
+</li>
+</ul>
+<p><strong>Slightly More Realistic Web Application</strong></p>
+<ul>
+<li><p>Web application software is usually very complex.</p>
+</li>
+<li><p>This diagram is also simplistic</p>
+</li>
+</ul>
+<p><br><br>
+<img src="../images/realwebapp.jpeg">
+<br><br></p>
+<ul>
+<li><p>The system and deployment topology is usually very complex.</p>
+</li>
+<li><p>This diagram is also simplistic</p>
+</li>
+</ul>
+<p><img src="../images/webapptopo.jpeg"></p>
+<h3 id="REST">REST<a class="anchor-link" href="#REST">&#182;</a></h3><p><br><br>
+<img src="../images/rest1.jpg" width="125%">
+<br><br></p>
+<ul>
+<li>In this example, the is a set of <em>resources</em><ul>
+<li>A collection/set of device descriptions, e.g. model, owner, purchases, ...</li>
+<li>Device description instances, e.g device 1, device 2, ...</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>Personal and hobbies<ul>
-<li>Two amazing daughters (One is Barnard student. One is a sophomore in high school)</li>
-<li>Interested in languages. Speak Spanish reasonably well and trying to learn Arabic.</li>
-<li>Black Belt in Kenpo Karate</li>
-<li>Amateur astronomy</li>
-<li>Road bicycling</li>
-<li>Officer in the New York Guard</li>
+<li>The REST version of the create, retrieve update, delete operations are:<ul>
+<li>POST</li>
+<li>GET</li>
+<li>PUT</li>
+<li>DELETE</li>
 </ul>
 </li>
 </ul>
-<p><br>
-<img src="http://www.donald-ferguson.net/blog/wp-content/uploads/2018/01/aboutme.jpeg"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="About-this-course">About this course<a class="anchor-link" href="#About-this-course">&#182;</a></h2><ul>
-<li>This course is foundational, and will teach you the core concepts in<ul>
-<li>Data modeling</li>
-<li>Data model implementation; Data manipulation.</li>
-<li>Different database models and database management systems.</li>
-<li>Implementation of data centric applications and systems.</li>
+<h3 id="Our-Mission-and-1st-Set-of-Projects">Our Mission and 1st Set of Projects<a class="anchor-link" href="#Our-Mission-and-1st-Set-of-Projects">&#182;</a></h3><ul>
+<li><p>Application</p>
+<ul>
+<li>Implement a simple REST interface for <a href="http://www.seanlahman.com/baseball-archive/statistics/">Lahman's Baseball Database</a></li>
+<li>Build a simple UI, but this will be a minor focus.</li>
+</ul>
+</li>
+<li><p>REST API implementation and web UI implementation are complete courses themselves.</p>
+</li>
+</ul>
+<ul>
+<li>Focus on read-GET-SELECT.</li>
+</ul>
+<ul>
+<li>Come to understand<ul>
+<li>Relational selection, project and join in a simple example context.</li>
+<li>Relational data modeling and notation.</li>
+<li>SQL SELECT and JOIN</li>
+<li>SQL keys and indexes</li>
+<li>SQL views</li>
+<li>GROUP BY</li>
+<li>ORDER BY</li>
+<li>HAVING</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>ANY non-trivial application<ul>
-<li>Requires a well-designed data model.</li>
-<li>Implements a data model and manipulates data.</li>
-<li>Uses a database management system.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Understanding databases and database managements are core to the “hottest fields” in computer science, e.g.<ul>
-<li>Data science</li>
-<li>Machine learning</li>
-<li>Intelligent (utonomous) systems</li>
-<li>Internet-of-Things</li>
-<li>Cyber security </li>
-<li>Cloud Computing</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><span style="color:red"> <strong>Personal perspective</strong><ul>
-<li>A large percent of my career has been spent figuring out or leading teams that figured out how to model, implement and manipulate data.</li>
-<li>I have used the information in this class more than anything else I have learned.</li>
-<li>This will likely be true for you.
-&lt;/span&gt;</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Course-Objectives">Course Objectives<a class="anchor-link" href="#Course-Objectives">&#182;</a></h2><ul>
-<li>Have fun, learn a lot and come to appreciate and enjoy some amazing technology.</li>
-</ul>
-<ul>
-<li>Provide a foundation that allows you to succeed in future courses. This is an <em>introduction</em> to databases. The technology is crucial for<ul>
-<li>Advanced database classes</li>
-<li>Machine learning</li>
-<li>Big data, data analysis</li>
-<li>Numerical, simulation and analytics in operations research, engineering, economics, finance, life sciences, etc.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Enable you to successfully apply the technology in your work and profession.</li>
-</ul>
-<ul>
-<li>Have some cool stuff to talk about on interviews and resumes.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Organization-and-Logistics">Organization and Logistics<a class="anchor-link" href="#Organization-and-Logistics">&#182;</a></h2><ul>
-<li>Lecture: 1010- 1125, Tuesday, Thursday, Havemeyer Hall Room 209</li>
-</ul>
-<ul>
-<li>Instructor: Donald F. Ferguson (dff@cs.columbia.edu)</li>
-</ul>
-<ul>
-<li>Instructor Office Hours: <ul>
-<li>Tuesday, Thursday: 0900-1000</li>
-<li>Tuesday, Thursday: 1130-1300</li>
-<li>Location: 623 Shapiro/CEPSR</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>Collaboration/Contact</p>
-<ul>
-<li>The class is on <a href="piazza.com/columbia/spring2018/comsw4111_002_2018_1introductiontodatabases">Piazza</a><ul>
-<li>General questions</li>
-<li>Clarification of homeworks, class material, etc.</li>
-</ul>
-</li>
-<li><p>Slack, for quick messages and questions.</p>
-<ul>
-<li>Direct message to me, and</li>
-<li>Please join slack and the channel <a href="https://join.slack.com/t/dff-columbia/shared_invite/enQtMjg0Mzk4MTQwMzQxLTZlNzk3OTZmNWE2NzNmNzViZmJlMWVmNWVlZmUxZTU5NjkwYjQ1YTdjMzA3ZTMzZDM3ZmIwYzAyYjIwYTNkZDI">#w4111s18</a> for quick questions/comments to class.</li>
-</ul>
-</li>
-<li><p>Course Assistants</p>
-<ul>
-<li>TBA</li>
-<li>Will join Piazza and Slack channel, and announce office hours, contact info, etc.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Assignments,-Exams-and-Grades">Assignments, Exams and Grades<a class="anchor-link" href="#Assignments,-Exams-and-Grades">&#182;</a></h2><ul>
-<li>Point value of assignments and exams<ul>
-<li>50%: Homework assignments<ul>
-<li>Approximately one HW every two weeks, for a total of 7 or 8.</li>
-<li>Some will be slightly harder for extra points.</li>
-<li>Mix of programming assignments and questions.</li>
-</ul>
-</li>
-<li>Exams: All exams are "take home exams."<ul>
-<li>Mix of programming assignments and questions.</li>
-<li>20% of grade is midterm exam score.</li>
-<li>30% is final exam score. </li>
-</ul>
-</li>
-<li>Extra-credit<ul>
-<li>Class participation and office hour participation earns extra-credit points.</li>
-<li>There will be extra-credit homework projects to enable making up points lost on homeworks or exams.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Late submission<ul>
-<li>You have a total of 5 grace days to apply for all homeworks.</li>
-<li>1 minute past the due date counts for 1 day. 24 hours + 1 minute counts for two days.</li>
-<li>You cannot use grace days for midterm, final exam or extra-credit assignments.</li>
-<li>NOTE:<ul>
-<li>Respect for the individual is paramount. </li>
-<li>We will always accomodate illness, family emergencies, etc. </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Environment-and-Material">Environment and Material<a class="anchor-link" href="#Environment-and-Material">&#182;</a></h2><ul>
-<li>Course material<ul>
-<li>Textbook:<ul>
-<li><em>Database Management Systems, 3rd Edition</em>, Ramakrishnan and Gehrke, ISBN: 978-0072465631</li>
-<li>We will cover a subset of the material in the textbook, and in a different order.</li>
-<li>I willbring in examples from industry, engineering and practical experience.</li>
-</ul>
-</li>
-<li>Lecture material and examples:<ul>
-<li>Will be Jupyter Notebooks (<a href="http://jupyter.org/">http://jupyter.org/</a>)</li>
-<li>Notebooks, slides, sample code, etc. will be available on <a href="https://donald-f-ferguson.github.io/w4111-Databases/">GitHub project</a> for the course.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Project and development<ul>
-<li>I will primarily use Python and/or JavaScript.</li>
-<li>You can use the language of your choice, but my ability to help diminishes if you choose a language other than JavaScript, Python or Java.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Development environment<ul>
-<li>Database engines and tools<ul>
-<li>We will start with the relational datamodel. Please install<ul>
-<li><a href="https://dev.mysql.com/doc/refman/5.7/en/installing.html">MySQL</a> and</li>
-<li><a href="https://dev.mysql.com/doc/workbench/en/wb-installing.html">MySQL Workbench</a>.</li>
-<li>You can also use Sequel Pro on in place of SQL Workbench (on Mac).</li>
-</ul>
-</li>
-<li>We will also use <a href="https://neo4j.com/">Neo4j</a> and Redis (<a href="https://redis.io/">https://redis.io/</a>), but you do not need to install now.</li>
-</ul>
-</li>
-<li><a href="https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated Development Environments</a><ul>
-<li>The [JetBrains] tools are free for students, and useful for Python, JavaScript and Java.</li>
-<li><a href="https://www.eclipse.org/">Eclipse</a> is an alternative.</li>
-<li>I will use Ananconda for most of the lectures and examples. You can choose to install<ul>
-<li>Install Python 3</li>
-<li><a href="https://www.anaconda.com/distribution">Anaconda Community Distribution</a></li>
-<li>Ananconda includes the <a href="https://github.com/spyder-ide/spyder">Spyder</a> for Python, which is sufficient for the course.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Data">Data<a class="anchor-link" href="#Data">&#182;</a></h2><h3 id="What-is-Data?">What is Data?<a class="anchor-link" href="#What-is-Data?">&#182;</a></h3><p><img src="./slide28.jpg" width="110%"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Examples-of-Data">Examples of Data<a class="anchor-link" href="#Examples-of-Data">&#182;</a></h3><p><img src="./slide29.jpg" width="110%"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Some-Ways-to-Think-about-Data">Some Ways to Think about Data<a class="anchor-link" href="#Some-Ways-to-Think-about-Data">&#182;</a></h3><h4 id="Structures-vs-Unstructured">Structures vs Unstructured<a class="anchor-link" href="#Structures-vs-Unstructured">&#182;</a></h4><p><img src="./datastructure.jpg" width="120%"></p>
-<h4 id="Data-versus-Metadata"><a href="https://en.wikipedia.org/wiki/Metadata">Data versus Metadata</a><a class="anchor-link" href="#Data-versus-Metadata">&#182;</a></h4><p>Metadata is "data information that provides information about other data". Three distinct types of metadata exist: descriptive metadata, structural metadata, and administrative metadata.</p>
-<ul>
-<li>Descriptive metadata describes a resource for purposes such as discovery and identification. It can include elements such as title, abstract, author, and keywords.</li>
-<li>Structural metadata is metadata about containers of data and indicates how compound objects are put together, for example, how pages are ordered to form chapters. It describes the types, versions, relationships and other characteristics of digital materials.</li>
-<li>Administrative metadata provides information to help manage a resource, such as when and how it was created, file type and other technical information, and who can access it.</li>
-</ul>
-<p>We will focus on structured data and cover semi-structured</p>
-<ul>
-<li>Need to constrain the scope for a one semester class.</li>
-<li>Concepts are foundational and apply to semi-structured and unstructured data.</li>
-<li>Unstructured data scenarios typically require extracting or extending with structured data.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Data-Explosion">Data Explosion<a class="anchor-link" href="#Data-Explosion">&#182;</a></h2><p><img src="./datasize.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Four-Vs">The Four Vs<a class="anchor-link" href="#The-Four-Vs">&#182;</a></h2><p><img src="./forvs.jpg" width="80%"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Or,-Maybe-Five-Vs">Or, Maybe Five Vs<a class="anchor-link" href="#Or,-Maybe-Five-Vs">&#182;</a></h2><p><img src="./fives.jpg" width="80%"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Big-Data-Landscape">Big Data Landscape<a class="anchor-link" href="#Big-Data-Landscape">&#182;</a></h2><p><img src="./landscape.png" width="100%"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Databases">Databases<a class="anchor-link" href="#Databases">&#182;</a></h2><h3 id="Definitions">Definitions<a class="anchor-link" href="#Definitions">&#182;</a></h3><p>“A database is an organized collection of data.[1] It is the collection of schemas, tables, queries, reports, views, and other objects. The data are typically organized to model aspects of reality in a way that supports processes requiring information, such as modelling the availability of rooms in hotels in a way that supports finding a hotel with vacancies. (<a href="https://en.wikipedia.org/wiki/Database)”">https://en.wikipedia.org/wiki/Database)”</a></p>
-<p>“Systematically organized or structured repository of indexed information (usually as a group of linked data files) that allows easy retrieval, updating, analysis, and output of data. Stored usually in a computer, this data could be in the form of graphics, reports, scripts, tables, text, etc., representing almost every kind of information. Most computer applications (including antivirus software, spreadsheets, word-processors) are databases at their core.” (<a href="http://www.businessdictionary.com/definition/database.html">http://www.businessdictionary.com/definition/database.html</a>)</p>
-<h3 id="Simplistic-Example">Simplistic Example<a class="anchor-link" href="#Simplistic-Example">&#182;</a></h3><p><img src="./simpledb.jpg" width="50%"></p>
-<ul>
-<li>Entity – Data about a “Thing,” e.g.<ul>
-<li>Person</li>
-<li>Web click</li>
-<li>Product</li>
-</ul>
-</li>
-<li>Fields (Properties) – The data describing, defining an entity. Often named and typed, e.g.<ul>
-<li>(Height, Integer)</li>
-<li>(Last name, String)</li>
-</ul>
-</li>
-<li>Set/Collection/Table<ul>
-<li>A group of things.</li>
-<li>Usually the same ”kind of entity”</li>
-</ul>
-</li>
-<li>Relationships/Associations – Links between entities, which convey sematic information, e.g.<ul>
-<li>Don IsA Professor</li>
-<li>Don Teaches {COMS4111, COMSE6998)</li>
-</ul>
-</li>
-</ul>
-<h3 id="Slightly-Less-Simplistic-Example">Slightly Less Simplistic Example<a class="anchor-link" href="#Slightly-Less-Simplistic-Example">&#182;</a></h3><p><img src="./lessimple.jpg" width="75%"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Database-Management-Systems">Database Management Systems<a class="anchor-link" href="#Database-Management-Systems">&#182;</a></h2><p><img src="./Slide52.jpg" width="90%">
-<img src="./Slide53.jpg" width="90%">
-<img src="./Slide55.jpg" width="90%"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Data-Modeling">Data Modeling<a class="anchor-link" href="#Data-Modeling">&#182;</a></h2><h3 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h3><p><img src="./datamodel1.jpeg">
-(<a href="https://en.wikipedia.org/wiki/Data_model">https://en.wikipedia.org/wiki/Data_model</a>)</p>
-<p>“Data modeling (data modelling) is the analysis of data objects and their relationships to other data objects. Data modeling is often the first step in database design and object-oriented programming as the designers first create a conceptual model of how data items relate to each other. Data modeling involves a progression from conceptual model to logical model to physical schema.” (<a href="http://www.webopedia.com/TERM/D/data_modeling.html">http://www.webopedia.com/TERM/D/data_modeling.html</a>)</p>
-<p>“What is a datamodel?
-A data model is a notation for describing data or information. The description generally consists of three parts:</p>
-<ul>
-<li>Structure of data.</li>
-<li>Operations on the data.</li>
-<li>Constraints on the data.”<br>
-(Database Systems: The Complete Book (2nd Edition)
-by Hector Garcia-Molina (Author), Jeffrey D. Ullman (Author), Jennifer Widom (Author))</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="More-than-Just-Business-Applications">More than Just Business Applications<a class="anchor-link" href="#More-than-Just-Business-Applications">&#182;</a></h3><p>Some randomly (by Google) selected examples.
+<li>My sample code will use <a href="https://www.djangoproject.com/">Django</a>, but I will provide help if you choose to use JavaScript/NodeJS, J2EE/Tomcat, etc.
 <br><br>
-<a href="https://doi.org/10.1186/s40537-015-0024-1">"Database application model and its service for drug discovery in Model-driven architecture"</a></p>
-<p><img src="./lifescience.gif">
-<br><br>
-<a href="http://geotech.com/envirodata">Enviro Data</a></p>
-<p><img src="./enviro2.jpg" width="100%">
-<br><br>
-<a href="https://gds.blog.gov.uk/2013/10/31/government-as-a-data-model-what-i-learned-in-estonia/">Government</a> as a Data Model</p>
-<p><img src="./ukgov.png" widht="75%"></p>
+<img src="../images/django-architecture.jpg"></li>
+</ul>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Scenario-I----Basic-Player-Information">Scenario I -- Basic Player Information<a class="anchor-link" href="#Scenario-I----Basic-Player-Information">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h3><p><img src="../images/scenario1topo.jpeg"></p>
+<h4 id="Logical-System-Structure">Logical System Structure<a class="anchor-link" href="#Logical-System-Structure">&#182;</a></h4><ul>
+<li>The system will have the following subsystems<ul>
+<li>Web content (HTML, CSS, JPEG, ...) on the filesystem</li>
+<li>A Django (or NodeJS, J2EE, ...) server that delivers static content and implements REST API.</li>
+<li>MqSQL Server database with tables for the application's data.</li>
+<li>Web browser interface.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>The physical topology is that all software runs on a single user machine, i.e. your development laptop.</li>
+</ul>
+<h4 id="Functionality-and-Use-Cases">Functionality and Use Cases<a class="anchor-link" href="#Functionality-and-Use-Cases">&#182;</a></h4><ul>
+<li>Initially the application is <em>read only.</em><ul>
+<li>Users may access query and view information about players and statstics.</li>
+<li>All data is preloaded into the database using data import capabilities.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Some examples of supported queries are:</p>
+<ul>
+<li>Find a player by ID and display basic name, birth country, etc.</li>
+<li>Find all players matching a search condition, e.g. name, country of birth, etc.</li>
+<li><p>Display a player's career statistics and averages.</p>
+<p>We will expand the supported use cases incrementally, learning new data modeling, relational and SQL concepts.</p>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Data-Model">Data Model<a class="anchor-link" href="#Data-Model">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Conceptual-Data-Model">Conceptual Data Model<a class="anchor-link" href="#Conceptual-Data-Model">&#182;</a></h4><p><img src="../images/scenario1-conceptual1.jpeg"></p>
+<ul>
+<li>There are three entities<ul>
+<li><em>Master</em> represents information about an individual in the database.</li>
+<li><em>Appearances</em> represents information about a person's appearances in games.</li>
+<li><em>Batting</em> represents information about a player's batting for teams and seasons.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Reminder
+<br><br>
+<img src="../images/conceptuallogicalphysical.jpeg"></li>
+</ul>
+<ul>
+<li>How do you identify entity types/entities? From <a href="http://www.agiledata.org/essays/dataModeling101.html">http://www.agiledata.org/essays/dataModeling101.html</a><ul>
+<li>"An entity type, also simply called entity (not exactly accurate terminology, but very common in practice), is similar conceptually to object-orientation’s concept of a class – an entity type represents a collection of similar objects.  An entity type could represent a collection of people, places, things, events, or concepts. Examples of entities in an order entry system would include Customer, Address, Order, Item, and Tax. If you were class modeling you would expect to discover classes with the exact same names. However, the difference between a class and an entity type is that classes have both data and behavior whereas entity types just have data. </li>
+<li>"Ideally an entity should be normal, the data modeling world’s version of cohesive. A normal entity depicts one concept, just like a cohesive class models one concept. For example, customer and order are clearly two different concepts; therefore it makes sense to model them as separate entities." </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>How do you identity relationships?<ul>
+<li>"In the real world entities have relationships with other entities.  For example, customers PLACE orders, customers LIVE AT addresses, and line items ARE PART OF orders. Place, live at, and are part of are all terms that define relationships between entities.  The relationships between entities are conceptually identical to the relationships (associations) between objects."  </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Logical-Data-Model">Logical Data Model<a class="anchor-link" href="#Logical-Data-Model">&#182;</a></h4><h5 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h5><ul>
+<li>The logical data model requires adding:<ul>
+<li>Attributes</li>
+<li>Primary Keys</li>
+<li>Foreign Keys</li>
+</ul>
+</li>
+</ul>
+<h5 id="Attributes">Attributes<a class="anchor-link" href="#Attributes">&#182;</a></h5><p>Identifying attributes (<a href="http://www.agiledata.org/essays/dataModeling101.html">http://www.agiledata.org/essays/dataModeling101.html</a>)</p>
+<ul>
+<li>"Each entity type will have one or more data attributes.  For example, <ul>
+<li>... [a] Customer entity has attributes such as First Name and Surname and ... </li>
+<li>the TCUSTOMER table had corresponding data columns CUST_FIRST_NAME and CUST_SURNAME (a column is the implementation of a data attribute within a relational database). </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Attributes should also be cohesive from the point of view of your domain, something that is often a judgment call. ... ... <ul>
+<li>we decided that we wanted to model the fact that people had both first and last names instead of just a name (e.g. “Scott" and “Ambler" vs. “Scott Ambler")</li>
+<li>we did not distinguish between the sections of an American zip code (e.g. 90210-1234-5678).</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Getting the level of detail right can have a significant impact on your development and maintenance efforts.<ul>
+<li>Refactoring a single data column into several columns can be difficult, ...</li>
+<li>over-specifying an attribute (e.g. having three attributes for zip code when you only needed one) can result in overbuilding your system and hence you incur greater development and maintenance costs than you actually needed.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>In our scenario,<ul>
+<li>We were given the data, which partially defined the attributes.</li>
+<li>We could have, and will, re-factor how the given data fits into a good data model.</li>
+</ul>
+</li>
+</ul>
+<p><br><br></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../images/masterlogical.jpeg">
+<br></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../images/battinglogical.jpeg" width="80%"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../images/appearanceslogical.jpeg"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Keys-and-Primary-Keys">Keys and Primary Keys<a class="anchor-link" href="#Keys-and-Primary-Keys">&#182;</a></h5><p>Ramakrishnan and Gehrke, 2.4.1, 3.2</p>
+<p><em>Relational Theory</em></p>
+<p>(Entity) keys refers to a set of attributes that uniquely defines an entity in an entity set. Entity keys can be <em>super,</em> <em>candidate</em> or <em>primary.</em></p>
+<ul>
+<li><em>Super key:</em> A set of attributes (one or more) that together define (uniquely identify) an entity in an entity set.</li>
+<li><em>Candidate key:</em> A minimal super key, meaning it has the least possible number of attributes to still be a super key. An entity set may have more than one candidate key.</li>
+<li><em>Primary key:</em> A candidate key chosen by the database designer to uniquely identify the entity set.</li>
+</ul>
+<p>In our data model,</p>
+<ul>
+<li><em>Master</em> primary key is <em>playerID</em></li>
+<li><em>Batting</em> is more complicated.<ul>
+<li><em>playerID</em> does not uniquely identify a row. Players play for many years.</li>
+<li><em>(playerID, yearID)</em> does not uniquely identify a row. A player could get traded, and play for more than a single team in a year.</li>
+<li>No problem, we can use <em>(playerID, yearID, teamID).</em> But, a player can have more than one stint with a team in a year.</li>
+<li>The answer is <em>(playerID, yearID, stint).</em><ul>
+<li>How do I know this? I understand baseball.</li>
+<li>What if you or I do not understand the domain? We are typically working with a domain expert and these decisions are part of collaborative design in the local modeling phase.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>Appearances</em> primary key is <em>(playerID, yearID, teamID).</em></li>
+</ul>
+<p><em>An aside:</em> I ran the following queries for batting</p>
+
+<pre><code>-- (1) What is the maximum number of rows for a given playerID? Also, look up the names. 
+SELECT playerID,
+    (SELECT nameLast FROM Master WHERE Master.playerID=Batting.playerID) as nameLast,
+    (SELECT nameFirst FROM Master WHERE Master.playerID=Batting.playerID) as nameFirst,
+    count(*) as row_count FROM batting GROUP BY playerID,nameFirst,nameLast
+    ORDER BY row_count DESC LIMIT 1;
+
+-- (2) What is the maximum number of rows if I try playerID and yearID for a primary key? Also, look up the names. 
+SELECT playerID,
+    (SELECT nameLast FROM Master WHERE Master.playerID=Batting.playerID) as nameLast,
+    (SELECT nameFirst FROM Master WHERE Master.playerID=Batting.playerID) as nameFirst,
+    count(*) as row_count FROM batting GROUP BY playerID, yearID
+    ORDER BY row_count DESC LIMIT 1;
+
+-- (3) Same question using playerID, yearID, teamID. Also, look up the names. 
+SELECT playerID,
+    (SELECT nameLast FROM Master WHERE Master.playerID=Batting.playerID) as nameLast,
+    (SELECT nameFirst FROM Master WHERE Master.playerID=Batting.playerID) as nameFirst,
+    count(*) as row_count FROM batting GROUP BY playerID, yearID, teamID
+    ORDER BY row_count DESC LIMIT 1;
+
+-- (4) Same question using playerID, yearID, strint. Also, look up the names. 
+SELECT playerID,
+    (SELECT nameLast FROM Master WHERE Master.playerID=Batting.playerID) as nameLast,
+    (SELECT nameFirst FROM Master WHERE Master.playerID=Batting.playerID) as nameFirst,
+    count(*) as row_count FROM batting GROUP BY playerID,yearID,stint
+    ORDER BY row_count DESC LIMIT 1;</code></pre>
+<p>These queries returned the following information.</p>
+<table>
+<thead><tr>
+<th>Query No.</th>
+<th>Possible Key</th>
+<th>playerID</th>
+<th>last name</th>
+<th>first name</th>
+<th>row count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>playerID</td>
+<td>mcguide01</td>
+<td>McGuire</td>
+<td>Deacon</td>
+<td>31</td>
+</tr>
+<tr>
+<td>2</td>
+<td>playerID, yearID</td>
+<td>chouife01</td>
+<td>Chouinard</td>
+<td>Felix</td>
+<td>5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>playerID, yearID, teamID</td>
+<td>chouife01</td>
+<td>Chouinard</td>
+<td>Felix</td>
+<td>3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>playerID, yearID, stint</td>
+<td>zay01</td>
+<td>Zay</td>
+<td>William</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>What do the queries do?</p>
+<ul>
+<li>For a possible key combination.</li>
+<li>Count the maximum number of rows that have any common combination of keys.</li>
+<li>Returns the largest count.</li>
+<li>And provides information about one of the rows with the largest count.</li>
+</ul>
+<p>Do not worry if you do not understand these queries, <em>you will!</em> But, the queries verify that <em>(playerID,yearID,stint)</em> is uniquely identifies a row/entry.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Foreign-Keys">Foreign Keys<a class="anchor-link" href="#Foreign-Keys">&#182;</a></h5><p>Ramakrishan and Gehrke, section 3.2.2</p>
+<p>"In the context of relational databases, a foreign key is a field (or collection of fields) in one table that uniquely identifies a row of another table or the same table. In simpler words, the foreign key is defined in a second table, but it refers to the primary key or a unique key in the first table." (<a href="https://en.wikipedia.org/wiki/Foreign_key">https://en.wikipedia.org/wiki/Foreign_key</a>)</p>
+<p>There are at least two perspectives on <em>foreign key:</em></p>
+<ol>
+<li>Foreign keys implement <em>Integrity Constraint,</em> which we will cover later. A tuple in one table can exists only if the foreign key matches a primary key in another table.</li>
+<li>Foreign keys define <em>Relationships.</em> I can use a foreign key to find tuples in two different tables that are related.</li>
+</ol>
+<p>In our simple example</p>
+<ul>
+<li>Batting.playerID is a foreign key for Master.playerID.</li>
+<li>Appearances.playerID is a foreign key for Master.playerID.</li>
+</ul>
+<p>We will see this in more detail in future lectures.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="SQL-Data-Model-(Our-Physical-Model)">SQL Data Model (Our Physical Model)<a class="anchor-link" href="#SQL-Data-Model-(Our-Physical-Model)">&#182;</a></h4><p>The physical model requires that we add the following:</p>
+<ul>
+<li>The create table DDL statement<ul>
+<li>Table names</li>
+<li>Column names</li>
+<li>Column data types</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Instead of drawing a diagram, we will do directly in SQL DDL.</li>
+</ul>
+
+<pre><code>CREATE TABLE `Master` (
+  `playerID` varchar(255) NOT NULL,
+  `birthYear` int(11) DEFAULT NULL,
+  `birthMonth` int(11) NOT NULL,
+  `birthDay` int(11) DEFAULT NULL,
+  `birthCountry` varchar(255) DEFAULT NULL,
+  `birthState` varchar(255) DEFAULT NULL,
+  `birthCity` varchar(255) DEFAULT NULL,
+  `deathYear` varchar(255) DEFAULT NULL,
+  `deathMonth` varchar(255) DEFAULT NULL,
+  `deathDay` varchar(255) DEFAULT NULL,
+  `deathCountry` varchar(255) DEFAULT NULL,
+  `deathState` varchar(255) DEFAULT NULL,
+  `deathCity` varchar(255) DEFAULT NULL,
+  `nameFirst` varchar(255) NOT NULL,
+  `nameLast` varchar(255) NOT NULL,
+  `nameGiven` varchar(255) DEFAULT NULL,
+  `weight` int(11) DEFAULT NULL,
+  `height` int(11) DEFAULT NULL,
+  `bats` varchar(255) DEFAULT NULL,
+  `throws` varchar(255) DEFAULT NULL,
+  `debut` varchar(255) DEFAULT NULL,
+  `finalGame` varchar(255) DEFAULT NULL,
+  `retroID` varchar(255) DEFAULT NULL,
+  `bbrefID` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`playerID`),
+  KEY `player_idx` (`playerID`),
+  KEY `name_l` (`nameLast`),
+  KEY `name_f` (`nameFirst`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Appearances` (
+  `yearID` int(11) NOT NULL,
+  `teamID` varchar(255) NOT NULL,
+  `lgID` varchar(255) DEFAULT NULL,
+  `playerID` varchar(255) NOT NULL,
+  `G_all` int(11) DEFAULT NULL,
+  `GS` varchar(255) DEFAULT NULL,
+  `G_batting` int(11) DEFAULT NULL,
+  `G_defense` int(11) DEFAULT NULL,
+  `G_p` int(11) DEFAULT NULL,
+  `G_c` int(11) DEFAULT NULL,
+  `G_1b` int(11) DEFAULT NULL,
+  `G_2b` int(11) DEFAULT NULL,
+  `G_3b` int(11) DEFAULT NULL,
+  `G_ss` int(11) DEFAULT NULL,
+  `G_lf` int(11) DEFAULT NULL,
+  `G_cf` int(11) DEFAULT NULL,
+  `G_rf` int(11) DEFAULT NULL,
+  `G_of` int(11) DEFAULT NULL,
+  `G_dh` varchar(255) DEFAULT NULL,
+  `G_ph` varchar(255) DEFAULT NULL,
+  `G_pr` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`yearID`,`teamID`,`playerID`),
+  UNIQUE KEY `ux` (`playerID`,`teamID`,`yearID`),
+  KEY `player_idx` (`playerID`),
+  KEY `year_idx` (`yearID`) USING BTREE,
+  CONSTRAINT `playerID` FOREIGN KEY (`playerID`) REFERENCES `Master` (`playerID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Batting` (
+  `playerID` varchar(255) NOT NULL,
+  `yearID` int(11) NOT NULL,
+  `stint` int(11) NOT NULL,
+  `teamID` varchar(255) DEFAULT NULL,
+  `lgID` varchar(255) DEFAULT NULL,
+  `G` int(11) DEFAULT NULL,
+  `AB` int(11) DEFAULT NULL,
+  `R` int(11) DEFAULT NULL,
+  `H` int(11) DEFAULT NULL,
+  `2B` int(11) DEFAULT NULL,
+  `3B` int(11) DEFAULT NULL,
+  `HR` int(11) DEFAULT NULL,
+  `RBI` int(11) DEFAULT NULL,
+  `SB` int(11) DEFAULT NULL,
+  `CS` int(11) DEFAULT NULL,
+  `BB` int(11) DEFAULT NULL,
+  `SO` int(11) DEFAULT NULL,
+  `IBB` varchar(255) DEFAULT NULL,
+  `HBP` varchar(255) DEFAULT NULL,
+  `SH` varchar(255) DEFAULT NULL,
+  `SF` varchar(255) DEFAULT NULL,
+  `GIDP` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`playerID`,`yearID`,`stint`),
+  CONSTRAINT `batting_player` FOREIGN KEY (`playerID`) REFERENCES `Master` (`playerID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;</code></pre>
+<ul>
+<li>The core SQL column types are
+<br><br>
+<img src="../images/datatypes.jpg"></li>
+</ul>
+<ul>
+<li>All database management systems significantly extend the set of data/column types.</li>
+</ul>
+<ul>
+<li>The length options play a significant role in the database management systems optimization of storage use, which we will cover in future lectures.<ul>
+<li>INT(8), INT(11), TINY INT, ...</li>
+<li>VARCHAR(16), VARCHAR(1024), ...</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>If we have the DDL defined and have created the tables, we can <em>reverse engineer</em> the physical model.</li>
+</ul>
+<ul>
+<li>The line endings have very precise meanings, which we will cover in future lectures.</li>
+</ul>
+<p><img src="../images/scenario1physical.jpeg"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Web-Resource-Model">Web Resource Model<a class="anchor-link" href="#Web-Resource-Model">&#182;</a></h4><p>We plan to start gathering displaying information about players. Our web resource model (URLs) with be</p>
+<ul>
+<li>/players?<query> to find players matching a template.</li>
+<li>/players/playerID to find a specific player.</li>
+</ul>
+<p><em>Example</em></p>
+<p>GET <a href="http://localhost:8000/baseball/api/players/napolmi01">http://localhost:8000/baseball/api/players/napolmi01</a></p>
+<p>Returns</p>
+
+<pre><code>{
+    "playerID": "napolmi01",
+    "birthYear": 1981,
+    "birthMonth": "10",
+    "birthDay": 31,
+    "birthCountry": "USA",
+    "birthState": "FL",
+    "birthCity": "Hollywood",
+    "deathYear": "",
+    "deathMonth": "",
+    "deathDay": "",
+    "deathCountry": "",
+    "deathState": "",
+    "deathCity": "",
+    "nameFirst": "Mike",
+    "nameLast": "Napoli",
+    "nameGiven": "Michael Anthony",
+    "weight": 225,
+    "height": 73,
+    "bats": "R",
+    "throws": "R",
+    "debut": "2006-05-04",
+    "finalGame": "2016-10-02",
+    "retroID": "napom001",
+    "bbrefID": "napolmi01"
+}</code></pre>
+<p><img src="../images/playergetpostman.jpeg"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Scenario-I----Implementation">Scenario I -- Implementation<a class="anchor-link" href="#Scenario-I----Implementation">&#182;</a></h3><h4 id="A-Warning">A Warning<a class="anchor-link" href="#A-Warning">&#182;</a></h4><p><img src="../images/simplecode1.jpeg"></p>
+<h4 id="Supporting-the-Path-/players/playerID">Supporting the Path /players/playerID<a class="anchor-link" href="#Supporting-the-Path-/players/playerID">&#182;</a></h4><h5 id="Data-Access">Data Access<a class="anchor-link" href="#Data-Access">&#182;</a></h5><p>The basic pattern is _retrieve_by<em>id</em> with parameters:</p>
+<ul>
+<li>The resource type (table)</li>
+<li>The column name for the primary key (for player this is a simple column)</li>
+<li>Key value</li>
+</ul>
+<p>So,</p>
+<ul>
+<li>We have to map the request GET /api/players/napolmi01 to retrieve_by_id("Master","playerID","napolmi01")</li>
+<li>And then to SELECT * FROM Master WHERE playerID='napolmi01'</li>
+</ul>
+<p>Some simple code is</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pymysql.cursors</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<span class="k">def</span> <span class="nf">connect</span><span class="p">():</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+                                 <span class="n">user</span><span class="o">=</span><span class="s1">&#39;dbuser&#39;</span><span class="p">,</span>
+                                 <span class="n">password</span><span class="o">=</span><span class="s1">&#39;dbuser&#39;</span><span class="p">,</span>
+                                 <span class="n">db</span><span class="o">=</span><span class="s1">&#39;lahman2016&#39;</span><span class="p">,</span>
+                                 <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8mb4&#39;</span><span class="p">,</span>
+                                 <span class="n">cursorclass</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">cursors</span><span class="o">.</span><span class="n">DictCursor</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">connection</span>
+
+<span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">retrieve_by_id</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DEBUG: table = &quot;</span><span class="p">,</span> <span class="n">table</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DEBUG: attribute = &quot;</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DEBUG: id = &quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">connect</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;Not Found&quot;</span><span class="p">}</span>
+
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="c1"># Read a single record</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM &quot;</span> <span class="o">+</span> <span class="n">table</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span> <span class="o">+</span> <span class="s2">&quot; WHERE &quot;</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span> <span class="o">+</span> <span class="n">attribute</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="nb">id</span> <span class="o">+</span> <span class="s2">&quot;&#39;;&quot;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DEBUG: SQL = &quot;</span><span class="p">,</span> <span class="n">sql</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>  
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Something happened.&quot;</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">disconnect</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="c1">#print(&quot;Ran&quot;)</span>
+<span class="c1"># And a test would be</span>
+<span class="c1">#player = retrieve_by_id(&quot;Master&quot;, &quot;playerID&quot;, &quot;napolmi01&quot;)</span>
+
+<span class="c1">#print(&quot;\n\n Test Result &quot;)</span>
+<span class="c1">#print(&quot;The player with playerID = napolmi01 is&quot;)</span>
+<span class="c1">#print(json.dumps(player, indent=4, sort_keys=True))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Business-Logic">Business Logic<a class="anchor-link" href="#Business-Logic">&#182;</a></h5><ul>
+<li>These are some examples of short cuts</li>
+</ul>
+<ul>
+<li>Business logic should not be handling <a href="https://docs.djangoproject.com/en/2.0/ref/request-response/">Django HttpRequest</a></li>
+</ul>
+<ul>
+<li>Business logic in dependent of the protocol for reaching it (the binding). The binding could be many things.</li>
+</ul>
+<p><em>Poorly design business logic</em></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">django.http</span> <span class="k">import</span> <span class="n">JsonResponse</span>
+<span class="kn">import</span> <span class="nn">pymysql.cursors</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="c1">#from . import dataccess</span>
+
+
+<span class="c1"># Entry point for this module.</span>
+<span class="c1"># Examines the request and routes to proper handler.</span>
+<span class="c1"># This is really pretty generic and does not need to be in type</span>
+<span class="c1"># specific Python files, e.g. players.py</span>
+<span class="c1">#</span>
+<span class="c1"># request is of type https://docs.djangoproject.com/en/2.0/ref/request-response/</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+
+    <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+        <span class="n">rsp</span> <span class="o">=</span> <span class="n">handle_get</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">done</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> \
+            <span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">):</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">rsp</span> <span class="o">=</span> <span class="n">error</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">done</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> \
+            <span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;PUT&#39;</span><span class="p">):</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">rsp</span> <span class="o">=</span> <span class="n">error</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">done</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> \
+            <span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">):</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">rsp</span> <span class="o">=</span> <span class="n">error</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">done</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="n">rsp</span> <span class="o">=</span> <span class="n">error</span><span class="p">()</span>
+
+    <span class="n">rsp</span> <span class="o">=</span> <span class="n">JsonResponse</span><span class="p">(</span><span class="n">rsp</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">rsp</span>
+
+<span class="c1"># This currently only works for /players/playerID</span>
+<span class="c1"># We will need to generalize for queries and for other resources</span>
+<span class="c1">#</span>
+<span class="k">def</span> <span class="nf">handle_get</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+
+    <span class="c1"># The path to the resource will be of the form</span>
+    <span class="c1"># /players/playerID</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Request = &quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Request.GET = &quot;</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">)</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ID = &quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">retrieve_by_id</span><span class="p">(</span><span class="s2">&quot;Master&quot;</span><span class="p">,</span><span class="s2">&quot;playerID&quot;</span><span class="p">,</span><span class="nb">id</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+       <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Something happened&quot;</span><span class="p">)</span>
+       <span class="n">result</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Why me?&quot;</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
     </div>
   </div>

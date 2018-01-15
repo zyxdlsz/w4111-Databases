@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b12d6f8e-1e9c-409f-b507-d967c9fcb1fd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.md" afterPath="$PROJECT_DIR$/index.md" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Notebooks/w4111-L1-s2018-DataModelRelational.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Notebooks/w4111-L3-Query.ipynb" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Notebooks/.ipynb_checkpoints/w4111-L1-s2018-Introduction-checkpoint.ipynb" afterPath="$PROJECT_DIR$/Notebooks/.ipynb_checkpoints/w4111-L1-s2018-Introduction-checkpoint.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Notebooks/w4111-L1-s2018-Introduction.ipynb" afterPath="$PROJECT_DIR$/Notebooks/w4111-L1-s2018-Introduction.ipynb" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -44,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/CodeSamples/baseball.sql">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="6" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="37" />
+              <caret line="0" column="6" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -263,12 +267,12 @@
       <option name="presentableId" value="Default" />
       <updated>1514841707416</updated>
       <workItem from="1514841708944" duration="1880000" />
-      <workItem from="1514995726589" duration="2467000" />
+      <workItem from="1514995726589" duration="2888000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4347000" />
+    <option name="totallyTimeSpent" value="4768000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1826" height="996" extended-state="0" />
@@ -368,7 +372,7 @@
     <entry file="file://$PROJECT_DIR$/CodeSamples/baseball.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="6" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="37" />
+          <caret line="0" column="6" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="37" />
           <folding />
         </state>
       </provider>
