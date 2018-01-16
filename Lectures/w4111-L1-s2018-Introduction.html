@@ -12153,6 +12153,21 @@ $( document ).ready(function(){
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Data-explosion">Data explosion<a class="anchor-link" href="#Data-explosion">&#182;</a></h2><p><img src="../images/datasize.png"></p>
+<ul>
+<li><strong>DANGER:</strong> Math before caffeine.</li>
+</ul>
+<ul>
+<li>Gigabyte is 1024<sup>3</sup>=2<sup>30</sup></li>
+</ul>
+<ul>
+<li>Zettabyte is 1024<sup>7</sup>=2<sup>70</sup></li>
+</ul>
+<ul>
+<li>Ratio is 2<sup>70</sup>$/$2<sup>30</sup> = 2<sup>40</sup> = Big.</li>
+</ul>
+<ul>
+<li>This is approximately 470,000 laptops worth of data per person alive today.</li>
+</ul>
 
 </div>
 </div>
@@ -12170,7 +12185,56 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Some driving factors:</p>
+<ul>
+<li>Volume:<ul>
+<li>File/instance size: videos, images, VR, ...</li>
+<li>Sources: Internet-of-Things, events and monitoring, ...</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Velocity:<ul>
+<li>Monitoring and events from everything.</li>
+<li>Video and audio from everywhere.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Veracity:<ul>
+<li>Measurement error and approximation.</li>
+<li>Incorrect configuration, entry, processing applications.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Variety:<ul>
+<li>Base types: several base models for structured data.</li>
+<li>Every device emits its own event format.</li>
+<li>Multiple encodings and formats of text (mail, web page, tweet) audio, video, ...</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Or,-Maybe-Five-Vs">Or, Maybe Five Vs<a class="anchor-link" href="#Or,-Maybe-Five-Vs">&#182;</a></h2><p><img src="../images/fives.jpg" width="80%"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Value: "It's like trying to find a needle in a haystack size pile of needles."</li>
+</ul>
 
 </div>
 </div>
@@ -12226,6 +12290,33 @@ $( document ).ready(function(){
 <h2 id="Database-Management-Systems">Database Management Systems<a class="anchor-link" href="#Database-Management-Systems">&#182;</a></h2><p><img src="../images/Slide52.jpg" width="90%">
 <img src="../images/Slide53.jpg" width="90%">
 <img src="../images/Slide55.jpg" width="90%"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>We will primarily focus on 3 database management systems:</p>
+<ol>
+<li><p>Relational (MySQL)</p>
+</li>
+<li><p>Graph Database (Neo4J)</p>
+</li>
+<li><p>Key/Value- data structure store (Redis)</p>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>Motivation:<ul>
+<li><a href="https://db-engines.com/en/ranking">https://db-engines.com/en/ranking</a> adoption and growth.</li>
+<li>Diversity of base models covers core patterns in <em>functionality</em> and <em>performance.</em></li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
@@ -12318,7 +12409,8 @@ by Hector Garcia-Molina (Author), Jeffrey D. Ullman (Author), Jennifer Wido
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Execution-I">Execution I<a class="anchor-link" href="#Execution-I">&#182;</a></h3>
+<h3 id="Execution-I">Execution I<a class="anchor-link" href="#Execution-I">&#182;</a></h3><p><strong>Data</strong></p>
+
 </div>
 </div>
 </div>
@@ -12469,7 +12561,8 @@ The 10 best hitters are
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Execution-II">Execution II<a class="anchor-link" href="#Execution-II">&#182;</a></h3>
+<h3 id="Execution-II">Execution II<a class="anchor-link" href="#Execution-II">&#182;</a></h3><p><strong>Metadata</strong></p>
+
 </div>
 </div>
 </div>
@@ -12609,6 +12702,37 @@ Batting table is
 </ul>
 </li>
 </ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Application-Context">Application Context<a class="anchor-link" href="#Application-Context">&#182;</a></h2><p>We will initially use data, data models and databases to implement three applications.</p>
+<p><em>Online Information System</em></p>
+<p><img src="../images/L1_baseball_app.jpeg"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Social and Personal Networks</em></p>
+<p><img src="../images/neo4j.jpeg"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://en.wikipedia.org/wiki/Moneyball"><em>Moneyball</em></a></p>
+<p><img src="../images/moneyball.png"></p>
 
 </div>
 </div>
