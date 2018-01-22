@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>w4111-L3-SelectAndWeb</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>w4111-L3-RelationalAndWebV1</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11823,7 +11823,7 @@ $( document ).ready(function(){
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><h1 style="display:none;">Test</h1></p>
 <p><h1 style="display:none;">Test</h1></p>
-<h1 id="Introduction-to-Databases:-Query-and-Web-Application">Introduction to Databases: Query and Web Application<a class="anchor-link" href="#Introduction-to-Databases:-Query-and-Web-Application">&#182;</a></h1>
+<h1 id="Introduction-to-Databases:-Relational,-Query-and-Web-Application">Introduction to Databases: Relational, Query and Web Application<a class="anchor-link" href="#Introduction-to-Databases:-Relational,-Query-and-Web-Application">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -11831,178 +11831,4058 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Web-and-REST-Applications:-Introduction">Web and REST Applications: Introduction<a class="anchor-link" href="#Web-and-REST-Applications:-Introduction">&#182;</a></h2><h3 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h3><p><strong>Simple Web Application</strong>
-<br><br><br>
-<img src="../images/webapp.jpeg">
-<br><br></p>
+<h2 id="Our-Application----Reminder">Our Application -- Reminder<a class="anchor-link" href="#Our-Application----Reminder">&#182;</a></h2><p><strong>User Experience</strong></p>
+<p><img src="../images/L4_search_page.jpeg"></p>
 <ul>
-<li>The web browser (Chrome, Internet Explorer/Edge, Firefox, Safari, ...)<ul>
-<li>Retrieves files via Hypertext Transfer Protocol (HTTP) from a web server</li>
-<li>Common file types<ul>
-<li>HTML</li>
-<li>JPEG</li>
-<li>CSS</li>
-<li>JavaScript</li>
-</ul>
-</li>
-<li>Assembles the files into web pages that it renders.</li>
-<li>Some of the JavaScript files make <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">Representational State Transfer (REST)</a> API calls<ul>
-<li>Retrieves data (JSON) that plugs into the web pages using HTTP.</li>
-<li>Creates, Updates, Deletes data by sending HTTP requests.</li>
-</ul>
-</li>
-<li><a href="https://angularjs.org/">AngularJS</a> is a common library and framework for building browser UIs.</li>
+<li>Provide three UI controls on the baseball dashboard<ul>
+<li>Select the resource to query (Players, Batting, Appearances)</li>
+<li>Find an instance of the resource if you know the identifying fields.</li>
+<li>Create an <em>ad doc</em> query to locate resource instances based on columns and values. Choose which columns you want in responses.</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>The <a href="https://en.wikipedia.org/wiki/Application_server#Application_Server_definition">web application server</a><ul>
-<li>Receives HTTP requests.</li>
-<li>Executes programs/functions that implement application logic, and may access one or more databases.</li>
-<li>Reurns response codes and optional JSON data.</li>
-<li>NodeJS, J2EE, etc. are examples of web application servers.</li>
+<li>Second phase will add support for create, update and delete.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Physical Data Model</strong></p>
+<p><img src="../images/L3_physical_model.jpeg"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Application Topology</strong></p>
+<p><img src="../images/webapp.jpeg"></p>
+<p><strong>Software Overview</strong></p>
+<p><img src="../images/L3_application_structure_1.jpeg"></p>
+<p><strong>Comments</strong></p>
+<ul>
+<li>This is a database course, not a web application or web UI course.</li>
+</ul>
+<ul>
+<li>We will focus on mapping between the REST URL model and the database, and limit UI and business logic.</li>
+</ul>
+<ul>
+<li>I will try to provide "your code goes here" for as much of the enabling software as possible.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>REST Model</strong></p>
+<p><img src="../images/L3_REST.jpeg"></p>
+<ul>
+<li>We will need to support the following paths:<ul>
+<li>/api/baseball/$&lt;resource&gt;$/$&lt;id&gt;$?fields="f1,f2, ..."</li>
+<li>/api/baseball/$&lt;resource&gt;$/metadata</li>
+<li>/api/baseball/$&lt;resource&gt;$?$&lt;query&gt;$&amp;fields="f1, f2, ..."</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>Mobile devices also use the REST API. The mobile application<ul>
-<li>May simply be a browser</li>
-<li>A <a href="https://www.techopedia.com/definition/27568/native-mobile-app">native module application</a> installed on the device.
-<br><br>   </li>
+<li>Where<ul>
+<li>$&lt;resource&gt;$ is one of players, batting, appearances</li>
+<li>$&lt;id&gt;$ is the primary key for the resource.</li>
 </ul>
 </li>
 </ul>
-<p><strong>Slightly More Realistic Web Application</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Relational-and-Common-Database-Concepts">Relational and Common Database Concepts<a class="anchor-link" href="#Relational-and-Common-Database-Concepts">&#182;</a></h2><ul>
+<li>Almost all database engines and models have the concepts of<ul>
+<li>Objects that are some form of array of (name, value) pairs.</li>
+<li>Sets of similar or related objects.</li>
+<li>Four basic (CRUD) operations on a set<ul>
+<li>CREATE a new object and add to a set.</li>
+<li>RETRIEVE an object in a set based on a criteria.</li>
+<li>UPDATE an object in a set, e.g. change the data in the object.</li>
+<li>DELETE an object from a set, specifying the object(s) by some criteria.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <ul>
-<li><p>Web application software is usually very complex.</p>
-</li>
-<li><p>This diagram is also simplistic</p>
+<li>In the file systems/CSV model<ul>
+<li>A set is a file, e.g. students.csv.</li>
+<li>Each object is a row in the file.</li>
+<li>The header row gives the names of each column.</li>
+<li>The CRUD processing involves writing a program that reads the file, changes the two-dimensional array and writing the file.<ul>
+<li>CREATE: Append a row and save the file.</li>
+<li>RETRIEVE: Scan the table and apply me kind of IF statement.</li>
+<li>UPDATE: Change a row in the two dimensional array.</li>
+<li>DELETE: Remove a row from the array.</li>
+</ul>
 </li>
 </ul>
+</li>
+</ul>
+<ul>
+<li>In REST/HTTP, <ul>
+<li>The set is a collection of resources, e.g. /baseball/players.</li>
+<li>An individual entity has an identifier relative to the collection URL, e.g. /baseball/players/willite01</li>
+<li>There is not explicit metadata defining the fields and types.</li>
+<li>The CRUD operations are<ul>
+<li>Create is POST /baseball/players { ... JSON ...}</li>
+<li>Retrieve is GET, e.g. GET /baseball/players/willite01, GET /baseball/players?nameLast=Williams&amp;nameFirst="Ted"</li>
+<li>Update is PUT, e.g. PUT /baseball/players/willite01 { ... JSON ... }</li>
+<li>Delete is DELETE, e.g. DELETE /baseball/players/willite01</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>In the "pure" relational model<ul>
+<li>A set is a <em>relation</em>.</li>
+<li>An object is a <em>row</em> or <em>tuple</em>.</li>
+<li>There is no support for CREATE, UPDATE or DELETE.</li>
+<li>There is an <em>algebra</em> and language for producing a new relation from existing relations that implements a form of RETRIEVE.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>In SQL,<ul>
+<li>A set is a <em>table</em>.</li>
+<li>An object is a <em>row</em> or <em>tuple</em>.</li>
+<li>INSERT is the create operation.</li>
+<li>UPDATE is the delete operation.</li>
+<li>DELETE is the delete operation.</li>
+<li>SELECT is the statement that realizes the relational <em>algebra</em>.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Algebraic-Query-Language">Algebraic Query Language<a class="anchor-link" href="#Algebraic-Query-Language">&#182;</a></h2><p>Reference: Ramkrishan and Gherke, section 2.4.</p>
+<h3 id="Algebra">Algebra<a class="anchor-link" href="#Algebra">&#182;</a></h3><p>"... abstract algebra (occasionally called modern algebra) is the study of algebraic structures." (<a href="https://en.wikipedia.org/wiki/Abstract_algebra">https://en.wikipedia.org/wiki/Abstract_algebra</a>)</p>
+<p>"In mathematics, and more specifically in abstract algebra, an algebraic structure is a set (called carrier set or underlying set) with one or more operations defined on it that satisfies a list of axioms." (<a href="https://en.wikipedia.org/wiki/Algebraic_structure">https://en.wikipedia.org/wiki/Algebraic_structure</a>)</p>
+<p><strong>Group is an Example</strong> (<a href="http://mathworld.wolfram.com/Group.html">http://mathworld.wolfram.com/Group.html</a>)</p>
+<p>"A group G is a finite or infinite set of elements together with a binary operation (called the group operation) that together satisfy the four fundamental properties of closure, associativity, the identity property, and the inverse property. The operation with respect to which a group is defined is often called the "group operation," and a set is said to be a group "under" this operation. Elements A, B, C, ... with binary operation between A and B denoted AB form a group if</p>
+<ol>
+<li><p>Closure: If A and B are two elements in G, then the product AB is also in G.</p>
+</li>
+<li><p>Associativity: The defined multiplication is associative, i.e., for all A,B,C in G, (AB)C=A(BC).</p>
+</li>
+<li><p>Identity: There is an identity element I (a.k.a. 1, E, or e) such that IA=AI=A for every element A in G.</p>
+</li>
+<li><p>Inverse: There must be an inverse (a.k.a. reciprocal) of each element. Therefore, for each element A of G, the set contains an element B=A<sup>-1</sup> such that AA<sup>-1</sup>=A<sup>-1</sup>A=I.</p>
+</li>
+</ol>
+<h3 id="Why-a-Special-Query-Language?-Why-a-Formal-Language?">Why a Special Query Language? Why a Formal Language?<a class="anchor-link" href="#Why-a-Special-Query-Language?-Why-a-Formal-Language?">&#182;</a></h3><ul>
+<li><p>Computing has a formal mathemetical model.</p>
+</li>
+<li><p>Programming languages derive from the model and have their own formal definition.</p>
+</li>
+<li><p>Almost every time someone publishes a new language, my reaction is, "What? Why another language? Can't we just pick one, use it and get it right?"</p>
+</li>
+</ul>
+<ul>
+<li>Relational algebra is less powerful and expressive than Java, C, ... and other programming languages.</li>
+</ul>
+<ul>
+<li>The simplicity and constrained capabilities is actually the core of the value, enabling<ul>
+<li>Vastly simplified programming and supporting tools that yields increased productivity.</li>
+<li>Development of algorithms that process the data definitions and query statements to automatically produce optimal execution plans, which are better than what a programmer can directly code.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>We will see these benefits in coming lectures.</li>
+</ul>
+<p><em>Simple Tool Example</em> that enables "citizen programmers" to maniuplate data.</p>
+<p><img src="../images/ss_1.jpeg"></p>
 <p><br><br>
-<img src="../images/realwebapp.jpeg">
+<em>Simple Tool Example</em> for enabling business professionals to analyze and report on data.
+<img src="../images/quicksite.jpeg" width="85%"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Relational-Algebra">Relational Algebra<a class="anchor-link" href="#Relational-Algebra">&#182;</a></h3><h4 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h4><ul>
+<li>There are two notations or representations of the algebra:<ul>
+<li>The original, formal theory.</li>
+<li>SQL</li>
+</ul>
+</li>
+</ul>
+<p><strong>Original, Formal Notation</strong></p>
+<ul>
+<li>The "set" in the relational algebra is the set of <em>relations</em>.</li>
+</ul>
+<ul>
+<li>The operations are:<ul>
+<li>Common set operations:<ul>
+<li>Union: $\cup$</li>
+<li>Intersection: $\cap$</li>
+<li>Difference: $-$</li>
+</ul>
+</li>
+<li>Projection: $\pi$</li>
+<li>Selection: $\sigma$</li>
+<li>Cartesian Product: $\times$</li>
+<li>Join: $\bowtie$</li>
+<li>Rename/Alias</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>The formal notation does not support create, update or delete. You could emulate the operations by<ul>
+<li>Defining new relations containing the created, updated or delete tuples.</li>
+<li>Using $\cup$, $\cap$, $-$ on the original relation and created/deleted/updated tuple relation.</li>
+</ul>
+</li>
+</ul>
+<p><strong>SQL Notation</strong></p>
+<ul>
+<li><p>The "set" in the relational algebra is the catalog of <em>tables</em>.</p>
+</li>
+<li><p>The operations are:</p>
+<ul>
+<li>Common set operations:<ul>
+<li>Union: UNION</li>
+<li>Intersection: INTERSECT</li>
+<li>Difference: EXCEPT</li>
+</ul>
+</li>
+<li><p>Selection, Projection, Cartesian Product, Rename/Alias and Join are clauses within a SELECT statement.</p>
+<p><code>SELECT &lt;project clause&gt; FROM &lt;table&gt; [JOIN &lt;table&gt; [ON &lt;join condition]] WHERE &lt;select condition&gt;</code>
 <br><br></p>
-<ul>
-<li><p>The system and deployment topology is usually very complex.</p>
-</li>
-<li><p>This diagram is also simplistic</p>
 </li>
 </ul>
-<p><img src="../images/webapptopo.jpeg"></p>
-<h3 id="REST">REST<a class="anchor-link" href="#REST">&#182;</a></h3><p><br><br>
-<img src="../images/rest1.jpg" width="125%">
-<br><br></p>
-<ul>
-<li>In this example, the is a set of <em>resources</em><ul>
-<li>A collection/set of device descriptions, e.g. model, owner, purchases, ...</li>
-<li>Device description instances, e.g device 1, device 2, ...</li>
-</ul>
 </li>
-</ul>
+<li><p>SQL supports additional operations, e.g</p>
 <ul>
-<li>The REST version of the create, retrieve update, delete operations are:<ul>
-<li>POST</li>
-<li>GET</li>
-<li>PUT</li>
-<li>DELETE</li>
-</ul>
-</li>
-</ul>
-<h3 id="Our-Mission-and-1st-Set-of-Projects">Our Mission and 1st Set of Projects<a class="anchor-link" href="#Our-Mission-and-1st-Set-of-Projects">&#182;</a></h3><ul>
-<li><p>Application</p>
-<ul>
-<li>Implement a simple REST interface for <a href="http://www.seanlahman.com/baseball-archive/statistics/">Lahman's Baseball Database</a></li>
-<li>Build a simple UI, but this will be a minor focus.</li>
-</ul>
-</li>
-<li><p>REST API implementation and web UI implementation are complete courses themselves.</p>
-</li>
-</ul>
-<ul>
-<li>Focus on read-GET-SELECT.</li>
-</ul>
-<ul>
-<li>Come to understand<ul>
-<li>Relational selection, project and join in a simple example context.</li>
-<li>Relational data modeling and notation.</li>
-<li>SQL SELECT and JOIN</li>
-<li>SQL keys and indexes</li>
-<li>SQL views</li>
 <li>GROUP BY</li>
 <li>ORDER BY</li>
-<li>HAVING</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h3><p>Ramakrishnan and Gehrke, section 4.2</p>
+<ul>
+<li>The operations on an Entity Set are:<ul>
+<li>Common set operations:<ul>
+<li>Union: $\cup$</li>
+<li>Intersection: $\cap$</li>
+<li>Difference: $-$</li>
+</ul>
+</li>
+<li>Projection: $\pi$</li>
+<li>Selection: $\sigma$</li>
+<li>Cartesian Product: $\times$</li>
+<li>Join: $\bowtie$</li>
+<li>Rename/Alias</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>My sample code will use <a href="https://www.djangoproject.com/">Django</a>, but I will provide help if you choose to use JavaScript/NodeJS, J2EE/Tomcat, etc.
+<li>Union, Intersection, Difference are the normal set operations.</li>
+</ul>
+<ul>
+<li><span style="color: red;">Projection</span> produces a new relation that<ul>
+<li>Has the same rows as the original table</li>
+<li>But only containing the requested columns/fields</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><span style="color: red;">Selection</span> produces a new relation that<ul>
+<li>Has the same columns as the original relation</li>
+<li>But only contains rows with column values matching a predicate.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><span style="color: red;">Projection, Selection and Keys are required for phase 1 of the web solution.</span></li>
+</ul>
+<ul>
+<li>We will cover the other operations in the next few lectures.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Selection">Selection<a class="anchor-link" href="#Selection">&#182;</a></h3><ul>
+<li>The selection operators are: $\lt, \gt, =, \ne, \ge, \le$</li>
+</ul>
+<ul>
+<li>The selection operator is $\sigma$</li>
+</ul>
+<ul>
+<li>$\sigma(Players)$ selects all of the rows/tuples in the player relation.</li>
+</ul>
+<ul>
+<li>The predicate/condition is a "subscript," e.g.<ul>
+<li>$\sigma$<sub>playerID=napolmi01</sub>$(Players)$ selects all players with <em>playerID=napolmi01</em></li>
+<li>$\sigma$<sub>((nameLast=Williams)$\land(throws=L))\lor(birthYear\ne1914)$</sub>$(Players)$ selects all players with<ul>
+<li>Last name williams who threw lefthanded</li>
+<li>Bith year now equal to 1914</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>This notation is a little clunky. You can think of the selection predicate being similiar to what goes in an <em>if()</em> statement if you were looping through an array testing for a match.</li>
+</ul>
+<ul>
+<li><strong>Note:</strong> We also needed $\sigma$ to implement GET /players/&lt; playerid &gt;.<ul>
+<li>I glossed over this fact.</li>
+<li>There is nothing special about primary (or any keys) relative to selection syntanx.</li>
+<li><em>Keys have a profound impact on performance and data integrity, however.</em></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Projection">Projection<a class="anchor-link" href="#Projection">&#182;</a></h3><ul>
+<li>The projection operator is $\pi$</li>
+</ul>
+<ul>
+<li>The requested columns are subscripts on the operator, e.g. $\pi$<sub>$nameLast,nameFirst,throws$</sub>$(Players)$ returns a table<ul>
+<li>Containing the $nameLast, nameFirst, throws$ column values, in that order</li>
+<li>For all tuples in the $Players$ table.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="This-is-an-Algebra">This is an Algebra<a class="anchor-link" href="#This-is-an-Algebra">&#182;</a></h3><ul>
+<li>The operators $\sigma$ and $\pi$ operate on relations/tables and produce relations/tables.</li>
+</ul>
+<ul>
+<li>This means that you can combine them into complex combinations just like any algebra.</li>
+</ul>
+<ul>
+<li>For example<ul>
+<li>T<sub>$1$</sub>$ = \pi$<sub>$nameLast,nameFirst,throws$</sub>$($$\sigma$<sub>((nameLast=Williams)$\land(throws=L))\lor(birthYear\ne1914)$</sub>$(Players)$$)$</li>
+<li>T<sub>$2$</sub>$ = \sigma$<sub>((nameLast=Williams)$\land(throws=L))\lor(birthYear\ne1914)$</sub>$(\pi$<sub>$nameLast,nameFirst,throws$</sub>$(Players))$</li>
+<li>Are both valid algebraic statements</li>
+<li><strong>And</strong> $T$<sub>$1$</sub>$ = T$<sub>$1$</sub> because $\sigma$ and $\pi$ are commutative if $\pi$ returns all columns that $\sigma$ tests.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Keys">Keys<a class="anchor-link" href="#Keys">&#182;</a></h3><ul>
+<li>"<em>Data integrity</em> is the maintenance of, and the assurance of the accuracy and consistency of, data over its entire life-cycle, and is a critical aspect to the design, implementation and usage of any system which stores, processes, or retrieves data.</li>
+</ul>
+<ul>
+<li><em>Relational (integrity) constraints</em> are central to the value of relational databases.<ul>
+<li>The database designer <em>declares (defines)</em> integrity constraints.</li>
+<li>The database management system <em>rejects</em> any <em>create, update</em> or <em>delete</em> operation that would result in a constraint violation.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><em>Key(s)</em> is a core  <em>(integrity) constraint</em> enforcing <em>data integrity.</em> <ul>
+<li>A <em>super key</em> is a combination of columns with the property that now two rows have the same values for the fields of a super key.</li>
+<li>A <em>candidate key</em> is a minimal <em>super key</em>, that is removing a column from the key definition means that the key no longer uniquely identifies a row.,</li>
+<li>The <em>primary key</em> is a candidate key subjectively chosen as the "best key" for uniquely identifying the tuples.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>You will some times here the term <em>functionally determines.</em></p>
+<ul>
+<li>Assume we have a relation $R(a,b,c,d,e)$.</li>
+<li>If $(a,b)$ is a key $k$, then</li>
+<li>The we can say that $k(a,b)$ <em>functionally determines</em> $(c,d,e).$</li>
+<li><p>Given values $(x,y)$ for $(a,b)$ we can functionally return $(c,d,e).$ The function is</p>
+<p>$\pi$<sub>$c,d,e$</sub>$(\sigma$<sub>$(a=x)\land(b=y)$</sub>$(R))$</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Consider the following snapshot of the CS courses table</li>
+</ul>
+<p><img src="../images/L4_courses.jpeg"></p>
+<p><br></p>
+<ul>
+<li>The underlying relation $C$ has the following fields<ul>
+<li>callNumber</li>
+<li>courseTitle</li>
+<li>courseNumber</li>
+<li>courseSection</li>
+<li>term</li>
+<li>year</li>
+<li>instructor</li>
+<li>days</li>
+<li>time</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Two candidate keys are<ul>
+<li><em>(callNumber)</em></li>
+<li><em>(courseNumber, courseSection, year, semester)</em></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="SQL-SELECT">SQL SELECT<a class="anchor-link" href="#SQL-SELECT">&#182;</a></h3><h4 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h4><ul>
+<li>MySQL <a href="https://dev.mysql.com/doc/refman/5.7/en/select.html">SELECT syntax</a><ul>
+<li>Other relational database management systems are very similiar)</li>
+<li>And there is a core standard for the <a href="https://www.iso.org/committee/45342/x/catalogue/p/1/u/0/w/0/d/0">SQL language.</a></li>
+</ul>
+</li>
+</ul>
+
+<pre><code>SELECT
+    [ALL | DISTINCT | DISTINCTROW ]
+      [HIGH_PRIORITY]
+      [STRAIGHT_JOIN]
+      [SQL_SMALL_RESULT] [SQL_BIG_RESULT] [SQL_BUFFER_RESULT]
+      [SQL_CACHE | SQL_NO_CACHE] [SQL_CALC_FOUND_ROWS]
+    select_expr [, select_expr ...]
+    [FROM table_references
+      [PARTITION partition_list]
+    [WHERE where_condition]
+    [GROUP BY {col_name | expr | position}
+      [ASC | DESC], ... [WITH ROLLUP]]
+    [HAVING where_condition]
+    [ORDER BY {col_name | expr | position}
+      [ASC | DESC], ...]
+    [LIMIT {[offset,] row_count | row_count OFFSET offset}]
+    [PROCEDURE procedure_name(argument_list)]
+    [INTO OUTFILE 'file_name'
+        [CHARACTER SET charset_name]
+        export_options
+      | INTO DUMPFILE 'file_name'
+      | INTO var_name [, var_name]]
+    [FOR UPDATE | LOCK IN SHARE MODE]]</code></pre>
+<ul>
+<li>The SELECT statement is complex because it is the implementation foundation for<ul>
+<li>Selection</li>
+<li>Projection</li>
+<li>Join</li>
+<li>Cross-product</li>
+<li>Alias/renaming.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>The easiest way to get started is with examples and practice.</li>
+</ul>
+<h4 id="GET-by-Primary-Key">GET by Primary Key<a class="anchor-link" href="#GET-by-Primary-Key">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pymysql.cursors</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<span class="k">def</span> <span class="nf">connect</span><span class="p">():</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+                                 <span class="n">user</span><span class="o">=</span><span class="s1">&#39;dbuser&#39;</span><span class="p">,</span>
+                                 <span class="n">password</span><span class="o">=</span><span class="s1">&#39;dbuser&#39;</span><span class="p">,</span>
+                                 <span class="n">db</span><span class="o">=</span><span class="s1">&#39;lahman2016&#39;</span><span class="p">,</span>
+                                 <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8mb4&#39;</span><span class="p">,</span>
+                                 <span class="n">cursorclass</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">cursors</span><span class="o">.</span><span class="n">DictCursor</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">connection</span>
+
+<span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">pretty_print</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Result = &quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Get by primary key.&quot;</span><span class="p">)</span>
+    <span class="n">sql1</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM Master WHERE playerID = &#39;napolmi01&#39;;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SQL statement = &quot;</span><span class="p">,</span> <span class="n">sql1</span><span class="p">)</span>
+    
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">connect</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+        <span class="c1"># Execute the SQL statement.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connected.&quot;</span><span class="p">)</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql1</span><span class="p">)</span>
+        
+        <span class="c1"># We know that this is a primary key. We only need to fetch ONE row.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+        
+        <span class="n">pretty_print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        
+<span class="k">except</span><span class="p">:</span>  
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Something bad happened.&quot;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">disconnect</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Disconnected&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Get by primary key.
+SQL statement =  SELECT * FROM Master WHERE playerID = &#39;napolmi01&#39;;
+Connected.
+Result =  {
+    &#34;bats&#34;: &#34;R&#34;,
+    &#34;bbrefID&#34;: &#34;napolmi01&#34;,
+    &#34;birthCity&#34;: &#34;Hollywood&#34;,
+    &#34;birthCountry&#34;: &#34;USA&#34;,
+    &#34;birthDay&#34;: 31,
+    &#34;birthMonth&#34;: 10,
+    &#34;birthState&#34;: &#34;FL&#34;,
+    &#34;birthYear&#34;: 1981,
+    &#34;deathCity&#34;: &#34;&#34;,
+    &#34;deathCountry&#34;: &#34;&#34;,
+    &#34;deathDay&#34;: &#34;&#34;,
+    &#34;deathMonth&#34;: &#34;&#34;,
+    &#34;deathState&#34;: &#34;&#34;,
+    &#34;deathYear&#34;: &#34;&#34;,
+    &#34;debut&#34;: &#34;2006-05-04&#34;,
+    &#34;finalGame&#34;: &#34;2016-10-02&#34;,
+    &#34;height&#34;: 73,
+    &#34;nameFirst&#34;: &#34;Mike&#34;,
+    &#34;nameGiven&#34;: &#34;Michael Anthony&#34;,
+    &#34;nameLast&#34;: &#34;Napoli&#34;,
+    &#34;playerID&#34;: &#34;napolmi01&#34;,
+    &#34;retroID&#34;: &#34;napom001&#34;,
+    &#34;throws&#34;: &#34;R&#34;,
+    &#34;weight&#34;: 225
+}
+Disconnected
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Get by primary key.&quot;</span><span class="p">)</span>
+    <span class="n">sql2</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM Batting WHERE yearID = &quot;</span> 
+    <span class="n">sql2</span> <span class="o">=</span> <span class="n">sql2</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> AND playerID=</span><span class="si">%s</span><span class="s2"> and stint=</span><span class="si">%s</span><span class="s2">;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SQL statement = &quot;</span><span class="p">,</span> <span class="n">sql2</span><span class="p">)</span>
+    
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">connect</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+        <span class="c1"># Execute the SQL statement.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connected.&quot;</span><span class="p">)</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql2</span><span class="p">,(</span><span class="s1">&#39;1959&#39;</span><span class="p">,</span><span class="s1">&#39;willite01&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        
+        <span class="c1"># We know that this is a primary key. We only need to fetch ONE row.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+        
+        <span class="n">pretty_print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        
+<span class="k">except</span><span class="p">:</span>  
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Something bad happened.&quot;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">disconnect</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Disconnected&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Get by primary key.
+SQL statement =  SELECT * FROM Batting WHERE yearID = %s AND playerID=%s and stint=%s;
+Connected.
+Result =  {
+    &#34;2B&#34;: 15,
+    &#34;3B&#34;: 0,
+    &#34;AB&#34;: 272,
+    &#34;BB&#34;: 52,
+    &#34;CS&#34;: 0,
+    &#34;G&#34;: 103,
+    &#34;GIDP&#34;: &#34;7&#34;,
+    &#34;H&#34;: 69,
+    &#34;HBP&#34;: &#34;2&#34;,
+    &#34;HR&#34;: 10,
+    &#34;IBB&#34;: &#34;6&#34;,
+    &#34;R&#34;: 32,
+    &#34;RBI&#34;: 43,
+    &#34;SB&#34;: 0,
+    &#34;SF&#34;: &#34;5&#34;,
+    &#34;SH&#34;: &#34;0&#34;,
+    &#34;SO&#34;: 27,
+    &#34;lgID&#34;: &#34;AL&#34;,
+    &#34;playerID&#34;: &#34;willite01&#34;,
+    &#34;stint&#34;: 1,
+    &#34;teamID&#34;: &#34;BOS&#34;,
+    &#34;yearID&#34;: 1959
+}
+Disconnected
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Database connectors usually support <em>parameterized query statements.</em><ul>
+<li>SQL string with %s in various places.</li>
+<li>(v1, ..., vn) to insert into the SQL statement sent to the database.</li>
+<li>Generally is the preferred approach and also support <a href="https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursorprepared.html"><em>prepared statements</em></a>, which most databases support.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="More-General-SELECT">More General SELECT<a class="anchor-link" href="#More-General-SELECT">&#182;</a></h4><h5 id="Find-All-Players-with-Last-name-Williams-and-Bats-with-One-Hand-and-Throws-with-Another,-and-Who-Was-Born-before-1950">Find All Players with Last name Williams and Bats with One Hand and Throws with Another, and Who Was Born before 1950<a class="anchor-link" href="#Find-All-Players-with-Last-name-Williams-and-Bats-with-One-Hand-and-Throws-with-Another,-and-Who-Was-Born-before-1950">&#182;</a></h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pymysql.cursors</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<span class="k">def</span> <span class="nf">connect</span><span class="p">():</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+                                 <span class="n">user</span><span class="o">=</span><span class="s1">&#39;dbuser&#39;</span><span class="p">,</span>
+                                 <span class="n">password</span><span class="o">=</span><span class="s1">&#39;dbuser&#39;</span><span class="p">,</span>
+                                 <span class="n">db</span><span class="o">=</span><span class="s1">&#39;lahman2016&#39;</span><span class="p">,</span>
+                                 <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8mb4&#39;</span><span class="p">,</span>
+                                 <span class="n">cursorclass</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">cursors</span><span class="o">.</span><span class="n">DictCursor</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">connection</span>
+
+<span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">pretty_print</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Result = &quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">execute_query</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Executing query = &quot;</span><span class="p">,</span><span class="n">q</span> <span class="p">)</span>
+
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">connect</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="c1"># Execute the SQL statement.</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connected.&quot;</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+
+            <span class="c1"># We know that this is a primary key. We only need to fetch ONE row.</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+    <span class="k">except</span><span class="p">:</span>  
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Something bad happened.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">([</span> <span class="p">{</span> <span class="s2">&quot;Error &quot;</span><span class="p">:</span> <span class="s2">&quot;Error&quot;</span> <span class="p">}])</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">disconnect</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Disconnected&quot;</span><span class="p">)</span>
+        
+        
+<span class="n">q</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM Master WHERE &quot;</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">q</span> <span class="o">+</span> <span class="s2">&quot;nameLast=&#39;Williams&#39; and NOT ( bats = throws ) &quot;</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">q</span> <span class="o">+</span> <span class="s2">&quot;AND birthYear &lt; &#39;1950&#39;;&quot;</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">execute_query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">pretty_print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Executing query =  SELECT * FROM Master WHERE nameLast=&#39;Williams&#39; and NOT ( bats = throws ) AND birthYear &lt; &#39;1950&#39;;
+Connected.
+Disconnected
+Result =  [
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williac01&#34;,
+        &#34;birthCity&#34;: &#34;Montclair&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 18,
+        &#34;birthMonth&#34;: 3,
+        &#34;birthState&#34;: &#34;NJ&#34;,
+        &#34;birthYear&#34;: 1917,
+        &#34;deathCity&#34;: &#34;Fort Myers&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;16&#34;,
+        &#34;deathMonth&#34;: &#34;9&#34;,
+        &#34;deathState&#34;: &#34;FL&#34;,
+        &#34;deathYear&#34;: &#34;1999&#34;,
+        &#34;debut&#34;: &#34;1940-07-15&#34;,
+        &#34;finalGame&#34;: &#34;1946-04-22&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Ace&#34;,
+        &#34;nameGiven&#34;: &#34;Robert Fulton&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williac01&#34;,
+        &#34;retroID&#34;: &#34;willa103&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 174
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;williar01&#34;,
+        &#34;birthCity&#34;: &#34;Somerville&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 24,
+        &#34;birthMonth&#34;: 8,
+        &#34;birthState&#34;: &#34;MA&#34;,
+        &#34;birthYear&#34;: 1877,
+        &#34;deathCity&#34;: &#34;Arlington&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;16&#34;,
+        &#34;deathMonth&#34;: &#34;5&#34;,
+        &#34;deathState&#34;: &#34;VA&#34;,
+        &#34;deathYear&#34;: &#34;1941&#34;,
+        &#34;debut&#34;: &#34;1902-05-07&#34;,
+        &#34;finalGame&#34;: &#34;1902-09-01&#34;,
+        &#34;height&#34;: 0,
+        &#34;nameFirst&#34;: &#34;Art&#34;,
+        &#34;nameGiven&#34;: &#34;Arthur Frank&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williar01&#34;,
+        &#34;retroID&#34;: &#34;willa104&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 0
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willibi01&#34;,
+        &#34;birthCity&#34;: &#34;Whistler&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 15,
+        &#34;birthMonth&#34;: 6,
+        &#34;birthState&#34;: &#34;AL&#34;,
+        &#34;birthYear&#34;: 1938,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1959-08-06&#34;,
+        &#34;finalGame&#34;: &#34;1976-10-02&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Billy&#34;,
+        &#34;nameGiven&#34;: &#34;Billy Leo&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willibi01&#34;,
+        &#34;retroID&#34;: &#34;willb104&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 175
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willibi02&#34;,
+        &#34;birthCity&#34;: &#34;Newberry&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 13,
+        &#34;birthMonth&#34;: 6,
+        &#34;birthState&#34;: &#34;SC&#34;,
+        &#34;birthYear&#34;: 1932,
+        &#34;deathCity&#34;: &#34;Berkeley&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;11&#34;,
+        &#34;deathMonth&#34;: &#34;6&#34;,
+        &#34;deathState&#34;: &#34;CA&#34;,
+        &#34;deathYear&#34;: &#34;2013&#34;,
+        &#34;debut&#34;: &#34;1969-08-15&#34;,
+        &#34;finalGame&#34;: &#34;1969-08-20&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Billy&#34;,
+        &#34;nameGiven&#34;: &#34;William&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willibi02&#34;,
+        &#34;retroID&#34;: &#34;willb102&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 195
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willida02&#34;,
+        &#34;birthCity&#34;: &#34;Scranton&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 7,
+        &#34;birthMonth&#34;: 2,
+        &#34;birthState&#34;: &#34;PA&#34;,
+        &#34;birthYear&#34;: 1881,
+        &#34;deathCity&#34;: &#34;Hot Springs&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;25&#34;,
+        &#34;deathMonth&#34;: &#34;4&#34;,
+        &#34;deathState&#34;: &#34;AR&#34;,
+        &#34;deathYear&#34;: &#34;1918&#34;,
+        &#34;debut&#34;: &#34;1902-07-02&#34;,
+        &#34;finalGame&#34;: &#34;1902-08-03&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Dave&#34;,
+        &#34;nameGiven&#34;: &#34;David Owen&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willida02&#34;,
+        &#34;retroID&#34;: &#34;willd103&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 167
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willide01&#34;,
+        &#34;birthCity&#34;: &#34;Portland&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 13,
+        &#34;birthMonth&#34;: 12,
+        &#34;birthState&#34;: &#34;OR&#34;,
+        &#34;birthYear&#34;: 1896,
+        &#34;deathCity&#34;: &#34;San Clemente&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;23&#34;,
+        &#34;deathMonth&#34;: &#34;3&#34;,
+        &#34;deathState&#34;: &#34;CA&#34;,
+        &#34;deathYear&#34;: &#34;1929&#34;,
+        &#34;debut&#34;: &#34;1921-04-15&#34;,
+        &#34;finalGame&#34;: &#34;1928-07-18&#34;,
+        &#34;height&#34;: 68,
+        &#34;nameFirst&#34;: &#34;Denny&#34;,
+        &#34;nameGiven&#34;: &#34;Evon Daniel&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willide01&#34;,
+        &#34;retroID&#34;: &#34;willd105&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 150
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willike01&#34;,
+        &#34;birthCity&#34;: &#34;Grants Pass&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 28,
+        &#34;birthMonth&#34;: 6,
+        &#34;birthState&#34;: &#34;OR&#34;,
+        &#34;birthYear&#34;: 1890,
+        &#34;deathCity&#34;: &#34;Grants Pass&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;22&#34;,
+        &#34;deathMonth&#34;: &#34;1&#34;,
+        &#34;deathState&#34;: &#34;OR&#34;,
+        &#34;deathYear&#34;: &#34;1959&#34;,
+        &#34;debut&#34;: &#34;1915-07-14&#34;,
+        &#34;finalGame&#34;: &#34;1929-08-10&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Ken&#34;,
+        &#34;nameGiven&#34;: &#34;Kenneth Roy&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willike01&#34;,
+        &#34;retroID&#34;: &#34;willk101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 170
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willile01&#34;,
+        &#34;birthCity&#34;: &#34;Aurora&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 9,
+        &#34;birthMonth&#34;: 3,
+        &#34;birthState&#34;: &#34;MO&#34;,
+        &#34;birthYear&#34;: 1893,
+        &#34;deathCity&#34;: &#34;Laguna Beach&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;4&#34;,
+        &#34;deathMonth&#34;: &#34;11&#34;,
+        &#34;deathState&#34;: &#34;CA&#34;,
+        &#34;deathYear&#34;: &#34;1959&#34;,
+        &#34;debut&#34;: &#34;1913-09-17&#34;,
+        &#34;finalGame&#34;: &#34;1920-09-25&#34;,
+        &#34;height&#34;: 69,
+        &#34;nameFirst&#34;: &#34;Lefty&#34;,
+        &#34;nameGiven&#34;: &#34;Claude Preston&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willile01&#34;,
+        &#34;retroID&#34;: &#34;willl104&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 160
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willipo01&#34;,
+        &#34;birthCity&#34;: &#34;Bowdoinham&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 19,
+        &#34;birthMonth&#34;: 5,
+        &#34;birthState&#34;: &#34;ME&#34;,
+        &#34;birthYear&#34;: 1874,
+        &#34;deathCity&#34;: &#34;Topsham&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;4&#34;,
+        &#34;deathMonth&#34;: &#34;8&#34;,
+        &#34;deathState&#34;: &#34;ME&#34;,
+        &#34;deathYear&#34;: &#34;1959&#34;,
+        &#34;debut&#34;: &#34;1898-09-14&#34;,
+        &#34;finalGame&#34;: &#34;1903-09-15&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Pop&#34;,
+        &#34;nameGiven&#34;: &#34;Walter Merrill&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willipo01&#34;,
+        &#34;retroID&#34;: &#34;willp101&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 190
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;williri02&#34;,
+        &#34;birthCity&#34;: &#34;Santa Cruz&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 18,
+        &#34;birthMonth&#34;: 12,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1893,
+        &#34;deathCity&#34;: &#34;Cottonwood&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;24&#34;,
+        &#34;deathMonth&#34;: &#34;4&#34;,
+        &#34;deathState&#34;: &#34;AZ&#34;,
+        &#34;deathYear&#34;: &#34;1966&#34;,
+        &#34;debut&#34;: &#34;1914-10-08&#34;,
+        &#34;finalGame&#34;: &#34;1914-10-10&#34;,
+        &#34;height&#34;: 0,
+        &#34;nameFirst&#34;: &#34;Rinaldo&#34;,
+        &#34;nameGiven&#34;: &#34;Rinaldo Louis&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williri02&#34;,
+        &#34;retroID&#34;: &#34;willr103&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 0
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willist01&#34;,
+        &#34;birthCity&#34;: &#34;Cascade&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 31,
+        &#34;birthMonth&#34;: 1,
+        &#34;birthState&#34;: &#34;MT&#34;,
+        &#34;birthYear&#34;: 1892,
+        &#34;deathCity&#34;: &#34;Deer River&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;29&#34;,
+        &#34;deathMonth&#34;: &#34;6&#34;,
+        &#34;deathState&#34;: &#34;MN&#34;,
+        &#34;deathYear&#34;: &#34;1979&#34;,
+        &#34;debut&#34;: &#34;1914-07-12&#34;,
+        &#34;finalGame&#34;: &#34;1916-10-01&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Steamboat&#34;,
+        &#34;nameGiven&#34;: &#34;Rees Gephardt&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willist01&#34;,
+        &#34;retroID&#34;: &#34;wills101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 170
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willite01&#34;,
+        &#34;birthCity&#34;: &#34;San Diego&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 30,
+        &#34;birthMonth&#34;: 8,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1918,
+        &#34;deathCity&#34;: &#34;Inverness&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;5&#34;,
+        &#34;deathMonth&#34;: &#34;7&#34;,
+        &#34;deathState&#34;: &#34;FL&#34;,
+        &#34;deathYear&#34;: &#34;2002&#34;,
+        &#34;debut&#34;: &#34;1939-04-20&#34;,
+        &#34;finalGame&#34;: &#34;1960-09-28&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Ted&#34;,
+        &#34;nameGiven&#34;: &#34;Theodore Samuel&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willite01&#34;,
+        &#34;retroID&#34;: &#34;willt103&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 205
+    }
+]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Where-Clause">Where Clause<a class="anchor-link" href="#Where-Clause">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Comments</strong></p>
+<ul>
+<li>There <a href="https://dev.mysql.com/doc/refman/5.7/en/expressions.html">MySQL WHERE condition syntax</a> (which is remarkably unhelpful) is</li>
+</ul>
+
+<pre><code>expr:
+    expr OR expr
+  | expr || expr
+  | expr XOR expr
+  | expr AND expr
+  | expr &amp;&amp; expr
+  | NOT expr
+  | ! expr
+  | boolean_primary IS [NOT] {TRUE | FALSE | UNKNOWN}
+  | boolean_primary
+
+boolean_primary:
+    boolean_primary IS [NOT] NULL
+  | boolean_primary &lt;=&gt; predicate
+  | boolean_primary comparison_operator predicate
+  | boolean_primary comparison_operator {ALL | ANY} (subquery)
+  | predicate
+
+comparison_operator: = | &gt;= | &gt; | &lt;= | &lt; | &lt;&gt; | !=
+
+predicate:
+    bit_expr [NOT] IN (subquery)
+  | bit_expr [NOT] IN (expr [, expr] ...)
+  | bit_expr [NOT] BETWEEN bit_expr AND predicate
+  | bit_expr SOUNDS LIKE bit_expr
+  | bit_expr [NOT] LIKE simple_expr [ESCAPE simple_expr]
+  | bit_expr [NOT] REGEXP bit_expr
+  | bit_expr
+
+bit_expr:
+    bit_expr | bit_expr
+  | bit_expr &amp; bit_expr
+  | bit_expr &lt;&lt; bit_expr
+  | bit_expr &gt;&gt; bit_expr
+  | bit_expr + bit_expr
+  | bit_expr - bit_expr
+  | bit_expr * bit_expr
+  | bit_expr / bit_expr
+  | bit_expr DIV bit_expr
+  | bit_expr MOD bit_expr
+  | bit_expr % bit_expr
+  | bit_expr ^ bit_expr
+  | bit_expr + interval_expr
+  | bit_expr - interval_expr
+  | simple_expr
+
+simple_expr:
+    literal
+  | identifier
+  | function_call
+  | simple_expr COLLATE collation_name
+  | param_marker
+  | variable
+  | simple_expr || simple_expr
+  | + simple_expr
+  | - simple_expr
+  | ~ simple_expr
+  | ! simple_expr
+  | BINARY simple_expr
+  | (expr [, expr] ...)
+  | ROW (expr, expr [, expr] ...)
+  | (subquery)
+  | EXISTS (subquery)
+  | {identifier expr}
+  | match_expr
+  | case_expr
+  | interval_expr</code></pre>
+<ul>
+<li>All RDBs have similar and approximately equivalent functionality and syntax.</li>
+</ul>
+<ul>
+<li>"How do you get to be good at this? The same way you get to Carnegie Hall. <strong>Practice.</strong>"<ul>
+<li>There are some good online tutorials.</li>
+<li>We will go through a lot of examples in class.</li>
+<li>CAs and I will help if you have trouble on homework or take home exams.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>The SQL statement provides an overview of the condition syntax</li>
+</ul>
+
+<pre><code>SELECT * FROM Master WHERE nameLast='Williams' and NOT ( bats = throws ) AND  (deathYear - birthYear) &gt; 80;</code></pre>
+<ul>
+<li>The basic element is $term$  $operand$  $term$ or $operand(column)$<ul>
+<li>A term is a literal, column name or computed expression.</li>
+<li>The operands are<ul>
+<li>$\lt$, $\leq$, $=$, $\gt$, $\ge$, $&lt;&gt;$ and have the obvious meanings.</li>
+<li>$LIKE$ returns true if the string operand matches a <a href="https://dev.mysql.com/doc/refman/5.7/en/pattern-matching.html">pattern.</a></li>
+<li>$term$ $BETWEEN$ $operand$ AND $OPERAND$ returns true of the $term$ is in the range.</li>
+</ul>
+</li>
+<li>There are additional operands and different RDBS have different extensions and modifications.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM Master WHERE nameLast LIKE &#39;willi%&#39;;&quot;</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">execute_query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">pretty_print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Executing query =  SELECT * FROM Master WHERE nameLast LIKE &#39;willi%&#39;;
+Connected.
+Disconnected
+Result =  [
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williac01&#34;,
+        &#34;birthCity&#34;: &#34;Montclair&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 18,
+        &#34;birthMonth&#34;: 3,
+        &#34;birthState&#34;: &#34;NJ&#34;,
+        &#34;birthYear&#34;: 1917,
+        &#34;deathCity&#34;: &#34;Fort Myers&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;16&#34;,
+        &#34;deathMonth&#34;: &#34;9&#34;,
+        &#34;deathState&#34;: &#34;FL&#34;,
+        &#34;deathYear&#34;: &#34;1999&#34;,
+        &#34;debut&#34;: &#34;1940-07-15&#34;,
+        &#34;finalGame&#34;: &#34;1946-04-22&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Ace&#34;,
+        &#34;nameGiven&#34;: &#34;Robert Fulton&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williac01&#34;,
+        &#34;retroID&#34;: &#34;willa103&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 174
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willial02&#34;,
+        &#34;birthCity&#34;: &#34;Valhermosa Springs&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 11,
+        &#34;birthMonth&#34;: 5,
+        &#34;birthState&#34;: &#34;AL&#34;,
+        &#34;birthYear&#34;: 1914,
+        &#34;deathCity&#34;: &#34;Groves&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;19&#34;,
+        &#34;deathMonth&#34;: &#34;7&#34;,
+        &#34;deathState&#34;: &#34;TX&#34;,
+        &#34;deathYear&#34;: &#34;1969&#34;,
+        &#34;debut&#34;: &#34;1937-04-19&#34;,
+        &#34;finalGame&#34;: &#34;1938-09-04&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Al&#34;,
+        &#34;nameGiven&#34;: &#34;Almon Edward&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willial02&#34;,
+        &#34;retroID&#34;: &#34;willa101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 200
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willial03&#34;,
+        &#34;birthCity&#34;: &#34;Pearl Lagoon&#34;,
+        &#34;birthCountry&#34;: &#34;Nicaragua&#34;,
+        &#34;birthDay&#34;: 6,
+        &#34;birthMonth&#34;: 5,
+        &#34;birthState&#34;: &#34;Atlantico Sur&#34;,
+        &#34;birthYear&#34;: 1954,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1980-05-07&#34;,
+        &#34;finalGame&#34;: &#34;1984-09-26&#34;,
+        &#34;height&#34;: 76,
+        &#34;nameFirst&#34;: &#34;Albert&#34;,
+        &#34;nameGiven&#34;: &#34;Albert Hamilton&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willial03&#34;,
+        &#34;retroID&#34;: &#34;willa001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 190
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;williar01&#34;,
+        &#34;birthCity&#34;: &#34;Somerville&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 24,
+        &#34;birthMonth&#34;: 8,
+        &#34;birthState&#34;: &#34;MA&#34;,
+        &#34;birthYear&#34;: 1877,
+        &#34;deathCity&#34;: &#34;Arlington&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;16&#34;,
+        &#34;deathMonth&#34;: &#34;5&#34;,
+        &#34;deathState&#34;: &#34;VA&#34;,
+        &#34;deathYear&#34;: &#34;1941&#34;,
+        &#34;debut&#34;: &#34;1902-05-07&#34;,
+        &#34;finalGame&#34;: &#34;1902-09-01&#34;,
+        &#34;height&#34;: 0,
+        &#34;nameFirst&#34;: &#34;Art&#34;,
+        &#34;nameGiven&#34;: &#34;Arthur Frank&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williar01&#34;,
+        &#34;retroID&#34;: &#34;willa104&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 0
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willibe01&#34;,
+        &#34;birthCity&#34;: &#34;Alameda&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 8,
+        &#34;birthMonth&#34;: 10,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1948,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1970-09-07&#34;,
+        &#34;finalGame&#34;: &#34;1974-05-12&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Bernie&#34;,
+        &#34;nameGiven&#34;: &#34;Bernard&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willibe01&#34;,
+        &#34;retroID&#34;: &#34;willb105&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 175
+    },
+    {
+        &#34;bats&#34;: &#34;B&#34;,
+        &#34;bbrefID&#34;: &#34;willibe02&#34;,
+        &#34;birthCity&#34;: &#34;San Juan&#34;,
+        &#34;birthCountry&#34;: &#34;P.R.&#34;,
+        &#34;birthDay&#34;: 13,
+        &#34;birthMonth&#34;: 9,
+        &#34;birthState&#34;: &#34;&#34;,
+        &#34;birthYear&#34;: 1968,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1991-07-07&#34;,
+        &#34;finalGame&#34;: &#34;2006-10-01&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Bernie&#34;,
+        &#34;nameGiven&#34;: &#34;Bernabe&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willibe02&#34;,
+        &#34;retroID&#34;: &#34;willb002&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willibi01&#34;,
+        &#34;birthCity&#34;: &#34;Whistler&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 15,
+        &#34;birthMonth&#34;: 6,
+        &#34;birthState&#34;: &#34;AL&#34;,
+        &#34;birthYear&#34;: 1938,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1959-08-06&#34;,
+        &#34;finalGame&#34;: &#34;1976-10-02&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Billy&#34;,
+        &#34;nameGiven&#34;: &#34;Billy Leo&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willibi01&#34;,
+        &#34;retroID&#34;: &#34;willb104&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 175
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willibi02&#34;,
+        &#34;birthCity&#34;: &#34;Newberry&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 13,
+        &#34;birthMonth&#34;: 6,
+        &#34;birthState&#34;: &#34;SC&#34;,
+        &#34;birthYear&#34;: 1932,
+        &#34;deathCity&#34;: &#34;Berkeley&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;11&#34;,
+        &#34;deathMonth&#34;: &#34;6&#34;,
+        &#34;deathState&#34;: &#34;CA&#34;,
+        &#34;deathYear&#34;: &#34;2013&#34;,
+        &#34;debut&#34;: &#34;1969-08-15&#34;,
+        &#34;finalGame&#34;: &#34;1969-08-20&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Billy&#34;,
+        &#34;nameGiven&#34;: &#34;William&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willibi02&#34;,
+        &#34;retroID&#34;: &#34;willb102&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 195
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willibo01&#34;,
+        &#34;birthCity&#34;: &#34;Monday&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 27,
+        &#34;birthMonth&#34;: 4,
+        &#34;birthState&#34;: &#34;OH&#34;,
+        &#34;birthYear&#34;: 1884,
+        &#34;deathCity&#34;: &#34;Nelsonville&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;6&#34;,
+        &#34;deathMonth&#34;: &#34;8&#34;,
+        &#34;deathState&#34;: &#34;OH&#34;,
+        &#34;deathYear&#34;: &#34;1962&#34;,
+        &#34;debut&#34;: &#34;1911-07-03&#34;,
+        &#34;finalGame&#34;: &#34;1913-09-30&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Bob&#34;,
+        &#34;nameGiven&#34;: &#34;Robert Elias&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willibo01&#34;,
+        &#34;retroID&#34;: &#34;willb103&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 190
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willibr01&#34;,
+        &#34;birthCity&#34;: &#34;Lancaster&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 15,
+        &#34;birthMonth&#34;: 2,
+        &#34;birthState&#34;: &#34;SC&#34;,
+        &#34;birthYear&#34;: 1969,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1991-09-16&#34;,
+        &#34;finalGame&#34;: &#34;2000-07-05&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Brian&#34;,
+        &#34;nameGiven&#34;: &#34;Brian O&#39;Neal&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willibr01&#34;,
+        &#34;retroID&#34;: &#34;willb001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 205
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willich01&#34;,
+        &#34;birthCity&#34;: &#34;Flushing&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 11,
+        &#34;birthMonth&#34;: 10,
+        &#34;birthState&#34;: &#34;NY&#34;,
+        &#34;birthYear&#34;: 1947,
+        &#34;deathCity&#34;: &#34;Port Orange&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;27&#34;,
+        &#34;deathMonth&#34;: &#34;1&#34;,
+        &#34;deathState&#34;: &#34;FL&#34;,
+        &#34;deathYear&#34;: &#34;2015&#34;,
+        &#34;debut&#34;: &#34;1971-04-23&#34;,
+        &#34;finalGame&#34;: &#34;1978-09-11&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Charlie&#34;,
+        &#34;nameGiven&#34;: &#34;Charles Prosek&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willich01&#34;,
+        &#34;retroID&#34;: &#34;willc101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 200
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willicy01&#34;,
+        &#34;birthCity&#34;: &#34;Wadena&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 21,
+        &#34;birthMonth&#34;: 12,
+        &#34;birthState&#34;: &#34;IN&#34;,
+        &#34;birthYear&#34;: 1887,
+        &#34;deathCity&#34;: &#34;Eagle River&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;23&#34;,
+        &#34;deathMonth&#34;: &#34;4&#34;,
+        &#34;deathState&#34;: &#34;WI&#34;,
+        &#34;deathYear&#34;: &#34;1974&#34;,
+        &#34;debut&#34;: &#34;1912-07-18&#34;,
+        &#34;finalGame&#34;: &#34;1930-09-22&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Cy&#34;,
+        &#34;nameGiven&#34;: &#34;Fred&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willicy01&#34;,
+        &#34;retroID&#34;: &#34;willc103&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willida01&#34;,
+        &#34;birthCity&#34;: &#34;Ludlow&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 6,
+        &#34;birthMonth&#34;: 10,
+        &#34;birthState&#34;: &#34;KY&#34;,
+        &#34;birthYear&#34;: 1855,
+        &#34;deathCity&#34;: &#34;Covington&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;22&#34;,
+        &#34;deathMonth&#34;: &#34;10&#34;,
+        &#34;deathState&#34;: &#34;KY&#34;,
+        &#34;deathYear&#34;: &#34;1939&#34;,
+        &#34;debut&#34;: &#34;1876-08-12&#34;,
+        &#34;finalGame&#34;: &#34;1876-09-09&#34;,
+        &#34;height&#34;: 69,
+        &#34;nameFirst&#34;: &#34;Dale&#34;,
+        &#34;nameGiven&#34;: &#34;Elisha Alphonso&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willida01&#34;,
+        &#34;retroID&#34;: &#34;willd106&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 175
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willida02&#34;,
+        &#34;birthCity&#34;: &#34;Scranton&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 7,
+        &#34;birthMonth&#34;: 2,
+        &#34;birthState&#34;: &#34;PA&#34;,
+        &#34;birthYear&#34;: 1881,
+        &#34;deathCity&#34;: &#34;Hot Springs&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;25&#34;,
+        &#34;deathMonth&#34;: &#34;4&#34;,
+        &#34;deathState&#34;: &#34;AR&#34;,
+        &#34;deathYear&#34;: &#34;1918&#34;,
+        &#34;debut&#34;: &#34;1902-07-02&#34;,
+        &#34;finalGame&#34;: &#34;1902-08-03&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Dave&#34;,
+        &#34;nameGiven&#34;: &#34;David Owen&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willida02&#34;,
+        &#34;retroID&#34;: &#34;willd103&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 167
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willida03&#34;,
+        &#34;birthCity&#34;: &#34;Dallas&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 2,
+        &#34;birthMonth&#34;: 11,
+        &#34;birthState&#34;: &#34;TX&#34;,
+        &#34;birthYear&#34;: 1927,
+        &#34;deathCity&#34;: &#34;Farmers Branch&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;17&#34;,
+        &#34;deathMonth&#34;: &#34;8&#34;,
+        &#34;deathState&#34;: &#34;TX&#34;,
+        &#34;deathYear&#34;: &#34;2009&#34;,
+        &#34;debut&#34;: &#34;1949-09-16&#34;,
+        &#34;finalGame&#34;: &#34;1955-07-31&#34;,
+        &#34;height&#34;: 70,
+        &#34;nameFirst&#34;: &#34;Davey&#34;,
+        &#34;nameGiven&#34;: &#34;David Carlous&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willida03&#34;,
+        &#34;retroID&#34;: &#34;willd102&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 160
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willida05&#34;,
+        &#34;birthCity&#34;: &#34;Brooklyn&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 28,
+        &#34;birthMonth&#34;: 2,
+        &#34;birthState&#34;: &#34;NY&#34;,
+        &#34;birthYear&#34;: 1958,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1981-09-19&#34;,
+        &#34;finalGame&#34;: &#34;1983-10-02&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Dallas&#34;,
+        &#34;nameGiven&#34;: &#34;Dallas McKinley&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willida05&#34;,
+        &#34;retroID&#34;: &#34;willd101&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 165
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willida06&#34;,
+        &#34;birthCity&#34;: &#34;Weirton&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 20,
+        &#34;birthMonth&#34;: 3,
+        &#34;birthState&#34;: &#34;WV&#34;,
+        &#34;birthYear&#34;: 1963,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1989-06-19&#34;,
+        &#34;finalGame&#34;: &#34;1989-07-02&#34;,
+        &#34;height&#34;: 70,
+        &#34;nameFirst&#34;: &#34;Dana&#34;,
+        &#34;nameGiven&#34;: &#34;Dana Lamont&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willida06&#34;,
+        &#34;retroID&#34;: &#34;willd001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 170
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willida07&#34;,
+        &#34;birthCity&#34;: &#34;Anchorage&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 12,
+        &#34;birthMonth&#34;: 3,
+        &#34;birthState&#34;: &#34;AK&#34;,
+        &#34;birthYear&#34;: 1979,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;2001-06-06&#34;,
+        &#34;finalGame&#34;: &#34;2007-09-24&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;David&#34;,
+        &#34;nameGiven&#34;: &#34;David Aaron&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willida07&#34;,
+        &#34;retroID&#34;: &#34;willd002&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 215
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willide01&#34;,
+        &#34;birthCity&#34;: &#34;Portland&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 13,
+        &#34;birthMonth&#34;: 12,
+        &#34;birthState&#34;: &#34;OR&#34;,
+        &#34;birthYear&#34;: 1896,
+        &#34;deathCity&#34;: &#34;San Clemente&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;23&#34;,
+        &#34;deathMonth&#34;: &#34;3&#34;,
+        &#34;deathState&#34;: &#34;CA&#34;,
+        &#34;deathYear&#34;: &#34;1929&#34;,
+        &#34;debut&#34;: &#34;1921-04-15&#34;,
+        &#34;finalGame&#34;: &#34;1928-07-18&#34;,
+        &#34;height&#34;: 68,
+        &#34;nameFirst&#34;: &#34;Denny&#34;,
+        &#34;nameGiven&#34;: &#34;Evon Daniel&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willide01&#34;,
+        &#34;retroID&#34;: &#34;willd105&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 150
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willide02&#34;,
+        &#34;birthCity&#34;: &#34;Durham&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 5,
+        &#34;birthMonth&#34;: 2,
+        &#34;birthState&#34;: &#34;NC&#34;,
+        &#34;birthYear&#34;: 1916,
+        &#34;deathCity&#34;: &#34;Williston&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;19&#34;,
+        &#34;deathMonth&#34;: &#34;3&#34;,
+        &#34;deathState&#34;: &#34;ND&#34;,
+        &#34;deathYear&#34;: &#34;2000&#34;,
+        &#34;debut&#34;: &#34;1944-06-28&#34;,
+        &#34;finalGame&#34;: &#34;1948-09-26&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Dewey&#34;,
+        &#34;nameGiven&#34;: &#34;Dewey Edgar&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willide02&#34;,
+        &#34;retroID&#34;: &#34;willd109&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 160
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willidi01&#34;,
+        &#34;birthCity&#34;: &#34;Greenbrier&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 19,
+        &#34;birthMonth&#34;: 1,
+        &#34;birthState&#34;: &#34;AR&#34;,
+        &#34;birthYear&#34;: 1910,
+        &#34;deathCity&#34;: &#34;Searcy&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;2&#34;,
+        &#34;deathMonth&#34;: &#34;4&#34;,
+        &#34;deathState&#34;: &#34;AR&#34;,
+        &#34;deathYear&#34;: &#34;1992&#34;,
+        &#34;debut&#34;: &#34;1930-04-27&#34;,
+        &#34;finalGame&#34;: &#34;1935-09-29&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Dib&#34;,
+        &#34;nameGiven&#34;: &#34;Edwin Dibrell&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willidi01&#34;,
+        &#34;retroID&#34;: &#34;willd107&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 175
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willidi02&#34;,
+        &#34;birthCity&#34;: &#34;St. Louis&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 7,
+        &#34;birthMonth&#34;: 5,
+        &#34;birthState&#34;: &#34;MO&#34;,
+        &#34;birthYear&#34;: 1929,
+        &#34;deathCity&#34;: &#34;Las Vegas&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;7&#34;,
+        &#34;deathMonth&#34;: &#34;7&#34;,
+        &#34;deathState&#34;: &#34;NV&#34;,
+        &#34;deathYear&#34;: &#34;2011&#34;,
+        &#34;debut&#34;: &#34;1951-06-10&#34;,
+        &#34;finalGame&#34;: &#34;1964-10-01&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Dick&#34;,
+        &#34;nameGiven&#34;: &#34;Richard Hirschfeld&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willidi02&#34;,
+        &#34;retroID&#34;: &#34;willd104&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 190
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willido01&#34;,
+        &#34;birthCity&#34;: &#34;Floyd&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 14,
+        &#34;birthMonth&#34;: 9,
+        &#34;birthState&#34;: &#34;VA&#34;,
+        &#34;birthYear&#34;: 1931,
+        &#34;deathCity&#34;: &#34;Floyd&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;16&#34;,
+        &#34;deathMonth&#34;: &#34;10&#34;,
+        &#34;deathState&#34;: &#34;VA&#34;,
+        &#34;deathYear&#34;: &#34;2011&#34;,
+        &#34;debut&#34;: &#34;1958-09-12&#34;,
+        &#34;finalGame&#34;: &#34;1962-08-23&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Don&#34;,
+        &#34;nameGiven&#34;: &#34;Don Fred&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willido01&#34;,
+        &#34;retroID&#34;: &#34;willd108&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willido02&#34;,
+        &#34;birthCity&#34;: &#34;Los Angeles&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 2,
+        &#34;birthMonth&#34;: 9,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1935,
+        &#34;deathCity&#34;: &#34;La Jolla&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;20&#34;,
+        &#34;deathMonth&#34;: &#34;12&#34;,
+        &#34;deathState&#34;: &#34;CA&#34;,
+        &#34;deathYear&#34;: &#34;1991&#34;,
+        &#34;debut&#34;: &#34;1963-08-04&#34;,
+        &#34;finalGame&#34;: &#34;1963-08-17&#34;,
+        &#34;height&#34;: 77,
+        &#34;nameFirst&#34;: &#34;Don&#34;,
+        &#34;nameGiven&#34;: &#34;Donald Reid&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willido02&#34;,
+        &#34;retroID&#34;: &#34;willd110&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 218
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williea01&#34;,
+        &#34;birthCity&#34;: &#34;Cumberland Gap&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 27,
+        &#34;birthMonth&#34;: 1,
+        &#34;birthState&#34;: &#34;TN&#34;,
+        &#34;birthYear&#34;: 1903,
+        &#34;deathCity&#34;: &#34;Knoxville&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;10&#34;,
+        &#34;deathMonth&#34;: &#34;3&#34;,
+        &#34;deathState&#34;: &#34;TN&#34;,
+        &#34;deathYear&#34;: &#34;1958&#34;,
+        &#34;debut&#34;: &#34;1928-05-27&#34;,
+        &#34;finalGame&#34;: &#34;1928-06-02&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Earl&#34;,
+        &#34;nameGiven&#34;: &#34;Earl Baxter&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williea01&#34;,
+        &#34;retroID&#34;: &#34;wille102&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 185
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williea02&#34;,
+        &#34;birthCity&#34;: &#34;Newark&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 14,
+        &#34;birthMonth&#34;: 7,
+        &#34;birthState&#34;: &#34;NJ&#34;,
+        &#34;birthYear&#34;: 1948,
+        &#34;deathCity&#34;: &#34;Somerset&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;28&#34;,
+        &#34;deathMonth&#34;: &#34;1&#34;,
+        &#34;deathState&#34;: &#34;NJ&#34;,
+        &#34;deathYear&#34;: &#34;2013&#34;,
+        &#34;debut&#34;: &#34;1970-09-13&#34;,
+        &#34;finalGame&#34;: &#34;1977-09-25&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Earl&#34;,
+        &#34;nameGiven&#34;: &#34;Earl Craig&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williea02&#34;,
+        &#34;retroID&#34;: &#34;wille101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 215
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willied01&#34;,
+        &#34;birthCity&#34;: &#34;Shreveport&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 1,
+        &#34;birthMonth&#34;: 11,
+        &#34;birthState&#34;: &#34;LA&#34;,
+        &#34;birthYear&#34;: 1964,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1986-04-18&#34;,
+        &#34;finalGame&#34;: &#34;1998-05-27&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Eddie&#34;,
+        &#34;nameGiven&#34;: &#34;Edward Laquan&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willied01&#34;,
+        &#34;retroID&#34;: &#34;wille001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 175
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willifr01&#34;,
+        &#34;birthCity&#34;: &#34;Seattle&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 13,
+        &#34;birthMonth&#34;: 2,
+        &#34;birthState&#34;: &#34;WA&#34;,
+        &#34;birthYear&#34;: 1958,
+        &#34;deathCity&#34;: &#34;Victoria&#34;,
+        &#34;deathCountry&#34;: &#34;CAN&#34;,
+        &#34;deathDay&#34;: &#34;9&#34;,
+        &#34;deathMonth&#34;: &#34;1&#34;,
+        &#34;deathState&#34;: &#34;BC&#34;,
+        &#34;deathYear&#34;: &#34;2009&#34;,
+        &#34;debut&#34;: &#34;1984-04-05&#34;,
+        &#34;finalGame&#34;: &#34;1989-09-27&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Frank&#34;,
+        &#34;nameGiven&#34;: &#34;Frank Lee&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willifr01&#34;,
+        &#34;retroID&#34;: &#34;willf001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willige01&#34;,
+        &#34;birthCity&#34;: &#34;Detroit&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 23,
+        &#34;birthMonth&#34;: 10,
+        &#34;birthState&#34;: &#34;MI&#34;,
+        &#34;birthYear&#34;: 1939,
+        &#34;deathCity&#34;: &#34;Detroit&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;14&#34;,
+        &#34;deathMonth&#34;: &#34;5&#34;,
+        &#34;deathState&#34;: &#34;MI&#34;,
+        &#34;deathYear&#34;: &#34;2009&#34;,
+        &#34;debut&#34;: &#34;1961-07-16&#34;,
+        &#34;finalGame&#34;: &#34;1964-07-05&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;George&#34;,
+        &#34;nameGiven&#34;: &#34;George&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willige01&#34;,
+        &#34;retroID&#34;: &#34;willg101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 165
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willige02&#34;,
+        &#34;birthCity&#34;: &#34;New Orleans&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 10,
+        &#34;birthMonth&#34;: 8,
+        &#34;birthState&#34;: &#34;LA&#34;,
+        &#34;birthYear&#34;: 1966,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1992-09-15&#34;,
+        &#34;finalGame&#34;: &#34;2005-10-02&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Gerald&#34;,
+        &#34;nameGiven&#34;: &#34;Gerald Floyd&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willige02&#34;,
+        &#34;retroID&#34;: &#34;willg001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 190
+    },
+    {
+        &#34;bats&#34;: &#34;B&#34;,
+        &#34;bbrefID&#34;: &#34;willige03&#34;,
+        &#34;birthCity&#34;: &#34;La Crosse&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 22,
+        &#34;birthMonth&#34;: 4,
+        &#34;birthState&#34;: &#34;WI&#34;,
+        &#34;birthYear&#34;: 1969,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1995-07-14&#34;,
+        &#34;finalGame&#34;: &#34;2000-09-13&#34;,
+        &#34;height&#34;: 70,
+        &#34;nameFirst&#34;: &#34;George&#34;,
+        &#34;nameGiven&#34;: &#34;George Erik&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willige03&#34;,
+        &#34;retroID&#34;: &#34;willg002&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 190
+    },
+    {
+        &#34;bats&#34;: &#34;B&#34;,
+        &#34;bbrefID&#34;: &#34;willigl01&#34;,
+        &#34;birthCity&#34;: &#34;Gosford&#34;,
+        &#34;birthCountry&#34;: &#34;Australia&#34;,
+        &#34;birthDay&#34;: 18,
+        &#34;birthMonth&#34;: 7,
+        &#34;birthState&#34;: &#34;New South Wales&#34;,
+        &#34;birthYear&#34;: 1977,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;2005-06-07&#34;,
+        &#34;finalGame&#34;: &#34;2005-06-28&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Glenn&#34;,
+        &#34;nameGiven&#34;: &#34;Glenn David&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willigl01&#34;,
+        &#34;retroID&#34;: &#34;willg003&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 195
+    },
+    {
+        &#34;bats&#34;: &#34;&#34;,
+        &#34;bbrefID&#34;: &#34;willigu01&#34;,
+        &#34;birthCity&#34;: &#34;New York&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 0,
+        &#34;birthMonth&#34;: 0,
+        &#34;birthState&#34;: &#34;NY&#34;,
+        &#34;birthYear&#34;: 1870,
+        &#34;deathCity&#34;: &#34;New York&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;14&#34;,
+        &#34;deathMonth&#34;: &#34;10&#34;,
+        &#34;deathState&#34;: &#34;NY&#34;,
+        &#34;deathYear&#34;: &#34;1890&#34;,
+        &#34;debut&#34;: &#34;1890-04-18&#34;,
+        &#34;finalGame&#34;: &#34;1890-04-22&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Gus&#34;,
+        &#34;nameGiven&#34;: &#34;Augustine H.&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willigu01&#34;,
+        &#34;retroID&#34;: &#34;willg102&#34;,
+        &#34;throws&#34;: &#34;&#34;,
+        &#34;weight&#34;: 170
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willigu02&#34;,
+        &#34;birthCity&#34;: &#34;Omaha&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 7,
+        &#34;birthMonth&#34;: 5,
+        &#34;birthState&#34;: &#34;NE&#34;,
+        &#34;birthYear&#34;: 1888,
+        &#34;deathCity&#34;: &#34;Sterling&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;16&#34;,
+        &#34;deathMonth&#34;: &#34;4&#34;,
+        &#34;deathState&#34;: &#34;IL&#34;,
+        &#34;deathYear&#34;: &#34;1964&#34;,
+        &#34;debut&#34;: &#34;1911-04-12&#34;,
+        &#34;finalGame&#34;: &#34;1915-06-18&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Gus&#34;,
+        &#34;nameGiven&#34;: &#34;August Joseph&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willigu02&#34;,
+        &#34;retroID&#34;: &#34;willg103&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 185
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williha01&#34;,
+        &#34;birthCity&#34;: &#34;Omaha&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 23,
+        &#34;birthMonth&#34;: 6,
+        &#34;birthState&#34;: &#34;NE&#34;,
+        &#34;birthYear&#34;: 1890,
+        &#34;deathCity&#34;: &#34;Huntington Park&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;21&#34;,
+        &#34;deathMonth&#34;: &#34;12&#34;,
+        &#34;deathState&#34;: &#34;CA&#34;,
+        &#34;deathYear&#34;: &#34;1963&#34;,
+        &#34;debut&#34;: &#34;1913-08-07&#34;,
+        &#34;finalGame&#34;: &#34;1914-06-30&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Harry&#34;,
+        &#34;nameGiven&#34;: &#34;Harry Peter&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williha01&#34;,
+        &#34;retroID&#34;: &#34;willh103&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 200
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willija01&#34;,
+        &#34;birthCity&#34;: &#34;Tulsa&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 14,
+        &#34;birthMonth&#34;: 5,
+        &#34;birthState&#34;: &#34;OK&#34;,
+        &#34;birthYear&#34;: 1986,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;2014-08-27&#34;,
+        &#34;finalGame&#34;: &#34;2015-10-04&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Jackson&#34;,
+        &#34;nameGiven&#34;: &#34;Jackson Thomas&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willija01&#34;,
+        &#34;retroID&#34;: &#34;willj005&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 200
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willije02&#34;,
+        &#34;birthCity&#34;: &#34;Canberra&#34;,
+        &#34;birthCountry&#34;: &#34;Australia&#34;,
+        &#34;birthDay&#34;: 6,
+        &#34;birthMonth&#34;: 6,
+        &#34;birthState&#34;: &#34;Capital Territory&#34;,
+        &#34;birthYear&#34;: 1972,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1999-09-12&#34;,
+        &#34;finalGame&#34;: &#34;2002-09-28&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Jeff&#34;,
+        &#34;nameGiven&#34;: &#34;Jeffrey F.&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willije01&#34;,
+        &#34;retroID&#34;: &#34;willj002&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 185
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willije01&#34;,
+        &#34;birthCity&#34;: &#34;Honolulu&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 4,
+        &#34;birthMonth&#34;: 12,
+        &#34;birthState&#34;: &#34;HI&#34;,
+        &#34;birthYear&#34;: 1981,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;2003-04-26&#34;,
+        &#34;finalGame&#34;: &#34;2016-09-26&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Jerome&#34;,
+        &#34;nameGiven&#34;: &#34;Jerome Lee&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willije02&#34;,
+        &#34;retroID&#34;: &#34;willj003&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 260
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williji01&#34;,
+        &#34;birthCity&#34;: &#34;St. Louis&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 20,
+        &#34;birthMonth&#34;: 12,
+        &#34;birthState&#34;: &#34;MO&#34;,
+        &#34;birthYear&#34;: 1876,
+        &#34;deathCity&#34;: &#34;St. Petersburg&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;16&#34;,
+        &#34;deathMonth&#34;: &#34;1&#34;,
+        &#34;deathState&#34;: &#34;FL&#34;,
+        &#34;deathYear&#34;: &#34;1965&#34;,
+        &#34;debut&#34;: &#34;1899-04-15&#34;,
+        &#34;finalGame&#34;: &#34;1909-10-03&#34;,
+        &#34;height&#34;: 69,
+        &#34;nameFirst&#34;: &#34;Jimmy&#34;,
+        &#34;nameGiven&#34;: &#34;James Thomas&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williji01&#34;,
+        &#34;retroID&#34;: &#34;willj106&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 175
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williji03&#34;,
+        &#34;birthCity&#34;: &#34;Santa Maria&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 4,
+        &#34;birthMonth&#34;: 10,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1943,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1966-04-26&#34;,
+        &#34;finalGame&#34;: &#34;1967-09-21&#34;,
+        &#34;height&#34;: 70,
+        &#34;nameFirst&#34;: &#34;Jimy&#34;,
+        &#34;nameGiven&#34;: &#34;James Francis&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williji03&#34;,
+        &#34;retroID&#34;: &#34;willj107&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 170
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williji04&#34;,
+        &#34;birthCity&#34;: &#34;Zachary&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 29,
+        &#34;birthMonth&#34;: 4,
+        &#34;birthState&#34;: &#34;LA&#34;,
+        &#34;birthYear&#34;: 1947,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1969-09-08&#34;,
+        &#34;finalGame&#34;: &#34;1970-09-30&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Jim&#34;,
+        &#34;nameGiven&#34;: &#34;James Alfred&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williji04&#34;,
+        &#34;retroID&#34;: &#34;willj108&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 190
+    },
+    {
+        &#34;bats&#34;: &#34;&#34;,
+        &#34;bbrefID&#34;: &#34;williji99&#34;,
+        &#34;birthCity&#34;: &#34;Catawba&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 4,
+        &#34;birthMonth&#34;: 1,
+        &#34;birthState&#34;: &#34;OH&#34;,
+        &#34;birthYear&#34;: 1847,
+        &#34;deathCity&#34;: &#34;Westbury&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;23&#34;,
+        &#34;deathMonth&#34;: &#34;10&#34;,
+        &#34;deathState&#34;: &#34;NY&#34;,
+        &#34;deathYear&#34;: &#34;1918&#34;,
+        &#34;debut&#34;: &#34;&#34;,
+        &#34;finalGame&#34;: &#34;&#34;,
+        &#34;height&#34;: 0,
+        &#34;nameFirst&#34;: &#34;Jimmy&#34;,
+        &#34;nameGiven&#34;: &#34;James Andrew&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williji99&#34;,
+        &#34;retroID&#34;: &#34;willj801&#34;,
+        &#34;throws&#34;: &#34;&#34;,
+        &#34;weight&#34;: 0
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willijo02&#34;,
+        &#34;birthCity&#34;: &#34;Honolulu&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 16,
+        &#34;birthMonth&#34;: 7,
+        &#34;birthState&#34;: &#34;HI&#34;,
+        &#34;birthYear&#34;: 1889,
+        &#34;deathCity&#34;: &#34;Long Beach&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;8&#34;,
+        &#34;deathMonth&#34;: &#34;9&#34;,
+        &#34;deathState&#34;: &#34;CA&#34;,
+        &#34;deathYear&#34;: &#34;1963&#34;,
+        &#34;debut&#34;: &#34;1914-04-21&#34;,
+        &#34;finalGame&#34;: &#34;1914-08-19&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Johnnie&#34;,
+        &#34;nameGiven&#34;: &#34;John Brodie&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willijo02&#34;,
+        &#34;retroID&#34;: &#34;willj101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willijo99&#34;,
+        &#34;birthCity&#34;: &#34;Seguin&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 6,
+        &#34;birthMonth&#34;: 4,
+        &#34;birthState&#34;: &#34;TX&#34;,
+        &#34;birthYear&#34;: 1885,
+        &#34;deathCity&#34;: &#34;New York&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;25&#34;,
+        &#34;deathMonth&#34;: &#34;2&#34;,
+        &#34;deathState&#34;: &#34;NY&#34;,
+        &#34;deathYear&#34;: &#34;1951&#34;,
+        &#34;debut&#34;: &#34;&#34;,
+        &#34;finalGame&#34;: &#34;&#34;,
+        &#34;height&#34;: 76,
+        &#34;nameFirst&#34;: &#34;Smokey Joe&#34;,
+        &#34;nameGiven&#34;: &#34;Joseph&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willijo99&#34;,
+        &#34;retroID&#34;: &#34;&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 190
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willike01&#34;,
+        &#34;birthCity&#34;: &#34;Grants Pass&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 28,
+        &#34;birthMonth&#34;: 6,
+        &#34;birthState&#34;: &#34;OR&#34;,
+        &#34;birthYear&#34;: 1890,
+        &#34;deathCity&#34;: &#34;Grants Pass&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;22&#34;,
+        &#34;deathMonth&#34;: &#34;1&#34;,
+        &#34;deathState&#34;: &#34;OR&#34;,
+        &#34;deathYear&#34;: &#34;1959&#34;,
+        &#34;debut&#34;: &#34;1915-07-14&#34;,
+        &#34;finalGame&#34;: &#34;1929-08-10&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Ken&#34;,
+        &#34;nameGiven&#34;: &#34;Kenneth Roy&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willike01&#34;,
+        &#34;retroID&#34;: &#34;willk101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 170
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willike02&#34;,
+        &#34;birthCity&#34;: &#34;Berkeley&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 6,
+        &#34;birthMonth&#34;: 4,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1964,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1986-09-02&#34;,
+        &#34;finalGame&#34;: &#34;1991-10-04&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Ken&#34;,
+        &#34;nameGiven&#34;: &#34;Kenneth Royal&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willike02&#34;,
+        &#34;retroID&#34;: &#34;willk001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 187
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willike03&#34;,
+        &#34;birthCity&#34;: &#34;Bedford&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 21,
+        &#34;birthMonth&#34;: 4,
+        &#34;birthState&#34;: &#34;PA&#34;,
+        &#34;birthYear&#34;: 1972,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1996-06-07&#34;,
+        &#34;finalGame&#34;: &#34;1996-06-23&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Keith&#34;,
+        &#34;nameGiven&#34;: &#34;David Keith&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willike03&#34;,
+        &#34;retroID&#34;: &#34;willk002&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 190
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willile01&#34;,
+        &#34;birthCity&#34;: &#34;Aurora&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 9,
+        &#34;birthMonth&#34;: 3,
+        &#34;birthState&#34;: &#34;MO&#34;,
+        &#34;birthYear&#34;: 1893,
+        &#34;deathCity&#34;: &#34;Laguna Beach&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;4&#34;,
+        &#34;deathMonth&#34;: &#34;11&#34;,
+        &#34;deathState&#34;: &#34;CA&#34;,
+        &#34;deathYear&#34;: &#34;1959&#34;,
+        &#34;debut&#34;: &#34;1913-09-17&#34;,
+        &#34;finalGame&#34;: &#34;1920-09-25&#34;,
+        &#34;height&#34;: 69,
+        &#34;nameFirst&#34;: &#34;Lefty&#34;,
+        &#34;nameGiven&#34;: &#34;Claude Preston&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willile01&#34;,
+        &#34;retroID&#34;: &#34;willl104&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 160
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willile03&#34;,
+        &#34;birthCity&#34;: &#34;Macon&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 2,
+        &#34;birthMonth&#34;: 12,
+        &#34;birthState&#34;: &#34;GA&#34;,
+        &#34;birthYear&#34;: 1905,
+        &#34;deathCity&#34;: &#34;Atlanta&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;20&#34;,
+        &#34;deathMonth&#34;: &#34;11&#34;,
+        &#34;deathState&#34;: &#34;GA&#34;,
+        &#34;deathYear&#34;: &#34;1984&#34;,
+        &#34;debut&#34;: &#34;1926-05-26&#34;,
+        &#34;finalGame&#34;: &#34;1926-09-06&#34;,
+        &#34;height&#34;: 70,
+        &#34;nameFirst&#34;: &#34;Leon&#34;,
+        &#34;nameGiven&#34;: &#34;Leon Theo&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willile03&#34;,
+        &#34;retroID&#34;: &#34;willl101&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 154
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willima01&#34;,
+        &#34;birthCity&#34;: &#34;Faison&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 21,
+        &#34;birthMonth&#34;: 2,
+        &#34;birthState&#34;: &#34;NC&#34;,
+        &#34;birthYear&#34;: 1893,
+        &#34;deathCity&#34;: &#34;Tucson&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;22&#34;,
+        &#34;deathMonth&#34;: &#34;2&#34;,
+        &#34;deathState&#34;: &#34;AZ&#34;,
+        &#34;deathYear&#34;: &#34;1935&#34;,
+        &#34;debut&#34;: &#34;1916-07-07&#34;,
+        &#34;finalGame&#34;: &#34;1916-08-25&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Marsh&#34;,
+        &#34;nameGiven&#34;: &#34;Marshall McDiarmid&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willima01&#34;,
+        &#34;retroID&#34;: &#34;willm104&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willima02&#34;,
+        &#34;birthCity&#34;: &#34;Elmira&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 28,
+        &#34;birthMonth&#34;: 7,
+        &#34;birthState&#34;: &#34;NY&#34;,
+        &#34;birthYear&#34;: 1953,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1977-05-20&#34;,
+        &#34;finalGame&#34;: &#34;1977-05-22&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Mark&#34;,
+        &#34;nameGiven&#34;: &#34;Mark Westley&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willima02&#34;,
+        &#34;retroID&#34;: &#34;willm105&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willima03&#34;,
+        &#34;birthCity&#34;: &#34;Houston&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 25,
+        &#34;birthMonth&#34;: 7,
+        &#34;birthState&#34;: &#34;TX&#34;,
+        &#34;birthYear&#34;: 1959,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1983-08-02&#34;,
+        &#34;finalGame&#34;: &#34;1985-10-05&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Matt&#34;,
+        &#34;nameGiven&#34;: &#34;Matthew Evan&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willima03&#34;,
+        &#34;retroID&#34;: &#34;willm001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 200
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willima04&#34;,
+        &#34;birthCity&#34;: &#34;Bishop&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 28,
+        &#34;birthMonth&#34;: 11,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1965,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1987-04-11&#34;,
+        &#34;finalGame&#34;: &#34;2003-05-31&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Matt&#34;,
+        &#34;nameGiven&#34;: &#34;Matthew Derrick&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willima04&#34;,
+        &#34;retroID&#34;: &#34;willm003&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 205
+    },
+    {
+        &#34;bats&#34;: &#34;B&#34;,
+        &#34;bbrefID&#34;: &#34;willima09&#34;,
+        &#34;birthCity&#34;: &#34;Virginia Beach&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 12,
+        &#34;birthMonth&#34;: 4,
+        &#34;birthState&#34;: &#34;VA&#34;,
+        &#34;birthYear&#34;: 1971,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;2000-04-05&#34;,
+        &#34;finalGame&#34;: &#34;2000-04-29&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Matt&#34;,
+        &#34;nameGiven&#34;: &#34;Matt Taylor&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willima06&#34;,
+        &#34;retroID&#34;: &#34;willm006&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 185
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willima10&#34;,
+        &#34;birthCity&#34;: &#34;Pawtucket&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 21,
+        &#34;birthMonth&#34;: 8,
+        &#34;birthState&#34;: &#34;RI&#34;,
+        &#34;birthYear&#34;: 1991,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;2015-06-12&#34;,
+        &#34;finalGame&#34;: &#34;2016-10-02&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Mason&#34;,
+        &#34;nameGiven&#34;: &#34;Mason&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willima07&#34;,
+        &#34;retroID&#34;: &#34;willm007&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 185
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willimi02&#34;,
+        &#34;birthCity&#34;: &#34;Santa Ana&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 17,
+        &#34;birthMonth&#34;: 11,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1964,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1986-04-09&#34;,
+        &#34;finalGame&#34;: &#34;1997-05-10&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Mitch&#34;,
+        &#34;nameGiven&#34;: &#34;Mitchell Steven&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willimi02&#34;,
+        &#34;retroID&#34;: &#34;willm002&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willimi03&#34;,
+        &#34;birthCity&#34;: &#34;Radford&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 29,
+        &#34;birthMonth&#34;: 7,
+        &#34;birthState&#34;: &#34;VA&#34;,
+        &#34;birthYear&#34;: 1968,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1992-06-30&#34;,
+        &#34;finalGame&#34;: &#34;2003-09-28&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Mike&#34;,
+        &#34;nameGiven&#34;: &#34;Michael Darren&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willimi03&#34;,
+        &#34;retroID&#34;: &#34;willm005&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 190
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willimu01&#34;,
+        &#34;birthCity&#34;: &#34;Ozark&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 31,
+        &#34;birthMonth&#34;: 7,
+        &#34;birthState&#34;: &#34;AR&#34;,
+        &#34;birthYear&#34;: 1892,
+        &#34;deathCity&#34;: &#34;Fayetteville&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;30&#34;,
+        &#34;deathMonth&#34;: &#34;3&#34;,
+        &#34;deathState&#34;: &#34;AR&#34;,
+        &#34;deathYear&#34;: &#34;1962&#34;,
+        &#34;debut&#34;: &#34;1913-10-04&#34;,
+        &#34;finalGame&#34;: &#34;1914-10-01&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Mutt&#34;,
+        &#34;nameGiven&#34;: &#34;David Carter&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willimu01&#34;,
+        &#34;retroID&#34;: &#34;willm103&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 195
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williot01&#34;,
+        &#34;birthCity&#34;: &#34;Newark&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 2,
+        &#34;birthMonth&#34;: 11,
+        &#34;birthState&#34;: &#34;NJ&#34;,
+        &#34;birthYear&#34;: 1877,
+        &#34;deathCity&#34;: &#34;Omaha&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;19&#34;,
+        &#34;deathMonth&#34;: &#34;3&#34;,
+        &#34;deathState&#34;: &#34;NE&#34;,
+        &#34;deathYear&#34;: &#34;1937&#34;,
+        &#34;debut&#34;: &#34;1902-10-05&#34;,
+        &#34;finalGame&#34;: &#34;1906-06-09&#34;,
+        &#34;height&#34;: 68,
+        &#34;nameFirst&#34;: &#34;Otto&#34;,
+        &#34;nameGiven&#34;: &#34;Otto George&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williot01&#34;,
+        &#34;retroID&#34;: &#34;willo101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 165
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willipa01&#34;,
+        &#34;birthCity&#34;: &#34;Meridian&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 17,
+        &#34;birthMonth&#34;: 7,
+        &#34;birthState&#34;: &#34;MS&#34;,
+        &#34;birthYear&#34;: 1913,
+        &#34;deathCity&#34;: &#34;Meridian&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;2&#34;,
+        &#34;deathMonth&#34;: &#34;11&#34;,
+        &#34;deathState&#34;: &#34;MS&#34;,
+        &#34;deathYear&#34;: &#34;1993&#34;,
+        &#34;debut&#34;: &#34;1945-04-19&#34;,
+        &#34;finalGame&#34;: &#34;1945-07-08&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Papa&#34;,
+        &#34;nameGiven&#34;: &#34;Fred&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willipa01&#34;,
+        &#34;retroID&#34;: &#34;willp102&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 200
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willipo01&#34;,
+        &#34;birthCity&#34;: &#34;Bowdoinham&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 19,
+        &#34;birthMonth&#34;: 5,
+        &#34;birthState&#34;: &#34;ME&#34;,
+        &#34;birthYear&#34;: 1874,
+        &#34;deathCity&#34;: &#34;Topsham&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;4&#34;,
+        &#34;deathMonth&#34;: &#34;8&#34;,
+        &#34;deathState&#34;: &#34;ME&#34;,
+        &#34;deathYear&#34;: &#34;1959&#34;,
+        &#34;debut&#34;: &#34;1898-09-14&#34;,
+        &#34;finalGame&#34;: &#34;1903-09-15&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Pop&#34;,
+        &#34;nameGiven&#34;: &#34;Walter Merrill&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willipo01&#34;,
+        &#34;retroID&#34;: &#34;willp101&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 190
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willira01&#34;,
+        &#34;birthCity&#34;: &#34;Harlingen&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 18,
+        &#34;birthMonth&#34;: 9,
+        &#34;birthState&#34;: &#34;TX&#34;,
+        &#34;birthYear&#34;: 1975,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;2004-09-11&#34;,
+        &#34;finalGame&#34;: &#34;2011-08-05&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Randy&#34;,
+        &#34;nameGiven&#34;: &#34;Randall Duane&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willira01&#34;,
+        &#34;retroID&#34;: &#34;willr003&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 200
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willire01&#34;,
+        &#34;birthCity&#34;: &#34;Memphis&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 29,
+        &#34;birthMonth&#34;: 8,
+        &#34;birthState&#34;: &#34;TN&#34;,
+        &#34;birthYear&#34;: 1960,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1985-09-02&#34;,
+        &#34;finalGame&#34;: &#34;1988-10-02&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Reggie&#34;,
+        &#34;nameGiven&#34;: &#34;Reginald Dewayne&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willire01&#34;,
+        &#34;retroID&#34;: &#34;willr001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 185
+    },
+    {
+        &#34;bats&#34;: &#34;B&#34;,
+        &#34;bbrefID&#34;: &#34;willire02&#34;,
+        &#34;birthCity&#34;: &#34;Laurens&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 5,
+        &#34;birthMonth&#34;: 5,
+        &#34;birthState&#34;: &#34;SC&#34;,
+        &#34;birthYear&#34;: 1966,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1992-09-08&#34;,
+        &#34;finalGame&#34;: &#34;1999-07-25&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Reggie&#34;,
+        &#34;nameGiven&#34;: &#34;Reginald Bernard&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willire02&#34;,
+        &#34;retroID&#34;: &#34;willr002&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williri01&#34;,
+        &#34;birthCity&#34;: &#34;Carthage&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 31,
+        &#34;birthMonth&#34;: 1,
+        &#34;birthState&#34;: &#34;IL&#34;,
+        &#34;birthYear&#34;: 1882,
+        &#34;deathCity&#34;: &#34;Keokuk&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;23&#34;,
+        &#34;deathMonth&#34;: &#34;7&#34;,
+        &#34;deathState&#34;: &#34;IA&#34;,
+        &#34;deathYear&#34;: &#34;1933&#34;,
+        &#34;debut&#34;: &#34;1911-04-12&#34;,
+        &#34;finalGame&#34;: &#34;1918-06-09&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Rip&#34;,
+        &#34;nameGiven&#34;: &#34;Alva Mitchell&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williri01&#34;,
+        &#34;retroID&#34;: &#34;willr104&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 187
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;williri02&#34;,
+        &#34;birthCity&#34;: &#34;Santa Cruz&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 18,
+        &#34;birthMonth&#34;: 12,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1893,
+        &#34;deathCity&#34;: &#34;Cottonwood&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;24&#34;,
+        &#34;deathMonth&#34;: &#34;4&#34;,
+        &#34;deathState&#34;: &#34;AZ&#34;,
+        &#34;deathYear&#34;: &#34;1966&#34;,
+        &#34;debut&#34;: &#34;1914-10-08&#34;,
+        &#34;finalGame&#34;: &#34;1914-10-10&#34;,
+        &#34;height&#34;: 0,
+        &#34;nameFirst&#34;: &#34;Rinaldo&#34;,
+        &#34;nameGiven&#34;: &#34;Rinaldo Louis&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williri02&#34;,
+        &#34;retroID&#34;: &#34;willr103&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 0
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williri03&#34;,
+        &#34;birthCity&#34;: &#34;Merced&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 9,
+        &#34;birthMonth&#34;: 11,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1952,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1978-06-12&#34;,
+        &#34;finalGame&#34;: &#34;1979-09-26&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Rick&#34;,
+        &#34;nameGiven&#34;: &#34;Richard Allen&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williri03&#34;,
+        &#34;retroID&#34;: &#34;willr101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willish01&#34;,
+        &#34;birthCity&#34;: &#34;Fresno&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 10,
+        &#34;birthMonth&#34;: 3,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1971,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1996-05-18&#34;,
+        &#34;finalGame&#34;: &#34;1997-07-22&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Shad&#34;,
+        &#34;nameGiven&#34;: &#34;Shad Clayton&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willish01&#34;,
+        &#34;retroID&#34;: &#34;wills001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 185
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willist01&#34;,
+        &#34;birthCity&#34;: &#34;Cascade&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 31,
+        &#34;birthMonth&#34;: 1,
+        &#34;birthState&#34;: &#34;MT&#34;,
+        &#34;birthYear&#34;: 1892,
+        &#34;deathCity&#34;: &#34;Deer River&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;29&#34;,
+        &#34;deathMonth&#34;: &#34;6&#34;,
+        &#34;deathState&#34;: &#34;MN&#34;,
+        &#34;deathYear&#34;: &#34;1979&#34;,
+        &#34;debut&#34;: &#34;1914-07-12&#34;,
+        &#34;finalGame&#34;: &#34;1916-10-01&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Steamboat&#34;,
+        &#34;nameGiven&#34;: &#34;Rees Gephardt&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willist01&#34;,
+        &#34;retroID&#34;: &#34;wills101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 170
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willist02&#34;,
+        &#34;birthCity&#34;: &#34;Enfield&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 14,
+        &#34;birthMonth&#34;: 9,
+        &#34;birthState&#34;: &#34;NH&#34;,
+        &#34;birthYear&#34;: 1936,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1958-05-17&#34;,
+        &#34;finalGame&#34;: &#34;1972-08-01&#34;,
+        &#34;height&#34;: 77,
+        &#34;nameFirst&#34;: &#34;Stan&#34;,
+        &#34;nameGiven&#34;: &#34;Stanley Wilson&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willist02&#34;,
+        &#34;retroID&#34;: &#34;wills102&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 230
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willite01&#34;,
+        &#34;birthCity&#34;: &#34;San Diego&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 30,
+        &#34;birthMonth&#34;: 8,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1918,
+        &#34;deathCity&#34;: &#34;Inverness&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;5&#34;,
+        &#34;deathMonth&#34;: &#34;7&#34;,
+        &#34;deathState&#34;: &#34;FL&#34;,
+        &#34;deathYear&#34;: &#34;2002&#34;,
+        &#34;debut&#34;: &#34;1939-04-20&#34;,
+        &#34;finalGame&#34;: &#34;1960-09-28&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Ted&#34;,
+        &#34;nameGiven&#34;: &#34;Theodore Samuel&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willite01&#34;,
+        &#34;retroID&#34;: &#34;willt103&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 205
+    },
+    {
+        &#34;bats&#34;: &#34;&#34;,
+        &#34;bbrefID&#34;: &#34;willito01&#34;,
+        &#34;birthCity&#34;: &#34;Minersville&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 19,
+        &#34;birthMonth&#34;: 8,
+        &#34;birthState&#34;: &#34;OH&#34;,
+        &#34;birthYear&#34;: 1870,
+        &#34;deathCity&#34;: &#34;Columbus&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;27&#34;,
+        &#34;deathMonth&#34;: &#34;7&#34;,
+        &#34;deathState&#34;: &#34;OH&#34;,
+        &#34;deathYear&#34;: &#34;1940&#34;,
+        &#34;debut&#34;: &#34;1892-05-01&#34;,
+        &#34;finalGame&#34;: &#34;1893-09-14&#34;,
+        &#34;height&#34;: 0,
+        &#34;nameFirst&#34;: &#34;Tom&#34;,
+        &#34;nameGiven&#34;: &#34;Thomas C.&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willito01&#34;,
+        &#34;retroID&#34;: &#34;willt101&#34;,
+        &#34;throws&#34;: &#34;&#34;,
+        &#34;weight&#34;: 0
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willito02&#34;,
+        &#34;birthCity&#34;: &#34;Syracuse&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 13,
+        &#34;birthMonth&#34;: 2,
+        &#34;birthState&#34;: &#34;NY&#34;,
+        &#34;birthYear&#34;: 1971,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1995-04-29&#34;,
+        &#34;finalGame&#34;: &#34;2007-06-15&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Todd&#34;,
+        &#34;nameGiven&#34;: &#34;Todd Michael&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willito02&#34;,
+        &#34;retroID&#34;: &#34;willt001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 185
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willitr01&#34;,
+        &#34;birthCity&#34;: &#34;San Diego&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 25,
+        &#34;birthMonth&#34;: 4,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1992,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;2016-09-07&#34;,
+        &#34;finalGame&#34;: &#34;2016-10-02&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Trevor&#34;,
+        &#34;nameGiven&#34;: &#34;Trevor Anthony&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;willitr01&#34;,
+        &#34;retroID&#34;: &#34;willt002&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 230
+    },
+    {
+        &#34;bats&#34;: &#34;&#34;,
+        &#34;bbrefID&#34;: &#34;williwa01&#34;,
+        &#34;birthCity&#34;: &#34;Philadelphia&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 0,
+        &#34;birthMonth&#34;: 0,
+        &#34;birthState&#34;: &#34;PA&#34;,
+        &#34;birthYear&#34;: 0,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1884-08-05&#34;,
+        &#34;finalGame&#34;: &#34;1885-06-08&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Wash&#34;,
+        &#34;nameGiven&#34;: &#34;Washington J.&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williwa01&#34;,
+        &#34;retroID&#34;: &#34;willw102&#34;,
+        &#34;throws&#34;: &#34;&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williwa02&#34;,
+        &#34;birthCity&#34;: &#34;Brownwood&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 19,
+        &#34;birthMonth&#34;: 12,
+        &#34;birthState&#34;: &#34;TX&#34;,
+        &#34;birthYear&#34;: 1943,
+        &#34;deathCity&#34;: &#34;Abilene&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;23&#34;,
+        &#34;deathMonth&#34;: &#34;1&#34;,
+        &#34;deathState&#34;: &#34;TX&#34;,
+        &#34;deathYear&#34;: &#34;2016&#34;,
+        &#34;debut&#34;: &#34;1964-04-21&#34;,
+        &#34;finalGame&#34;: &#34;1975-09-22&#34;,
+        &#34;height&#34;: 66,
+        &#34;nameFirst&#34;: &#34;Walt&#34;,
+        &#34;nameGiven&#34;: &#34;Walter Allen&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williwa02&#34;,
+        &#34;retroID&#34;: &#34;willw103&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 165
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williwo01&#34;,
+        &#34;birthCity&#34;: &#34;Pamplin&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 21,
+        &#34;birthMonth&#34;: 8,
+        &#34;birthState&#34;: &#34;VA&#34;,
+        &#34;birthYear&#34;: 1912,
+        &#34;deathCity&#34;: &#34;Appomattox&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;24&#34;,
+        &#34;deathMonth&#34;: &#34;2&#34;,
+        &#34;deathState&#34;: &#34;VA&#34;,
+        &#34;deathYear&#34;: &#34;1995&#34;,
+        &#34;debut&#34;: &#34;1938-09-05&#34;,
+        &#34;finalGame&#34;: &#34;1945-09-30&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Woody&#34;,
+        &#34;nameGiven&#34;: &#34;Woodrow Wilson&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williwo01&#34;,
+        &#34;retroID&#34;: &#34;willw101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 175
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williwo02&#34;,
+        &#34;birthCity&#34;: &#34;Houston&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 19,
+        &#34;birthMonth&#34;: 8,
+        &#34;birthState&#34;: &#34;TX&#34;,
+        &#34;birthYear&#34;: 1966,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1993-05-14&#34;,
+        &#34;finalGame&#34;: &#34;2007-09-22&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Woody&#34;,
+        &#34;nameGiven&#34;: &#34;Gregory Scott&#34;,
+        &#34;nameLast&#34;: &#34;Williams&#34;,
+        &#34;playerID&#34;: &#34;williwo02&#34;,
+        &#34;retroID&#34;: &#34;willw001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willial01&#34;,
+        &#34;birthCity&#34;: &#34;Buckville&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 20,
+        &#34;birthMonth&#34;: 2,
+        &#34;birthState&#34;: &#34;AR&#34;,
+        &#34;birthYear&#34;: 1900,
+        &#34;deathCity&#34;: &#34;Hot Springs&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;29&#34;,
+        &#34;deathMonth&#34;: &#34;11&#34;,
+        &#34;deathState&#34;: &#34;AR&#34;,
+        &#34;deathYear&#34;: &#34;1978&#34;,
+        &#34;debut&#34;: &#34;1928-04-27&#34;,
+        &#34;finalGame&#34;: &#34;1928-04-27&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Al&#34;,
+        &#34;nameGiven&#34;: &#34;Silas Albert&#34;,
+        &#34;nameLast&#34;: &#34;Williamson&#34;,
+        &#34;playerID&#34;: &#34;willial01&#34;,
+        &#34;retroID&#34;: &#34;willa102&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 160
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willian01&#34;,
+        &#34;birthCity&#34;: &#34;Harbor City&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 18,
+        &#34;birthMonth&#34;: 7,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1973,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1997-05-31&#34;,
+        &#34;finalGame&#34;: &#34;1997-07-03&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Antone&#34;,
+        &#34;nameGiven&#34;: &#34;Anthony Joseph&#34;,
+        &#34;nameLast&#34;: &#34;Williamson&#34;,
+        &#34;playerID&#34;: &#34;willian01&#34;,
+        &#34;retroID&#34;: &#34;willa002&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 195
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;williho01&#34;,
+        &#34;birthCity&#34;: &#34;Little Rock&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 23,
+        &#34;birthMonth&#34;: 12,
+        &#34;birthState&#34;: &#34;AR&#34;,
+        &#34;birthYear&#34;: 1904,
+        &#34;deathCity&#34;: &#34;Texarkana&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;15&#34;,
+        &#34;deathMonth&#34;: &#34;8&#34;,
+        &#34;deathState&#34;: &#34;AR&#34;,
+        &#34;deathYear&#34;: &#34;1969&#34;,
+        &#34;debut&#34;: &#34;1928-07-07&#34;,
+        &#34;finalGame&#34;: &#34;1928-08-17&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Howie&#34;,
+        &#34;nameGiven&#34;: &#34;Nathaniel Howard&#34;,
+        &#34;nameLast&#34;: &#34;Williamson&#34;,
+        &#34;playerID&#34;: &#34;williho01&#34;,
+        &#34;retroID&#34;: &#34;willh101&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 170
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willima05&#34;,
+        &#34;birthCity&#34;: &#34;Corpus Christi&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 21,
+        &#34;birthMonth&#34;: 7,
+        &#34;birthState&#34;: &#34;TX&#34;,
+        &#34;birthYear&#34;: 1959,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1987-04-08&#34;,
+        &#34;finalGame&#34;: &#34;1994-08-04&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Mark&#34;,
+        &#34;nameGiven&#34;: &#34;Mark Alan&#34;,
+        &#34;nameLast&#34;: &#34;Williamson&#34;,
+        &#34;playerID&#34;: &#34;willima05&#34;,
+        &#34;retroID&#34;: &#34;willm004&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 155
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willima11&#34;,
+        &#34;birthCity&#34;: &#34;Jacksonville&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 15,
+        &#34;birthMonth&#34;: 7,
+        &#34;birthState&#34;: &#34;FL&#34;,
+        &#34;birthYear&#34;: 1990,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;2015-09-23&#34;,
+        &#34;finalGame&#34;: &#34;2016-09-25&#34;,
+        &#34;height&#34;: 76,
+        &#34;nameFirst&#34;: &#34;Mac&#34;,
+        &#34;nameGiven&#34;: &#34;Johnathan Mackensey&#34;,
+        &#34;nameLast&#34;: &#34;Williamson&#34;,
+        &#34;playerID&#34;: &#34;willima08&#34;,
+        &#34;retroID&#34;: &#34;willm008&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 240
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willine01&#34;,
+        &#34;birthCity&#34;: &#34;Philadelphia&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 24,
+        &#34;birthMonth&#34;: 10,
+        &#34;birthState&#34;: &#34;PA&#34;,
+        &#34;birthYear&#34;: 1857,
+        &#34;deathCity&#34;: &#34;Mountain Valley Springs&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;3&#34;,
+        &#34;deathMonth&#34;: &#34;3&#34;,
+        &#34;deathState&#34;: &#34;AR&#34;,
+        &#34;deathYear&#34;: &#34;1894&#34;,
+        &#34;debut&#34;: &#34;1878-05-01&#34;,
+        &#34;finalGame&#34;: &#34;1890-09-27&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Ned&#34;,
+        &#34;nameGiven&#34;: &#34;Edward Nagle&#34;,
+        &#34;nameLast&#34;: &#34;Williamson&#34;,
+        &#34;playerID&#34;: &#34;willine01&#34;,
+        &#34;retroID&#34;: &#34;willn102&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 210
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willisc01&#34;,
+        &#34;birthCity&#34;: &#34;Fort Polk&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 17,
+        &#34;birthMonth&#34;: 2,
+        &#34;birthState&#34;: &#34;LA&#34;,
+        &#34;birthYear&#34;: 1976,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1999-04-05&#34;,
+        &#34;finalGame&#34;: &#34;2007-06-29&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Scott&#34;,
+        &#34;nameGiven&#34;: &#34;Scott Ryan&#34;,
+        &#34;nameLast&#34;: &#34;Williamson&#34;,
+        &#34;playerID&#34;: &#34;willisc01&#34;,
+        &#34;retroID&#34;: &#34;wills002&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 195
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;williju01&#34;,
+        &#34;birthCity&#34;: &#34;Marshalltown&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 27,
+        &#34;birthMonth&#34;: 10,
+        &#34;birthState&#34;: &#34;IA&#34;,
+        &#34;birthYear&#34;: 1857,
+        &#34;deathCity&#34;: &#34;San Francisco&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;27&#34;,
+        &#34;deathMonth&#34;: &#34;11&#34;,
+        &#34;deathState&#34;: &#34;CA&#34;,
+        &#34;deathYear&#34;: &#34;1906&#34;,
+        &#34;debut&#34;: &#34;1882-07-15&#34;,
+        &#34;finalGame&#34;: &#34;1882-08-19&#34;,
+        &#34;height&#34;: 69,
+        &#34;nameFirst&#34;: &#34;Julius&#34;,
+        &#34;nameGiven&#34;: &#34;Julius&#34;,
+        &#34;nameLast&#34;: &#34;Willigrod&#34;,
+        &#34;playerID&#34;: &#34;williju01&#34;,
+        &#34;retroID&#34;: &#34;willj105&#34;,
+        &#34;throws&#34;: &#34;&#34;,
+        &#34;weight&#34;: 0
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willihu01&#34;,
+        &#34;birthCity&#34;: &#34;Dalhart&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 30,
+        &#34;birthMonth&#34;: 5,
+        &#34;birthState&#34;: &#34;TX&#34;,
+        &#34;birthYear&#34;: 1906,
+        &#34;deathCity&#34;: &#34;El Reno&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;15&#34;,
+        &#34;deathMonth&#34;: &#34;6&#34;,
+        &#34;deathState&#34;: &#34;OK&#34;,
+        &#34;deathYear&#34;: &#34;1988&#34;,
+        &#34;debut&#34;: &#34;1930-09-13&#34;,
+        &#34;finalGame&#34;: &#34;1933-05-04&#34;,
+        &#34;height&#34;: 72,
+        &#34;nameFirst&#34;: &#34;Hugh&#34;,
+        &#34;nameGiven&#34;: &#34;Thomas Hugh&#34;,
+        &#34;nameLast&#34;: &#34;Willingham&#34;,
+        &#34;playerID&#34;: &#34;willihu01&#34;,
+        &#34;retroID&#34;: &#34;willh102&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 180
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willijo03&#34;,
+        &#34;birthCity&#34;: &#34;Florence&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 17,
+        &#34;birthMonth&#34;: 2,
+        &#34;birthState&#34;: &#34;AL&#34;,
+        &#34;birthYear&#34;: 1979,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;2004-07-06&#34;,
+        &#34;finalGame&#34;: &#34;2014-09-28&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Josh&#34;,
+        &#34;nameGiven&#34;: &#34;Joshua David&#34;,
+        &#34;nameLast&#34;: &#34;Willingham&#34;,
+        &#34;playerID&#34;: &#34;willijo03&#34;,
+        &#34;retroID&#34;: &#34;willj004&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 230
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willica01&#34;,
+        &#34;birthCity&#34;: &#34;Danville&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 28,
+        &#34;birthMonth&#34;: 12,
+        &#34;birthState&#34;: &#34;VA&#34;,
+        &#34;birthYear&#34;: 1960,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1984-06-09&#34;,
+        &#34;finalGame&#34;: &#34;1995-05-03&#34;,
+        &#34;height&#34;: 76,
+        &#34;nameFirst&#34;: &#34;Carl&#34;,
+        &#34;nameGiven&#34;: &#34;Carl Blake&#34;,
+        &#34;nameLast&#34;: &#34;Willis&#34;,
+        &#34;playerID&#34;: &#34;willica01&#34;,
+        &#34;retroID&#34;: &#34;willc001&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 210
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willida04&#34;,
+        &#34;birthCity&#34;: &#34;Calhoun&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 29,
+        &#34;birthMonth&#34;: 5,
+        &#34;birthState&#34;: &#34;GA&#34;,
+        &#34;birthYear&#34;: 1938,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1963-04-14&#34;,
+        &#34;finalGame&#34;: &#34;1963-09-13&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Dale&#34;,
+        &#34;nameGiven&#34;: &#34;Dale Jerome&#34;,
+        &#34;nameLast&#34;: &#34;Willis&#34;,
+        &#34;playerID&#34;: &#34;willida04&#34;,
+        &#34;retroID&#34;: &#34;willd111&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 165
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willido03&#34;,
+        &#34;birthCity&#34;: &#34;Oakland&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 12,
+        &#34;birthMonth&#34;: 1,
+        &#34;birthState&#34;: &#34;CA&#34;,
+        &#34;birthYear&#34;: 1982,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;2003-05-09&#34;,
+        &#34;finalGame&#34;: &#34;2011-09-27&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Dontrelle&#34;,
+        &#34;nameGiven&#34;: &#34;Dontrelle Wayne&#34;,
+        &#34;nameLast&#34;: &#34;Willis&#34;,
+        &#34;playerID&#34;: &#34;willido03&#34;,
+        &#34;retroID&#34;: &#34;willd003&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 230
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;williji02&#34;,
+        &#34;birthCity&#34;: &#34;Doyline&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 20,
+        &#34;birthMonth&#34;: 3,
+        &#34;birthState&#34;: &#34;LA&#34;,
+        &#34;birthYear&#34;: 1927,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1953-04-22&#34;,
+        &#34;finalGame&#34;: &#34;1954-06-05&#34;,
+        &#34;height&#34;: 75,
+        &#34;nameFirst&#34;: &#34;Jim&#34;,
+        &#34;nameGiven&#34;: &#34;James Gladden&#34;,
+        &#34;nameLast&#34;: &#34;Willis&#34;,
+        &#34;playerID&#34;: &#34;williji02&#34;,
+        &#34;retroID&#34;: &#34;willj104&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 175
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willijo01&#34;,
+        &#34;birthCity&#34;: &#34;Coal Grove&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 9,
+        &#34;birthMonth&#34;: 4,
+        &#34;birthState&#34;: &#34;OH&#34;,
+        &#34;birthYear&#34;: 1890,
+        &#34;deathCity&#34;: &#34;Ironton&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;4&#34;,
+        &#34;deathMonth&#34;: &#34;12&#34;,
+        &#34;deathState&#34;: &#34;OH&#34;,
+        &#34;deathYear&#34;: &#34;1966&#34;,
+        &#34;debut&#34;: &#34;1911-05-03&#34;,
+        &#34;finalGame&#34;: &#34;1913-06-10&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Joe&#34;,
+        &#34;nameGiven&#34;: &#34;Joseph Dank&#34;,
+        &#34;nameLast&#34;: &#34;Willis&#34;,
+        &#34;playerID&#34;: &#34;willijo01&#34;,
+        &#34;retroID&#34;: &#34;willj103&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 185
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willile02&#34;,
+        &#34;birthCity&#34;: &#34;Leetown&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 4,
+        &#34;birthMonth&#34;: 11,
+        &#34;birthState&#34;: &#34;WV&#34;,
+        &#34;birthYear&#34;: 1905,
+        &#34;deathCity&#34;: &#34;Bethesda&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;10&#34;,
+        &#34;deathMonth&#34;: &#34;5&#34;,
+        &#34;deathState&#34;: &#34;MD&#34;,
+        &#34;deathYear&#34;: &#34;1962&#34;,
+        &#34;debut&#34;: &#34;1925-10-03&#34;,
+        &#34;finalGame&#34;: &#34;1927-07-12&#34;,
+        &#34;height&#34;: 73,
+        &#34;nameFirst&#34;: &#34;Lefty&#34;,
+        &#34;nameGiven&#34;: &#34;Charles William&#34;,
+        &#34;nameLast&#34;: &#34;Willis&#34;,
+        &#34;playerID&#34;: &#34;willile02&#34;,
+        &#34;retroID&#34;: &#34;willl103&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 175
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willile04&#34;,
+        &#34;birthCity&#34;: &#34;Nacogdoches&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 17,
+        &#34;birthMonth&#34;: 1,
+        &#34;birthState&#34;: &#34;TX&#34;,
+        &#34;birthYear&#34;: 1908,
+        &#34;deathCity&#34;: &#34;Jasper&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;22&#34;,
+        &#34;deathMonth&#34;: &#34;1&#34;,
+        &#34;deathState&#34;: &#34;TX&#34;,
+        &#34;deathYear&#34;: &#34;1982&#34;,
+        &#34;debut&#34;: &#34;1947-04-28&#34;,
+        &#34;finalGame&#34;: &#34;1947-08-23&#34;,
+        &#34;height&#34;: 69,
+        &#34;nameFirst&#34;: &#34;Les&#34;,
+        &#34;nameGiven&#34;: &#34;Lester Evans&#34;,
+        &#34;nameLast&#34;: &#34;Willis&#34;,
+        &#34;playerID&#34;: &#34;willile04&#34;,
+        &#34;retroID&#34;: &#34;willl102&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 195
+    },
+    {
+        &#34;bats&#34;: &#34;L&#34;,
+        &#34;bbrefID&#34;: &#34;willimi01&#34;,
+        &#34;birthCity&#34;: &#34;Oklahoma City&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 26,
+        &#34;birthMonth&#34;: 12,
+        &#34;birthState&#34;: &#34;OK&#34;,
+        &#34;birthYear&#34;: 1950,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;1977-04-13&#34;,
+        &#34;finalGame&#34;: &#34;1981-06-11&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Mike&#34;,
+        &#34;nameGiven&#34;: &#34;Michael Henry&#34;,
+        &#34;nameLast&#34;: &#34;Willis&#34;,
+        &#34;playerID&#34;: &#34;willimi01&#34;,
+        &#34;retroID&#34;: &#34;willm101&#34;,
+        &#34;throws&#34;: &#34;L&#34;,
+        &#34;weight&#34;: 205
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;williro01&#34;,
+        &#34;birthCity&#34;: &#34;Willisville&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 12,
+        &#34;birthMonth&#34;: 7,
+        &#34;birthState&#34;: &#34;TN&#34;,
+        &#34;birthYear&#34;: 1943,
+        &#34;deathCity&#34;: &#34;Memphis&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;21&#34;,
+        &#34;deathMonth&#34;: &#34;11&#34;,
+        &#34;deathState&#34;: &#34;TN&#34;,
+        &#34;deathYear&#34;: &#34;1977&#34;,
+        &#34;debut&#34;: &#34;1966-09-20&#34;,
+        &#34;finalGame&#34;: &#34;1970-09-29&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Ron&#34;,
+        &#34;nameGiven&#34;: &#34;Ronald Earl&#34;,
+        &#34;nameLast&#34;: &#34;Willis&#34;,
+        &#34;playerID&#34;: &#34;williro01&#34;,
+        &#34;retroID&#34;: &#34;willr102&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 185
+    },
+    {
+        &#34;bats&#34;: &#34;R&#34;,
+        &#34;bbrefID&#34;: &#34;willivi01&#34;,
+        &#34;birthCity&#34;: &#34;Cecil County&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 12,
+        &#34;birthMonth&#34;: 4,
+        &#34;birthState&#34;: &#34;MD&#34;,
+        &#34;birthYear&#34;: 1876,
+        &#34;deathCity&#34;: &#34;Elkton&#34;,
+        &#34;deathCountry&#34;: &#34;USA&#34;,
+        &#34;deathDay&#34;: &#34;3&#34;,
+        &#34;deathMonth&#34;: &#34;8&#34;,
+        &#34;deathState&#34;: &#34;MD&#34;,
+        &#34;deathYear&#34;: &#34;1947&#34;,
+        &#34;debut&#34;: &#34;1898-04-20&#34;,
+        &#34;finalGame&#34;: &#34;1910-09-05&#34;,
+        &#34;height&#34;: 74,
+        &#34;nameFirst&#34;: &#34;Vic&#34;,
+        &#34;nameGiven&#34;: &#34;Victor Gazaway&#34;,
+        &#34;nameLast&#34;: &#34;Willis&#34;,
+        &#34;playerID&#34;: &#34;willivi01&#34;,
+        &#34;retroID&#34;: &#34;willv101&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 185
+    },
+    {
+        &#34;bats&#34;: &#34;B&#34;,
+        &#34;bbrefID&#34;: &#34;willire03&#34;,
+        &#34;birthCity&#34;: &#34;Chickasha&#34;,
+        &#34;birthCountry&#34;: &#34;USA&#34;,
+        &#34;birthDay&#34;: 30,
+        &#34;birthMonth&#34;: 5,
+        &#34;birthState&#34;: &#34;OK&#34;,
+        &#34;birthYear&#34;: 1981,
+        &#34;deathCity&#34;: &#34;&#34;,
+        &#34;deathCountry&#34;: &#34;&#34;,
+        &#34;deathDay&#34;: &#34;&#34;,
+        &#34;deathMonth&#34;: &#34;&#34;,
+        &#34;deathState&#34;: &#34;&#34;,
+        &#34;deathYear&#34;: &#34;&#34;,
+        &#34;debut&#34;: &#34;2006-04-26&#34;,
+        &#34;finalGame&#34;: &#34;2011-06-03&#34;,
+        &#34;height&#34;: 71,
+        &#34;nameFirst&#34;: &#34;Reggie&#34;,
+        &#34;nameGiven&#34;: &#34;Reggie Gene&#34;,
+        &#34;nameLast&#34;: &#34;Willits&#34;,
+        &#34;playerID&#34;: &#34;willire03&#34;,
+        &#34;retroID&#34;: &#34;willr004&#34;,
+        &#34;throws&#34;: &#34;R&#34;,
+        &#34;weight&#34;: 185
+    }
+]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Project-Clause-(the-Clause-that-Follows-SELECT)">Project Clause (the Clause that Follows SELECT)<a class="anchor-link" href="#Project-Clause-(the-Clause-that-Follows-SELECT)">&#182;</a></h3><ul>
+<li>AKA <em>Select Expression</em></li>
+</ul>
+<ul>
+<li>The basic syntax is $term, term,...$ where $term$ is a column name or function of column names.</li>
+</ul>
+<ul>
+<li>$term $ $AS $ $alias$ renames a term (result column) in the result table.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="s2">&quot;SELECT nameLast as last_name, nameFirst as first_name, &quot;</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">q</span> <span class="o">+</span> <span class="s2">&quot;(deathYear - birthYear) AS lifespan, &quot;</span> 
+<span class="n">q</span> <span class="o">=</span> <span class="n">q</span> <span class="o">+</span> <span class="s2">&quot;CONCAT(nameGiven,&#39; &#39;,nameLast) as greatest_hitter_ever FROM Master &quot;</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">q</span> <span class="o">+</span> <span class="s2">&quot;WHERE nameLast=&#39;Williams&#39; AND nameFirst=&#39;Ted&#39;;&quot;</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">execute_query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">pretty_print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Executing query =  SELECT nameLast as last_name, nameFirst as first_name, (deathYear - birthYear) AS lifespan, CONCAT(nameGiven,&#39; &#39;,nameLast) as greatest_hitter_ever FROM Master WHERE nameLast=&#39;Williams&#39; AND nameFirst=&#39;Ted&#39;;
+Connected.
+Disconnected
+Result =  [
+    {
+        &#34;first_name&#34;: &#34;Ted&#34;,
+        &#34;greatest_hitter_ever&#34;: &#34;Theodore Samuel Williams&#34;,
+        &#34;last_name&#34;: &#34;Williams&#34;,
+        &#34;lifespan&#34;: 84.0
+    }
+]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Keys-and-Indexes">Keys and Indexes<a class="anchor-link" href="#Keys-and-Indexes">&#182;</a></h3><ul>
+<li>Relational theory treats keys as an <em>integrity constraint.</em><ul>
+<li>The ICs ensure that create, update and delete do not cause data integrity.</li>
+<li>This is a very important capability, and RDBs have advanced IC functionality, which we will see in future lectures.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>For read, most RDBs implement $keys$ using an <em>index.</em><ul>
+<li>A table can have many indexes.</li>
+<li>The indexes optimize both constraint implementation, <em>and SELECT performance.</em></li>
+<li>An index may or may not enforce uniqueness.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>The CREATE statement below<ul>
+<li>Has a <em>primary key</em> on <em>playerID,</em> which enforces uniqueness and optimizes SELECT.</li>
+<li>A <em>non-unique index</em> on <em>nameLast,</em> which optimizes SELECT performance</li>
+</ul>
+</li>
+</ul>
+
+<pre><code>CREATE TABLE `Master` (
+  `playerID` varchar(255) NOT NULL,
+  `birthYear` int(11) DEFAULT NULL,
+  `birthMonth` int(11) NOT NULL,
+  `birthDay` int(11) DEFAULT NULL,
+  `birthCountry` varchar(255) DEFAULT NULL,
+  `birthState` varchar(255) DEFAULT NULL,
+  `birthCity` varchar(255) DEFAULT NULL,
+  `deathYear` varchar(255) DEFAULT NULL,
+  `deathMonth` varchar(255) DEFAULT NULL,
+  `deathDay` varchar(255) DEFAULT NULL,
+  `deathCountry` varchar(255) DEFAULT NULL,
+  `deathState` varchar(255) DEFAULT NULL,
+  `deathCity` varchar(255) DEFAULT NULL,
+  `nameFirst` varchar(255) NOT NULL,
+  `nameLast` varchar(255) NOT NULL,
+  `nameGiven` varchar(255) DEFAULT NULL,
+  `weight` int(11) DEFAULT NULL,
+  `height` int(11) DEFAULT NULL,
+  `bats` varchar(255) DEFAULT NULL,
+  `throws` varchar(255) DEFAULT NULL,
+  `debut` varchar(255) DEFAULT NULL,
+  `finalGame` varchar(255) DEFAULT NULL,
+  `retroID` varchar(255) DEFAULT NULL,
+  `bbrefID` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`playerID`),
+  KEY `player_idx` (`playerID`),
+  KEY `name_l` (`nameLast`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;</code></pre>
+<ul>
+<li>The SQL Workbench is a good way to view and edit indexes.</li>
+</ul>
+<p><img src="../images/L4_index_workbench.jpeg"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Execution Examples:</p>
+<p><img src="../images/L4_index_performance.jpeg"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>SELECTs that cannot use an index have to scan the table, which is $O(N).$</li>
+</ul>
+<ul>
+<li>SELECTs that can use an index are<ul>
+<li>$O(N*Log(N))$ if it can use a tree index.</li>
+<li>$O(1)$ if it can use a hash index.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>We will cover indexes, performance implications and  implementation in future lectures.</li>
+</ul>
+<ul>
+<li>The obvious question is, "Why not index everything?" Indexes take up storage, and there is a <a href="https://en.wikipedia.org/wiki/Space%E2%80%93time_tradeoff">space-time tradeoff.</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="SQL-is-an-Algebra">SQL is an Algebra<a class="anchor-link" href="#SQL-is-an-Algebra">&#182;</a></h3><ul>
+<li>All SQL DML statements produce a relation/table.</li>
+</ul>
+<ul>
+<li>This means, and it is normally the case, that SQL statements are algebraic combinations of simpler SQL statements.</li>
+</ul>
+
+<pre><code>SELECT
+    playerID, nameLast, nameFirst
+FROM
+    (SELECT * FROM Master WHERE nameLast LIKE 'William%') as a;</code></pre>
+<ul>
+<li>SELECTS all players with nameList LIKE 'William%' to produce derived table a.</li>
+</ul>
+<ul>
+<li>PROJECTS on a to get columns playerID, nameLast, nameFirst.</li>
+</ul>
+<ul>
+<li>And is equivalent to </li>
+</ul>
+
+<pre><code>SELECT
+    *
+FROM
+    (SELECT playerID, nameLast, nameFirst FROM Master ) as a
+WHERE
+    nameLast LIKE 'William%'</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Implementation">Implementation<a class="anchor-link" href="#Implementation">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conceptual-Data-Model">Conceptual Data Model<a class="anchor-link" href="#Conceptual-Data-Model">&#182;</a></h3><p>Reminder
 <br><br>
-<img src="../images/django-architecture.jpg"></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Scenario-I----Basic-Player-Information">Scenario I -- Basic Player Information<a class="anchor-link" href="#Scenario-I----Basic-Player-Information">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h3><p><img src="../images/scenario1topo.jpeg"></p>
-<h4 id="Logical-System-Structure">Logical System Structure<a class="anchor-link" href="#Logical-System-Structure">&#182;</a></h4><ul>
-<li>The system will have the following subsystems<ul>
-<li>Web content (HTML, CSS, JPEG, ...) on the filesystem</li>
-<li>A Django (or NodeJS, J2EE, ...) server that delivers static content and implements REST API.</li>
-<li>MqSQL Server database with tables for the application's data.</li>
-<li>Web browser interface.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>The physical topology is that all software runs on a single user machine, i.e. your development laptop.</li>
-</ul>
-<h4 id="Functionality-and-Use-Cases">Functionality and Use Cases<a class="anchor-link" href="#Functionality-and-Use-Cases">&#182;</a></h4><ul>
-<li>Initially the application is <em>read only.</em><ul>
-<li>Users may access query and view information about players and statstics.</li>
-<li>All data is preloaded into the database using data import capabilities.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>Some examples of supported queries are:</p>
-<ul>
-<li>Find a player by ID and display basic name, birth country, etc.</li>
-<li>Find all players matching a search condition, e.g. name, country of birth, etc.</li>
-<li><p>Display a player's career statistics and averages.</p>
-<p>We will expand the supported use cases incrementally, learning new data modeling, relational and SQL concepts.</p>
-</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Data-Model">Data Model<a class="anchor-link" href="#Data-Model">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Conceptual-Data-Model">Conceptual Data Model<a class="anchor-link" href="#Conceptual-Data-Model">&#182;</a></h4><p><img src="../images/scenario1-conceptual1.jpeg"></p>
+<img src="../images/conceptuallogicalphysical.jpeg"></p>
 <ul>
 <li>There are three entities<ul>
 <li><em>Master</em> represents information about an individual in the database.</li>
@@ -12010,11 +15890,6 @@ $( document ).ready(function(){
 <li><em>Batting</em> represents information about a player's batting for teams and seasons.</li>
 </ul>
 </li>
-</ul>
-<ul>
-<li>Reminder
-<br><br>
-<img src="../images/conceptuallogicalphysical.jpeg"></li>
 </ul>
 <ul>
 <li>How do you identify entity types/entities? From <a href="http://www.agiledata.org/essays/dataModeling101.html">http://www.agiledata.org/essays/dataModeling101.html</a><ul>
@@ -12029,6 +15904,7 @@ $( document ).ready(function(){
 </ul>
 </li>
 </ul>
+<p><img src="../images/L3_baseball_conceptual.jpeg"></p>
 
 </div>
 </div>
@@ -12037,7 +15913,7 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Logical-Data-Model">Logical Data Model<a class="anchor-link" href="#Logical-Data-Model">&#182;</a></h4><h5 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h5><ul>
+<h3 id="Logical-Data-Model">Logical Data Model<a class="anchor-link" href="#Logical-Data-Model">&#182;</a></h3><h5 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h5><ul>
 <li>The logical data model requires adding:<ul>
 <li>Attributes</li>
 <li>Primary Keys</li>
@@ -12247,7 +16123,7 @@ SELECT playerID,
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="SQL-Data-Model-(Our-Physical-Model)">SQL Data Model (Our Physical Model)<a class="anchor-link" href="#SQL-Data-Model-(Our-Physical-Model)">&#182;</a></h4><p>The physical model requires that we add the following:</p>
+<h3 id="SQL-Data-Model-(Our-Physical-Model)">SQL Data Model (Our Physical Model)<a class="anchor-link" href="#SQL-Data-Model-(Our-Physical-Model)">&#182;</a></h3><p>The physical model requires that we add the following:</p>
 <ul>
 <li>The create table DDL statement<ul>
 <li>Table names</li>
@@ -12376,7 +16252,7 @@ CREATE TABLE `Batting` (
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Web-Resource-Model">Web Resource Model<a class="anchor-link" href="#Web-Resource-Model">&#182;</a></h4><p>We plan to start gathering displaying information about players. Our web resource model (URLs) with be</p>
+<h3 id="Web-Resource-Model----Getting-Started">Web Resource Model -- Getting Started<a class="anchor-link" href="#Web-Resource-Model----Getting-Started">&#182;</a></h3><p>We plan to start gathering displaying information about players. Our web resource model (URLs) with be</p>
 <ul>
 <li>/players?<query> to find players matching a template.</li>
 <li>/players/playerID to find a specific player.</li>
@@ -12415,178 +16291,6 @@ CREATE TABLE `Batting` (
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Scenario-I----Implementation">Scenario I -- Implementation<a class="anchor-link" href="#Scenario-I----Implementation">&#182;</a></h3><h4 id="A-Warning">A Warning<a class="anchor-link" href="#A-Warning">&#182;</a></h4><p><img src="../images/simplecode1.jpeg"></p>
-<h4 id="Supporting-the-Path-/players/playerID">Supporting the Path /players/playerID<a class="anchor-link" href="#Supporting-the-Path-/players/playerID">&#182;</a></h4><h5 id="Data-Access">Data Access<a class="anchor-link" href="#Data-Access">&#182;</a></h5><p>The basic pattern is _retrieve_by<em>id</em> with parameters:</p>
-<ul>
-<li>The resource type (table)</li>
-<li>The column name for the primary key (for player this is a simple column)</li>
-<li>Key value</li>
-</ul>
-<p>So,</p>
-<ul>
-<li>We have to map the request GET /api/players/napolmi01 to retrieve_by_id("Master","playerID","napolmi01")</li>
-<li>And then to SELECT * FROM Master WHERE playerID='napolmi01'</li>
-</ul>
-<p>Some simple code is</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pymysql.cursors</span>
-<span class="kn">import</span> <span class="nn">json</span>
-
-
-<span class="k">def</span> <span class="nf">connect</span><span class="p">():</span>
-    <span class="n">connection</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
-                                 <span class="n">user</span><span class="o">=</span><span class="s1">&#39;dbuser&#39;</span><span class="p">,</span>
-                                 <span class="n">password</span><span class="o">=</span><span class="s1">&#39;dbuser&#39;</span><span class="p">,</span>
-                                 <span class="n">db</span><span class="o">=</span><span class="s1">&#39;lahman2016&#39;</span><span class="p">,</span>
-                                 <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8mb4&#39;</span><span class="p">,</span>
-                                 <span class="n">cursorclass</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">cursors</span><span class="o">.</span><span class="n">DictCursor</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">connection</span>
-
-<span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-
-<span class="k">def</span> <span class="nf">retrieve_by_id</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DEBUG: table = &quot;</span><span class="p">,</span> <span class="n">table</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DEBUG: attribute = &quot;</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DEBUG: id = &quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
-
-        <span class="n">connection</span> <span class="o">=</span> <span class="n">connect</span><span class="p">()</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;Not Found&quot;</span><span class="p">}</span>
-
-        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
-            <span class="c1"># Read a single record</span>
-            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM &quot;</span> <span class="o">+</span> <span class="n">table</span>
-            <span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span> <span class="o">+</span> <span class="s2">&quot; WHERE &quot;</span>
-            <span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span> <span class="o">+</span> <span class="n">attribute</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="nb">id</span> <span class="o">+</span> <span class="s2">&quot;&#39;;&quot;</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DEBUG: SQL = &quot;</span><span class="p">,</span> <span class="n">sql</span><span class="p">)</span>
-            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span>  
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Something happened.&quot;</span><span class="p">)</span>
-    <span class="k">finally</span><span class="p">:</span>
-        <span class="n">disconnect</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">result</span>
-
-<span class="c1">#print(&quot;Ran&quot;)</span>
-<span class="c1"># And a test would be</span>
-<span class="c1">#player = retrieve_by_id(&quot;Master&quot;, &quot;playerID&quot;, &quot;napolmi01&quot;)</span>
-
-<span class="c1">#print(&quot;\n\n Test Result &quot;)</span>
-<span class="c1">#print(&quot;The player with playerID = napolmi01 is&quot;)</span>
-<span class="c1">#print(json.dumps(player, indent=4, sort_keys=True))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Business-Logic">Business Logic<a class="anchor-link" href="#Business-Logic">&#182;</a></h5><ul>
-<li>These are some examples of short cuts</li>
-</ul>
-<ul>
-<li>Business logic should not be handling <a href="https://docs.djangoproject.com/en/2.0/ref/request-response/">Django HttpRequest</a></li>
-</ul>
-<ul>
-<li>Business logic in dependent of the protocol for reaching it (the binding). The binding could be many things.</li>
-</ul>
-<p><em>Poorly design business logic</em></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">django.http</span> <span class="k">import</span> <span class="n">JsonResponse</span>
-<span class="kn">import</span> <span class="nn">pymysql.cursors</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="c1">#from . import dataccess</span>
-
-
-<span class="c1"># Entry point for this module.</span>
-<span class="c1"># Examines the request and routes to proper handler.</span>
-<span class="c1"># This is really pretty generic and does not need to be in type</span>
-<span class="c1"># specific Python files, e.g. players.py</span>
-<span class="c1">#</span>
-<span class="c1"># request is of type https://docs.djangoproject.com/en/2.0/ref/request-response/</span>
-<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-
-    <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
-        <span class="n">rsp</span> <span class="o">=</span> <span class="n">handle_get</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-        <span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">done</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> \
-            <span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">):</span>
-        <span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">rsp</span> <span class="o">=</span> <span class="n">error</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">done</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> \
-            <span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;PUT&#39;</span><span class="p">):</span>
-        <span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">rsp</span> <span class="o">=</span> <span class="n">error</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">done</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> \
-            <span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">):</span>
-        <span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">rsp</span> <span class="o">=</span> <span class="n">error</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">done</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="n">rsp</span> <span class="o">=</span> <span class="n">error</span><span class="p">()</span>
-
-    <span class="n">rsp</span> <span class="o">=</span> <span class="n">JsonResponse</span><span class="p">(</span><span class="n">rsp</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">rsp</span>
-
-<span class="c1"># This currently only works for /players/playerID</span>
-<span class="c1"># We will need to generalize for queries and for other resources</span>
-<span class="c1">#</span>
-<span class="k">def</span> <span class="nf">handle_get</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-
-    <span class="c1"># The path to the resource will be of the form</span>
-    <span class="c1"># /players/playerID</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Request = &quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Request.GET = &quot;</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">)</span>
-        <span class="nb">id</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ID = &quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">retrieve_by_id</span><span class="p">(</span><span class="s2">&quot;Master&quot;</span><span class="p">,</span><span class="s2">&quot;playerID&quot;</span><span class="p">,</span><span class="nb">id</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span>
-       <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Something happened&quot;</span><span class="p">)</span>
-       <span class="n">result</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Why me?&quot;</span><span class="p">}</span>
-
-    <span class="k">return</span> <span class="n">result</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
 </div>
     </div>
   </div>

@@ -28,6 +28,7 @@ There are four subdirectories in this project:
 viewing the HTML lectures are:
     - [Lecture 1: Introduction and Overview](./Lectures/w4111-L1-s2018-Introduction.html)
     - [Lecture 2: Relational Model Introduction](./Lectures/w4111-L2-s2018-ModelRelational.html)
+    - [Lecture 3: Relational Model: Keys, Select, Project](./Lectures/w4111-L3-RelationalAndWebV1.html)
 1. [CodeSamples](./CodeSamples) contains the same programs from lectures.
 1. [DataAndSchema](./DataAndSchema) contains SQL, CSV and other data files used in projects.
 1. [Notebooks](./Notebooks) contains the [Jupyter](http://jupyter.org/) Notebooks used
