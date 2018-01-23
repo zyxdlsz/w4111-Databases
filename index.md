@@ -17,7 +17,9 @@ logical design of relational databases,
 relational data definition and manipulation languages, SQL, query processing,
 transaction processing. Programming projects are required.""
 
+## Office Hours Calendar
 
+<iframe src="https://calendar.google.com/calendar/embed?src=columbia.edu_jbkdjs20p6d1vvstnsebrfg0b0%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 
 
 ## Course Material

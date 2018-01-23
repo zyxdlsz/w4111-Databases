@@ -1,7 +1,7 @@
 # We need a module (library) that can communicate with the
 # database server.
 import pymysql.cursors
-import 
+
 
 # The database server is running somewhere in the network.
 # I must specify the IP address (HW server) and port number
@@ -12,7 +12,7 @@ import
 config = {
   'user': 'dbuser',
   'password': 'dbuser',
-  'host': '127.0.0.1',
+  'host': '10.0.1.4',
   'database': 'lahman2016',
   'raise_on_warnings': True,
   'charset' : 'utf8'
