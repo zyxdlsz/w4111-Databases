@@ -11832,6 +11832,32 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Why-Jupyter-Notebooks?">Why Jupyter Notebooks?<a class="anchor-link" href="#Why-Jupyter-Notebooks?">&#182;</a></h2><ul>
+<li>Homework submission and general project reports are an interleaved mix of<ul>
+<li>Text answering questions, explaining design choices, etc.</li>
+<li>Code implementing parts of a solution.</li>
+<li>Code execution results.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Combining the elements can be awkward and requires, cut and past, zip files of directories, etc.</li>
+</ul>
+<ul>
+<li>There is a strong ecosystem of Jupyter templates that accelerate projects, which may make learning Anaconda and Jupyter productive for work and future projects. Some examples<ul>
+<li><a href="http://python-assignment.blogspot.com/2016/08/base-ball-analytics.html">http://python-assignment.blogspot.com/2016/08/base-ball-analytics.html</a></li>
+<li><a href="https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks">https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Scenario-I----Implementation-Continued">Scenario I -- Implementation Continued<a class="anchor-link" href="#Scenario-I----Implementation-Continued">&#182;</a></h2>
 </div>
 </div>
@@ -11840,9 +11866,12 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h3><p>We will use Django and MySQL to implement the following GET REST paths for each resource.</p>
+<h3 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h3><p>We will use Django and MySQL to implement GET REST paths for each resource. Some examples are:</p>
 <ul>
 <li>_/api/resource<em>name/primary-key-value</em> to get by primary key.</li>
+</ul>
+<ul>
+<li>_/api/resource_name/$&lt; relationship\ path$ &gt;</li>
 </ul>
 <ul>
 <li>_/api/resource_name/metadata will return a JSON object describing<ul>
@@ -11884,7 +11913,10 @@ $( document ).ready(function(){
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Implementation-Approach">Implementation Approach<a class="anchor-link" href="#Implementation-Approach">&#182;</a></h3><ul>
-<li>Building the solutions is the core of HW 1 and the foundation for HW2.</li>
+<li>Building the solutions is the core of HW2 and the foundation for HW3.</li>
+</ul>
+<ul>
+<li>HW1 set up the environment.</li>
 </ul>
 <ul>
 <li>We will go through elements of the implementation in class, and I will handle as much of the non-DB enablement functions as possible, e.g. AngularJS.</li>
@@ -11908,10 +11940,14 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conceptual-Data-Model">Conceptual Data Model<a class="anchor-link" href="#Conceptual-Data-Model">&#182;</a></h3><p>Reminder
-<br><br>
-<img src="../images/conceptuallogicalphysical.jpeg"></p>
+<h3 id="Reminder:-Conceptual-and-Logical">Reminder: Conceptual and Logical<a class="anchor-link" href="#Reminder:-Conceptual-and-Logical">&#182;</a></h3><p><br><br>
+<img src="../images/conceptuallogicalphysical.jpeg">
+<br><br></p>
 <ul>
+<li>Tool walkthrough of LucidCharts, which is an optional environment. No endorsement. There are other tools.
+<img src="../images/lucid_charts_1.jpeg"></li>
+</ul>
+<h3 id="Our-Solutions-Conceptual-Model">Our Solutions Conceptual Model<a class="anchor-link" href="#Our-Solutions-Conceptual-Model">&#182;</a></h3><ul>
 <li>There are three entities<ul>
 <li><em>Master</em> represents information about an individual in the database.</li>
 <li><em>Appearances</em> represents information about a person's appearances in games.</li>
@@ -12835,6 +12871,18 @@ LIMIT 10;</code></pre>
 <ul>
 <li>We will start fleshing this out in the next lecture.</li>
 </ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Post-Summary">Post Summary<a class="anchor-link" href="#Post-Summary">&#182;</a></h3><ul>
+<li>We will also use as the basis when we do some data mining. For example,</li>
+</ul>
+<p><img src="../images/Baseball_Analytics1.JPG"></p>
 
 </div>
 </div>
