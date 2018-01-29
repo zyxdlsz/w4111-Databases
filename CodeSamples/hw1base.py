@@ -7,7 +7,7 @@ Created on Thu Jan  4 19:40:06 2018
 """
 
 import csv as csv
-import pandas as pd
+#import pandas as pd
 import json
 
 # This function takes two dictionary inputs
@@ -48,6 +48,13 @@ print("Template = ",t)
 print("\n\nThe players matching template t = ",t," are:\n")
 collection = t["collection"]
 del t["collection"]
+
+
 result = query_collection(collection,t)
 print("Result = ", result)
 print("\n\n")
+
+print("Printing one entry at a time:")
+for e in result:
+    print(e)
+
