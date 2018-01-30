@@ -12250,6 +12250,133 @@ l1 + l2 =  [&#39;red&#39;, &#39;orange&#39;, &#39;green&#39;, &#39;blue&#39;, &#
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Integrity-Constraints">Integrity Constraints<a class="anchor-link" href="#Integrity-Constraints">&#182;</a></h2><h3 id="Motivation">Motivation<a class="anchor-link" href="#Motivation">&#182;</a></h3><ul>
+<li>I plan to cover INSERT, DELETE and UPDATE next week.</li>
+</ul>
+<ul>
+<li>Integrity constraints apply to INSERT, UPDATE and DELETE.</li>
+</ul>
+<ul>
+<li>HW2 requires use of some constraints, specifically primary and foreign keys $\Rightarrow$ I need to cover a little bit now.</li>
+</ul>
+<h3 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h3><p>"Data integrity is normally enforced in a database system by a series of integrity constraints or rules. Three types of integrity constraints are an inherent part of the relational data model: <em>entity integrity, referential integrity and domain integrity:</em></p>
+<ul>
+<li><strong>Entity integrity</strong> concerns the concept of a primary key. Entity integrity is an integrity rule which states that every table must have a primary key and that the column or columns chosen to be the primary key should be unique and not null.</li>
+</ul>
+<ul>
+<li><strong>Referential integrity</strong> concerns the concept of a foreign key. The referential integrity rule states that any foreign-key value can only be in one of two states. The usual state of affairs is that the foreign-key value refers to a primary key value of some table in the database. Occasionally, and this will depend on the rules of the data owner, a foreign-key value can be null. In this case, we are explicitly saying that either there is no relationship between the objects represented in the database or that this relationship is unknown.</li>
+</ul>
+<ul>
+<li><strong>Domain integrity</strong> specifies that all columns in a relational database must be declared upon a defined domain. The primary unit of data in the relational data model is the data item. Such data items are said to be <span style="color: red;">non-decomposable or atomic.</span> A domain is a set of values of the same type. Domains are therefore pools of values from which actual values appearing in the columns of a table are drawn.</li>
+</ul>
+<ul>
+<li><strong>User-defined</strong> integrity refers to a set of rules specified by a user, which do not belong to the entity, domain and referential integrity categories."</li>
+</ul>
+<p>"Constraints are used to limit the type of data that can go into a table. This ensures the accuracy and reliability of the data in the table. If there is any violation between the constraint and the data action, the action is aborted." (<a href="https://www.w3schools.com/sql/sql_constraints.asp">https://www.w3schools.com/sql/sql_constraints.asp</a>)</p>
+<p><strong>Note:</strong></p>
+<ul>
+<li><a href="https://www.w3schools.com/sql/default.asp">https://www.w3schools.com/sql/default.asp</a> is a pretty good tutorial on SQL if you need to review or play with SQL.</li>
+<li>I will cover a lot of SQL, and the CAs and I will always help and answer questions. </li>
+</ul>
+<p><strong>Common Integrity Constrains:</strong></p>
+<ul>
+<li>NOT NULL - Ensures that a column cannot have a NULL value</li>
+<li>UNIQUE - Ensures that all values in a column are different</li>
+<li>PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table</li>
+<li>FOREIGN KEY - Uniquely identifies a row/record in another table</li>
+<li>CHECK - Ensures that all values in a column satisfies a specific condition</li>
+<li>DEFAULT - Sets a default value for a column when no value is specified</li>
+<li>INDEX - Used to create and retrieve data from the database very quickly</li>
+</ul>
+<p><strong>Note:</strong></p>
+<ul>
+<li>The details of supported constraints vary between database management systems.</li>
+<li>MySQL does not support CHECK and uses <a href="https://en.wikipedia.org/wiki/Database_trigger">Triggers</a>, which we will cover.</li>
+<li>CHECK/Triggers are the primary mechanism for implementing user-defined integrity rules.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Why-Constraints">Why Constraints<a class="anchor-link" href="#Why-Constraints">&#182;</a></h3><table>
+<thead><tr>
+<th style="text-align:center"><img src="http://slideplayer.com/slide/4775270/15/images/4/Client+-+Server+Databases.jpg"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="http://slideplayer.com/slide/4775270/15/images/4/Client+-+Server+Databases.jpg"><strong>Database Client-Server</strong></a></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>The database server is "on the network." Any application with proper credentials can connect to the database.</li>
+</ul>
+<ul>
+<li>There could be many, many applications written by many, many teams.</li>
+</ul>
+<ul>
+<li>Assuming that every team will get all the constraints correct in their application is risky.</li>
+</ul>
+<ul>
+<li>Changing constraints as the business/data model evolves requires finding and mondifying many programs.</li>
+</ul>
+<ul>
+<li>Integrity constraints defined as part of the data model and enforced by the database management system for all clients is a fundamental function of the relational model.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="MySQL-Constraints-Overview">MySQL Constraints Overview<a class="anchor-link" href="#MySQL-Constraints-Overview">&#182;</a></h3><table>
+<thead><tr>
+<th style="text-align:center"><img src="../images/L5_mysql_constraints.jpeg"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>MySQL Workbench and Constraints</strong></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Simple Demo</strong></p>
+<ul>
+<li>Column constraints.</li>
+<li>Identifying and defining a primary key.</li>
+<li>Defining foreign keys.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Simple-SQL-SELECT-and-PROJECT-Examples">Simple SQL SELECT and PROJECT Examples<a class="anchor-link" href="#Simple-SQL-SELECT-and-PROJECT-Examples">&#182;</a></h2><h3 id="Motivation">Motivation<a class="anchor-link" href="#Motivation">&#182;</a></h3><ul>
 <li>The best way to learn SQL is practice and examples.</li>
 </ul>
