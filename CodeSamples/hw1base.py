@@ -39,9 +39,18 @@ def query_collection(c,t):
                 r.append(row)
     return r
         
-# { "collection": "Master", "nameLast" : "Williams", "throws" : "R", "bats" : "L"}
+#c=  { "collection": "Master", "nameLast" : "Williams", "throws" : "R", "bats" : "L"}
+c2 = { "nameLast" : "Williams", "throws" : "R", "bats" : "L"}
 # { "collection" : "Batting", "playerID" : "addybo01"}
+c3 = { "playerID": "addybo01"}
 
+r = query_collection("Master", c2)
+
+json_f = json.dumps(r,indent=3)
+
+print("r = ", json_f)
+
+'''
 t = input("Please enter your query template: ")
 t = json.loads(t)
 print("Template = ",t)
@@ -57,4 +66,5 @@ print("\n\n")
 print("Printing one entry at a time:")
 for e in result:
     print(e)
+'''
 

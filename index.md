@@ -33,6 +33,7 @@ viewing the HTML lectures are:
     - [Lecture 3: Relational Model: Keys, Select, Project](./Lectures/w4111-L3-RelationalAndWebV1.html)
     - [Lecture 4: Web Applications, Select and Complex Query](./Lectures/w4111-L4-SelectAndWebContinued.html)
     - [Lecture 5: SELECT Continued, Views, Constraints, HW 2](./Lectures/w4111-L5-Select-Constraints-HW2.html)
+    - [Lecture 6: HW2, Join, Union](./Lectures/w4111-L6-HW2-Join-Union.html)
 1. [CodeSamples](./CodeSamples) contains the same programs from lectures.
 1. [DataAndSchema](./DataAndSchema) contains SQL, CSV and other data files used in projects.
 1. [Notebooks](./Notebooks) contains the [Jupyter](http://jupyter.org/) Notebooks used
