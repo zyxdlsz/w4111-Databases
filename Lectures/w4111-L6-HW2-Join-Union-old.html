@@ -11767,6 +11767,52 @@ div#notebook {
     });
     </script>
     <!-- End of mathjax configuration --></head>
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/main.css">
+
+<style type="text/css">
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot');
+    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
+         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.woff') format('woff'),
+         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.ttf') format('truetype'),
+         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.svg#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+</style>
+
+<script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/toc2.js"></script>
+
+<script>
+$( document ).ready(function(){
+
+            var cfg={'threshold':3,     // depth of toc (number of levels)
+             'number_sections': true,  // sections numbering
+             'toc_cell': false,          // useless here
+             'toc_window_display': true, // display the toc window
+             "toc_section_display": "block", // display toc contents in the window
+             'markTocItemOnScroll': false, 
+             'sideBar':true,             // sidebar or floating window
+             'navigate_menu':false,       // navigation menu (only in liveNotebook -- do not change)
+              title_cell: 'Table of Contents',
+              title_sidebar: 'Contents',
+            }
+
+            var st={};                  // some variables used in the script
+            st.oldTocHeight = undefined
+
+            // fire the main function with these parameters
+            require(['nbextensions/toc2/toc2'], function (toc2) {
+                toc2.table_of_contents(cfg, st);
+            });
+    });
+</script>
 <body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
@@ -11794,7 +11840,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># We need a module (library) that can communicate with the</span>
@@ -12219,6 +12265,9 @@ Execution query =
 </tr>
 </tbody>
 </table>
+<ul>
+<li>We will cover these later.</li>
+</ul>
 
 </div>
 </div>
@@ -12370,499 +12419,6 @@ ORDER BY
 </tr>
 </tbody>
 </table>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="More-Fun-with-Sets">More Fun with Sets<a class="anchor-link" href="#More-Fun-with-Sets">&#182;</a></h3><h4 id="Intersection">Intersection<a class="anchor-link" href="#Intersection">&#182;</a></h4><table>
-<thead><tr>
-<th><img src="../images/L6_intersection.jpeg"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Intersection</strong></td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>The first step is two ask two questions<ul>
-<li>What is the definition of being the same tuple? Primary keys match? All columns match? Some columns match?</li>
-<li>How do you combine the columns with the same names that are not equal? Do you want the non-shared columns? In the following example,<ul>
-<li>How do you combine C, D?</li>
-<li>Do you want E, F?</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>\begin{equation}
-R(A,\ B,\ C,\ D)\ INNER\ JOIN\ S(A,\ B,\ C,\ D,\ E,\ F)\ ON\ R.A=S.A\ AND\ R.B=S.B 
-\end{equation}
-\begin{equation}
-\rightarrow 
-\end{equation}
-\begin{equation}
-(R.A,\ R.B,\ R.C,\ R.D,\ R.A,\ B,\ C,\ D,\ E,\ F).
-\end{equation}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">q21</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM Midterm.JaneEyre&quot;</span>
-<span class="n">run_and_print_q</span><span class="p">(</span><span class="s2">&quot;Words from Jane Eyre&quot;</span><span class="p">,</span> <span class="n">q21</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Execution query = 
- SELECT * FROM Midterm.JaneEyre
-
- Words from Jane Eyre 
-        Word  Count  id
-0     all-1     19   1
-1     all-2      7   2
-2      jm-1      3   3
-3      jm-2     17   4
-4      jt-1      2   5
-5      jt-2     17   6
-6  j-only-1      6   7
-7  j-only-2      9   8
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">q22</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM Midterm.MobyDick&quot;</span>
-<span class="n">run_and_print_q</span><span class="p">(</span><span class="s2">&quot;Words from Moby Dick&quot;</span><span class="p">,</span> <span class="n">q22</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Execution query = 
- SELECT * FROM Midterm.MobyDick
-
- Words from Moby Dick 
-        Word  Count  id
-0     all-1    110   1
-1     all-2     21   2
-2      jm-1      3   3
-3      jm-2     17   4
-4      mt-1     13   5
-5      mt-2      9   6
-6  m-only-1      7   7
-7  m-only-2     91   8
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">q23</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM Midterm.TomSawyer&quot;</span>
-<span class="n">run_and_print_q</span><span class="p">(</span><span class="s2">&quot;Words from Tom Sawyer&quot;</span><span class="p">,</span> <span class="n">q23</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Execution query = 
- SELECT * FROM Midterm.TomSawyer
-
- Words from Tom Sawyer 
-        Word  Count  id
-0     all-1      7   1
-1     all-2      7   2
-2      jt-1      3   3
-3      jt-2     17   4
-4      mt-1      7   5
-5      mt-2     11   6
-6  t-only-1     13   7
-7  t-only-2      3   8
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>To simplify visual confirmation, there is a pattern on the words<ul>
-<li>all-* is in all 3 relations.</li>
-<li>jt-* is in both Jane Eyre.</li>
-<li>jm-* is in both Jane Eyre and Moby Dick.</li>
-<li>mt-* is in both Moby Dick and Tom Sawyer.</li>
-<li>t-only-<em> is only in Tom Sawyer, m-only-</em> for Moby Dick and j-only-* for Jane Eyre.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>ID does mean anything. It is a unused auto-increment column.</li>
-</ul>
-<ul>
-<li>count simulates the number of times the word appears in the book. How should the query combine the shared column with different values?</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">q31</span> <span class="o">=</span> <span class="s2">&quot;SELECT Midterm.janeeyre.Word, Midterm.janeeyre.count + Midterm.mobydick.count as two_book_count, &quot;</span>
-<span class="n">q31</span> <span class="o">=</span> <span class="n">q31</span> <span class="o">+</span> <span class="s2">&quot; Midterm.janeeyre.count as JaneEyre_count, Midterm.mobydick.count as MobyDick_count &quot;</span>
-<span class="n">q31</span> <span class="o">=</span> <span class="n">q31</span> <span class="o">+</span> <span class="s2">&quot;FROM Midterm.janeeyre INNER JOIN Midterm.mobydick &quot;</span> 
-<span class="n">q31</span> <span class="o">=</span> <span class="n">q31</span> <span class="o">+</span> <span class="s2">&quot;ON Midterm.janeeyre.word = Midterm.mobydick.word;&quot;</span>
-<span class="n">run_and_print_q</span><span class="p">(</span><span class="s2">&quot;Words shared between Moby Dick and Jane Eyre and the count totals&quot;</span><span class="p">,</span> <span class="n">q31</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Execution query = 
- SELECT Midterm.janeeyre.Word, Midterm.janeeyre.count + Midterm.mobydick.count as two_book_count,  Midterm.janeeyre.count as JaneEyre_count, Midterm.mobydick.count as MobyDick_count FROM Midterm.janeeyre INNER JOIN Midterm.mobydick ON Midterm.janeeyre.word = Midterm.mobydick.word;
-
- Words shared between Moby Dick and Jane Eyre and the count totals 
-     Word  two_book_count  JaneEyre_count  MobyDick_count
-0  all-1             129              19             110
-1  all-2              28               7              21
-2   jm-1               6               3               3
-3   jm-2              34              17              17
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>The set operations are interesting but may seem artificial. When would you use them? Consider Master and AwardsPlayers</li>
-</ul>
-<ul>
-<li>Please show me information about players that have received an award since 2015. That is the intersection (INNER JOIN) of Master and AwardsPlayers on playerID.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">q41</span> <span class="o">=</span> <span class="s2">&quot;SELECT Master.playerID, Master.nameLast, master.nameFirst, AwardsPlayers.awardID, AwardsPlayers.yearID &quot;</span>
-<span class="n">q41</span> <span class="o">+=</span> <span class="s2">&quot;FROM  Master JOIN AwardsPlayers ON Master.playerID = AwardsPlayers.playerID &quot;</span>
-<span class="n">q41</span> <span class="o">+=</span> <span class="s2">&quot;WHERE AwardsPlayers.yearID &gt; 2015;&quot;</span>
-<span class="n">run_and_print_q</span><span class="p">(</span><span class="s2">&quot;Players and Awards since 2015&quot;</span><span class="p">,</span> <span class="n">q41</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Execution query = 
- SELECT Master.playerID, Master.nameLast, master.nameFirst, AwardsPlayers.awardID, AwardsPlayers.yearID FROM  Master JOIN AwardsPlayers ON Master.playerID = AwardsPlayers.playerID WHERE AwardsPlayers.yearID &gt; 2015;
-
- Players and Awards since 2015 
-      playerID   nameLast  nameFirst                              awardID  \
-0   perezsa02      Perez   Salvador                       Silver Slugger   
-1   cabremi01    Cabrera     Miguel                       Silver Slugger   
-2   altuvjo01     Altuve       Jose                       Silver Slugger   
-3   donaljo02  Donaldson       Josh                       Silver Slugger   
-4   bogaexa01   Bogaerts     Xander                       Silver Slugger   
-5   bettsmo01      Betts     Mookie                       Silver Slugger   
-6   troutmi01      Trout       Mike                       Silver Slugger   
-7   trumbma01     Trumbo       Mark                       Silver Slugger   
-8   ortizda01      Ortiz      David                       Silver Slugger   
-9   ramoswi01      Ramos     Wilson                       Silver Slugger   
-10  rizzoan01      Rizzo    Anthony                       Silver Slugger   
-11  murphda08     Murphy     Daniel                       Silver Slugger   
-12  arenano01    Arenado      Nolan                       Silver Slugger   
-13  seageco01     Seager      Corey                       Silver Slugger   
-14  blackch02   Blackmon    Charlie                       Silver Slugger   
-15  cespeyo01   Cespedes     Yoenis                       Silver Slugger   
-16  yelicch01     Yelich  Christian                       Silver Slugger   
-17  arrieja01    Arrieta       Jake                       Silver Slugger   
-18  perezsa02      Perez   Salvador                           Gold Glove   
-19  morelmi01   Moreland      Mitch                           Gold Glove   
-20  kinslia01    Kinsler        Ian                           Gold Glove   
-21  beltrad01     Beltre     Adrian                           Gold Glove   
-22  lindofr01     Lindor  Francisco                           Gold Glove   
-23  gardnbr01    Gardner      Brett                           Gold Glove   
-24  kiermke01  Kiermaier      Kevin                           Gold Glove   
-25  bettsmo01      Betts     Mookie                           Gold Glove   
-26  keuchda01    Keuchel     Dallas                           Gold Glove   
-27  poseybu01      Posey     Buster                           Gold Glove   
-28  rizzoan01      Rizzo    Anthony                           Gold Glove   
-29  panikjo01      Panik        Joe                           Gold Glove   
-..        ...        ...        ...                                  ...   
-50  rendoan01     Rendon    Anthony          Comeback Player of the Year   
-51  ortizda01      Ortiz      David                 Outstanding DH Award   
-52  brittza01    Britton       Zach           Reliever of the Year Award   
-53  janseke01     Jansen     Kenley           Reliever of the Year Award   
-54  altuvjo01     Altuve       Jose  TSN Major League Player of the Year   
-55  brittza01    Britton       Zach             TSN Reliever of the Year   
-56  klubeco01     Kluber      Corey              TSN Pitcher of the Year   
-57  janseke01     Jansen     Kenley             TSN Reliever of the Year   
-58  scherma01   Scherzer        Max              TSN Pitcher of the Year   
-59  poseybu01      Posey     Buster                         TSN All-Star   
-60  freemfr01    Freeman    Freddie                         TSN All-Star   
-61  murphda08     Murphy     Daniel                         TSN All-Star   
-62  seageco01     Seager      Corey                         TSN All-Star   
-63  bryankr01     Bryant       Kris                         TSN All-Star   
-64  yelicch01     Yelich  Christian                         TSN All-Star   
-65  cespeyo01   Cespedes     Yoenis                         TSN All-Star   
-66  martest01      Marte   Starling                         TSN All-Star   
-67  scherma01   Scherzer        Max                         TSN All-Star   
-68  janseke01     Jansen     Kenley                         TSN All-Star   
-69  perezsa02      Perez   Salvador                         TSN All-Star   
-70  cabremi01    Cabrera     Miguel                         TSN All-Star   
-71  altuvjo01     Altuve       Jose                         TSN All-Star   
-72  lindofr01     Lindor  Francisco                         TSN All-Star   
-73  donaljo02  Donaldson       Josh                         TSN All-Star   
-74  troutmi01      Trout       Mike                         TSN All-Star   
-75  bettsmo01      Betts     Mookie                         TSN All-Star   
-76  bradlja02    Bradley     Jackie                         TSN All-Star   
-77  ortizda01      Ortiz      David                         TSN All-Star   
-78  klubeco01     Kluber      Corey                         TSN All-Star   
-79  brittza01    Britton       Zach                         TSN All-Star   
-
-    yearID  
-0     2016  
-1     2016  
-2     2016  
-3     2016  
-4     2016  
-5     2016  
-6     2016  
-7     2016  
-8     2016  
-9     2016  
-10    2016  
-11    2016  
-12    2016  
-13    2016  
-14    2016  
-15    2016  
-16    2016  
-17    2016  
-18    2016  
-19    2016  
-20    2016  
-21    2016  
-22    2016  
-23    2016  
-24    2016  
-25    2016  
-26    2016  
-27    2016  
-28    2016  
-29    2016  
-..     ...  
-50    2016  
-51    2016  
-52    2016  
-53    2016  
-54    2016  
-55    2016  
-56    2016  
-57    2016  
-58    2016  
-59    2016  
-60    2016  
-61    2016  
-62    2016  
-63    2016  
-64    2016  
-65    2016  
-66    2016  
-67    2016  
-68    2016  
-69    2016  
-70    2016  
-71    2016  
-72    2016  
-73    2016  
-74    2016  
-75    2016  
-76    2016  
-77    2016  
-78    2016  
-79    2016  
-
-[80 rows x 5 columns]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Which players <em>did not win an award</em>? That is the set difference $Master\ - \ AwardsPlayers.$</li>
-</ul>
-<table>
-<thead><tr>
-<th><img src="../images/L6_fun_with_sets.jpeg"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Fun with Sets</strong></td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>This combines <em>nerdy engineering and set theory</em> with <em>baseball</em> $\Rightarrow$ I can do this <strong>all semester long.</strong></li>
-</ul>
-<ul>
-<li>This seems like obscure concepts, but does have applications.<ul>
-<li>Which customers have not purchased products for which I was running a marketing campaign?</li>
-<li>Which products have <em>gold customers</em> ordered that are also <em>on back order.</em></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>These capabilities are useful in reporting, analytics, visualization, etc.</li>
-</ul>
-<ul>
-<li>I am not going to go through all of the various set operations and combining algebra in lectures.</li>
-</ul>
-<ul>
-<li>I will ask you to write some tricky set computations on the midterm and final.</li>
-</ul>
-<ul>
-<li>How do you do figure these tricky queries out? Decompose into more basic operations, and ...</li>
-</ul>
-<table>
-<thead><tr>
-<th><img src="../images/L6_dear_google.jpeg"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Dear Google</strong></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>My focus in this course is teaching you the concepts and ensuring that you can apply in the real world.</li>
-</ul>
-<p>\begin{equation}
-Google \in RealWorld
-\end{equation}</p>
 
 </div>
 </div>
