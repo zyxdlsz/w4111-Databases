@@ -35,7 +35,7 @@ viewing the HTML lectures are:
     - [Lecture 5: SELECT Continued, Views, Constraints, HW 2](./Lectures/w4111-L5-Select-Constraints-HW2.html)
     - [Lecture 6: HW2, Join, Union](./Lectures/w4111-L6-HW2-Join-Union.html)
     - [Lecture 7: CRUD, Views, Inheritance, Triggers, Procedures](./Lectures/w4111-L7-HW2-Update-Views-Inheritance-Triggers-Functions-Procedures.html)
-    - [Lecture 8: Datamodeling Patterns, Analytics](../Lectures/w4111-L8-Datamodeling-Patterns-Analytics.html)
+    - [Lecture 8: Datamodeling Patterns, Analytics](./Lectures/w4111-L8-Datamodeling-Patterns-Analytics.html)
 1. [CodeSamples](./CodeSamples) contains the same programs from lectures.
 1. [DataAndSchema](./DataAndSchema) contains SQL, CSV and other data files used in projects.
 1. [Notebooks](./Notebooks) contains the [Jupyter](http://jupyter.org/) Notebooks used
