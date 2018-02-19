@@ -27,13 +27,26 @@ cnx = pymysql.connect(host='localhost',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
-def run_query(q):
-    with cnx.cursor() as cursor:
-        # Create a new record
-        cursor.execute(q)
 
-    df_mysql = pd.read_sql(q,cnx)
-    return df_mysql
+def run_query(q):
+    try:
+        with cnx.cursor() as cursor:
+            # Create a new record
+            cursor.execute(q)
+
+        df_mysql = pd.read_sql(q,cnx)
+        return df_mysql
+    except pymysql.InternalError as e:
+        code, message = e.args
+        print (e)
+        if code == 1054:
+            raise ValueError("Invalid field requested.")
+    except pymysql.ProgrammingError as e:
+        code, message = e.args
+        print(e)
+        if code == 1146:
+            raise ValueError("Resource type does not exist.")
+
 
 
 def print_result(msg, pf):
@@ -41,5 +54,5 @@ def print_result(msg, pf):
     print(pf)
 
 
-r = run_query("SELECT nameLast, nameFirst FROM Master where nameLast='Williams' and nameFirst LIKE '%a%'")
+r = run_query("SELECT nameFirst FROM mMaster where nameLast='Williams' and nameFirst LIKE '%a%'")
 print("Query result is =\n", r)

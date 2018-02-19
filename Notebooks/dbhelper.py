@@ -54,6 +54,7 @@ def run_and_print_q(msg, q, result):
 
 
 def run_query_to_d(q):
+    cnx  = get_connection()
     with cnx.cursor() as cursor:
         # Create a new record
         cursor.execute(q)
