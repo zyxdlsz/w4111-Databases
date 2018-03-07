@@ -40,6 +40,7 @@ viewing the HTML lectures are:
     - [Lecture 10: Introduction to Information Integration and Analytics](./Lectures/w4111_L10_Analytics_Intro.html)
     - [Lecture 11: Normalization and Analytics](./Lectures/w4111_L11_Analytics_Continued.html)
     - [Lecture 12: Analytics Continued](./Lectures/w4111_L12_MoneyBall_Continued/w4111_L12_MoneyBall_Continued.html)
+    - [Lecture 13: HW 3 and Sample Midterm](./Lectures/sample-midterm.html)
 1. [CodeSamples](./CodeSamples) contains the same programs from lectures.
 1. [DataAndSchema](./DataAndSchema) contains SQL, CSV and other data files used in projects.
 1. [Notebooks](./Notebooks) contains the [Jupyter](http://jupyter.org/) Notebooks used
