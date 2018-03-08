@@ -12288,14 +12288,8 @@ $( document ).ready(function(){
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You results will look like.&quot;</span><span class="p">)</span>
 
-<span class="o">%</span><span class="k">sql</span> select  playerid, sum(g) as total_pitching_games, max(yearid) as last_pitching_year \
-    <span class="kn">from</span> <span class="nn">pitching</span> <span class="n">group</span> <span class="n">by</span> <span class="n">playerid</span> \
-<span class="n">having</span> \
-	<span class="n">exists</span> <span class="p">(</span><span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">batting</span> <span class="n">where</span> <span class="n">batting</span><span class="o">.</span><span class="n">ab</span> <span class="o">&gt;</span> <span class="mi">100</span> <span class="ow">and</span> \
-            <span class="n">batting</span><span class="o">.</span><span class="n">h</span><span class="o">/</span><span class="n">batting</span><span class="o">.</span><span class="n">ab</span> <span class="o">&gt;</span> <span class="mf">0.3</span> <span class="ow">and</span> <span class="n">batting</span><span class="o">.</span><span class="n">playerid</span> <span class="o">=</span> <span class="n">pitching</span><span class="o">.</span><span class="n">playerid</span><span class="p">)</span> \
-    <span class="ow">and</span> \
-    <span class="n">total_pitching_games</span> <span class="o">&gt;</span> <span class="mi">100</span> <span class="n">limit</span> <span class="mi">10</span><span class="p">;</span>
-</pre></div>
+
+	</pre></div>
 
 </div>
 </div>
