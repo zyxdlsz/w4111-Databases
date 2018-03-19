@@ -51,9 +51,9 @@
       <execution-inputs>
         <execution-input execution-timeout="30" debug-execution-timeout="600" connection-id="a378fb33-fcaa-4a92-a9a1-db1691dd1287" object-ref="[schema/function][finalexamhw5/date_valid]" execution-schema="finalexamhw5" use-pool-connection="true" commit-after-execution="true" enable-logging="false">
           <argument-list>
-            <argument name="y" />
-            <argument name="d" />
             <argument name="m" />
+            <argument name="d" />
+            <argument name="y" />
           </argument-list>
         </execution-input>
       </execution-inputs>
