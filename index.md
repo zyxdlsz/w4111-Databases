@@ -9,7 +9,6 @@ the [Spring 2019 semester,](https://courseworks2.columbia.edu/courses/79571/wiki
 # W4111 - Introduction to Databases
 
 
-
 ## Overview
 
 
@@ -18,4 +17,9 @@ the [Spring 2019 semester,](https://courseworks2.columbia.edu/courses/79571/wiki
 
 
 ## Course Material
+
+- Lectures 1 and 2:
+    - Lecture 1: _Introduction and Overview_
+        - [HTML](Lectures/Lecture_1/w4111-L1-s2019-Introduction.html)
+        - [iPython/Jupyter Notebook](Lectures/Lecture_1/w4111-L1-s2019-Introduction.ipynb)
 
