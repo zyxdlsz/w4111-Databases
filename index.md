@@ -34,4 +34,7 @@ waitlist. Please contact Jessica is you have questions.
     - Lecture 1: _Introduction and Overview_
         - [HTML](Lectures/Lecture_1/w4111-L1-s2019-Introduction.html)
         - [iPython/Jupyter Notebook](Lectures/Lecture_1/w4111-L1-s2019-Introduction.ipynb)
+    - Lecture 2: _Introduction and Overview_
+        - [HTML](Lectures/Lecture_1/w4111-L2-s2019-Introduction.html)
+        - [iPython/Jupyter Notebook](Lectures/Lecture_1/w4111-L2-s2019-Introduction.ipynb)
 
