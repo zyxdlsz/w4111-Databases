@@ -11,6 +11,18 @@ the [Spring 2019 semester,](https://courseworks2.columbia.edu/courses/79571/wiki
 
 ## Overview
 
+### Registration
+
+This is the home page for Spring 2019, _COMS W4111 - Introduction to Databases_, sections 03, H03 and V03.
+The three sections cover the exact same material, have the same homework assignments and exams, office hours and
+teaching assistants/course assistants. Section 03 is the classic, in-person lecture format. H03 is a "hybrid section."
+Students do not need to attend the lecture and can watch recordings of the lectures. V03 is via the [Columbia Video
+Network.](https://cvn.columbia.edu/) Schools and departments have policies about elibility for the various sections,
+enrollment authorization and waitlist management. Jessica Rosa in the CS department manages the enrollment and
+waitlist. Please contact Jessica is you have questions. 
+
+### 
+
 
 ## Office Hours Calendar
 
