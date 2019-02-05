@@ -78,7 +78,7 @@ class BaseDataTable(ABC):
     def delete_by_key(self, key_fields):
         """
 
-        Deletes all records that match the template.
+        Delete record with corresponding key.
 
         :param key_fields: List containing the values for the key columns
         :return: A count of the rows deleted.

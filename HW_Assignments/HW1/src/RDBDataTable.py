@@ -214,17 +214,7 @@ class RDBDataTable(BaseDataTable):
             print("insert: Exception e = ", e)
             raise(e)
 
-    def delete_by_key(self, key_fields):
-        """
-
-        Delete row based on primary key
-
-        :param key_fields: Primary key fields.
-        :return: A count of the rows deleted.
-        """
-        pass
-
-    def delete_by_template(self, key_fields):
+    def delete_by_template(self, template):
         """
 
         Deletes all records that match the template.
@@ -234,13 +224,13 @@ class RDBDataTable(BaseDataTable):
         """
         pass
 
-    def update_by_key(self, template, key_fields):
+    def delete_by_key(self, key_fields):
         """
 
-        :param key_fields: Primary key fields.
-        :param new_values: A dictionary containing fields and the values to set for the corresponding fields
-            in the records.
-        :return: The number of rows updates.
+        Delete record with corresponding key.
+
+        :param key_fields: List containing the values for the key columns
+        :return: A count of the rows deleted.
         """
         pass
 
@@ -249,10 +239,21 @@ class RDBDataTable(BaseDataTable):
 
         :param template: A template that defines which matching rows to update.
         :param new_values: A dictionary containing fields and the values to set for the corresponding fields
-            in the records.
+            in the records. This returns an error if the update would create a duplicate primary key. NO ROWS are
+            update on this error.
         :return: The number of rows updates.
         """
         pass
-            
+
+    def update_by_key(self, key_fields, new_values):
+        """
+
+        :param key_fields: List of values for primary key fields
+        :param new_values: A dictionary containing fields and the values to set for the corresponding fields
+            in the records. This returns an error if the update would create a duplicate primary key. NO ROWS are
+            update on this error.
+        :return: The number of rows updates.
+        """
+        pass
 
 
