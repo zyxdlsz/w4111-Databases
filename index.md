@@ -103,7 +103,10 @@ notebook and/or PDF of a PowerPoint presentation.
     - Lecture 1: _Introduction and Overview_
         - [HTML](Lectures/Lecture_1/w4111-L1-s2019-Introduction.html)
         - [iPython/Jupyter Notebook](Lectures/Lecture_1/w4111-L1-s2019-Introduction.ipynb)
-    - Lecture 2: _Introduction and Overview_
+    - Lecture 2: _Relational Model_
         - [HTML](Lectures/Lecture_2/w4111-L2-s2019-ModelRelational-V2.html)
         - [iPython/Jupyter Notebook](Lectures/Lecture_2/w4111-L2-s2019-ModelRelational-V2.ipynb)
+    Lecture 3: _Relational Model Continued_
+        - [HTML](Lectures/Lecture_3/w4111-L3-s2019-SQLDetailsAndWeb-V2.html)
+        - [iPython/Jupyter Notebook](Lectures/Lecture_3/w4111-L3-s2019-SQLDetailsAndWeb-V2.ipynb)
 
