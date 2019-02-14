@@ -11830,7 +11830,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> sql
@@ -11859,7 +11859,7 @@ $( document ).ready(function(){
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[5]:</div>
+<div class="prompt output_prompt">Out[1]:</div>
 
 
 
@@ -11932,7 +11932,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pymysql</span>
@@ -11961,7 +11961,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">run_q</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cnx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -12013,7 +12013,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">run_q</span><span class="p">(</span><span class="s2">&quot;select * from people where playerid = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;willite01&#39;</span><span class="p">))</span>
@@ -12033,14 +12033,16 @@ $( document ).ready(function(){
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Query send to DB =  select * from people where playerid = &#39;willite01&#39;
+<pre>Query =  select * from people where playerid = %s
+Args =  willite01
+Query send to DB =  select * from people where playerid = &#39;willite01&#39;
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[29]:</div>
+<div class="prompt output_prompt">Out[5]:</div>
 
 
 
@@ -12084,7 +12086,113 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Course-Schedule">Course Schedule<a class="anchor-link" href="#Course-Schedule">&#182;</a></h2><h3 id="Topics">Topics<a class="anchor-link" href="#Topics">&#182;</a></h3>
+<h2 id="(Tentative)-Course-Schedule">(Tentative) Course Schedule<a class="anchor-link" href="#(Tentative)-Course-Schedule">&#182;</a></h2><ul>
+<li>14-Feb:<ul>
+<li>DB application overview, web applications, REST concepts.</li>
+<li>SQL query continued: JOIN, Group By, Order By.</li>
+<li>Critical first steps for HW2.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>16-Feb: HW2 released. In-person and video/recorded discussion of HW2.</li>
+</ul>
+<ul>
+<li>21-Feb: Final relational/SQL topics.<ul>
+<li>CASE, Views, Views versus copy tables.</li>
+<li>Keys, Indexes, Constraints.</li>
+<li>DDL and metadata operations.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>28-Feb: Data Modeling and Data Cleanup<ul>
+<li>Codd's Rules</li>
+<li>Normal Forms</li>
+<li>Data cleanup guidance and examples.</li>
+<li>Data modeling concepts, best practices, implementation.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>30-Feb: HW2 due.</li>
+</ul>
+<ul>
+<li>07-Mar:<ul>
+<li>Midterm released; in-class discussion of midterm.</li>
+<li>Module II starts: disks, buffer management, record management.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>14-Mar:<ul>
+<li>Midterm due.</li>
+<li>Indexes, access paths</li>
+<li>Query processing, part 1.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>21-Mar: Spring break.</li>
+</ul>
+<ul>
+<li>28-Mar:<ul>
+<li>Query processing part 2.</li>
+<li>Transactions and isolation.</li>
+<li>HW3 released.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>04-Apr: "NoSQL"<ul>
+<li>Concepts. motivation, eventual consistency.</li>
+<li>Examples: Neo4J, Redis, DynamoDB</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>11-Apr:<ul>
+<li>HW3 due. HW4 released.</li>
+<li>NosQL continued and examples.</li>
+<li>Data analysis, decision support 1.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>18-Apr: Decision support continued.</li>
+</ul>
+<ul>
+<li>25-Apr:<ul>
+<li>HW5 released. HW4 due.</li>
+<li>Decision support. Machine learning. Analytics.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>02-May:<ul>
+<li>HW5 due.</li>
+<li>Last day of class.</li>
+<li>Misc. topics.</li>
+<li>Final exam review. Final exam released.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>12-May: Final exam due.</li>
+</ul>
+<p><strong>Comments:</strong></p>
+<ul>
+<li><span style="color:red;">This is tentative. I reserve the right to change.</span></li>
+</ul>
+<ul>
+<li>Homework assignments:<ul>
+<li>HW3 is <strong>by far the hardest homework.</strong></li>
+<li>HW2 and HW4 are a little easier than HW1</li>
+<li>HW5 is trivial and should take a couple of hours.</li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
