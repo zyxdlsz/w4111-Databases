@@ -111,5 +111,8 @@ notebook and/or PDF of a PowerPoint presentation.
         - [iPython/Jupyter Notebook](Lectures/Lecture_3/w4111-L3-s2019-SQLDetailsAndWeb-V2.ipynb)
     - Lecture 4: _Web Applications and Advanced Relational_
         - [HTML](Lectures/Lecture_4/w4111-L4-s2019-WebAppAndSQL-v1.html)
-        - [iPython/Jupyter Notebook](w4111-L4-s2019-WebAppAndSQL-v1.ipynb)
+        - [iPython/Jupyter Notebook](Lectures/Lecture_4/w4111-L4-s2019-WebAppAndSQL-v1.ipynb)
+    Lecture 5: _Advanced SQL Concepts_
+        - [HTML](Lectures/Lecture_5/w4111-L5-s2019-SQLAdvancedConcepts.html)
+        - [iPython/Jupyter Notebook](Lectures/Lecture_5/w4111-L5-s2019-SQLAdvancedConcepts.ipynb)
 
