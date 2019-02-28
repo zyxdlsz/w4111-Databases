@@ -112,7 +112,10 @@ notebook and/or PDF of a PowerPoint presentation.
     - Lecture 4: _Web Applications and Advanced Relational_
         - [HTML](Lectures/Lecture_4/w4111-L4-s2019-WebAppAndSQL-v1.html)
         - [iPython/Jupyter Notebook](Lectures/Lecture_4/w4111-L4-s2019-WebAppAndSQL-v1.ipynb)
-    Lecture 5: _Advanced SQL Concepts_
+    - Lecture 5: _Advanced SQL Concepts_
         - [HTML](Lectures/Lecture_5/w4111-L5-s2019-SQLAdvancedConcepts.html)
         - [iPython/Jupyter Notebook](Lectures/Lecture_5/w4111-L5-s2019-SQLAdvancedConcepts.ipynb)
+    - Lecture 6: Continuing with Relational and SQL
+        - [HTML](Lectures/Lecture_6/w4111-L6-s2019-SQLAdvancedConceptsExamples.html)
+        - [iPython](Lectures/Lecture_6/w4111-L6-s2019-SQLAdvancedConceptsExamples.ipynb)
 
