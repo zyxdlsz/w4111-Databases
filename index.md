@@ -4,7 +4,7 @@ layout: default
 
 __Note:__ This GitHub repository supports the Dept. of Computer Science, Columbia University course
 _COMS W4111-Introduction to Databases_. The current content is for
-the [Spring 2019 semester,](https://courseworks2.columbia.edu/courses/79571/wiki) section 03, H03, V03, 
+the [Fall 2019 semester](https://courseworks2.columbia.edu/courses/85777) section 02. 
 taught by Donald F. Ferguson.
 
 # W4111 - Introduction to Databases
@@ -14,12 +14,14 @@ taught by Donald F. Ferguson.
 From the CU course description, 
 
 "The fundamentals of database design and application development using databases: entity-relationship modeling, logical design of relational databases, relational data definition and manipulation
-languages, SQL, XML, query processing, physical database tuning,
-transaction processing, security. Programming projects are required."
+languages, SQL, XML, query processing, physical database tuning, transaction processing, security. Programming projects are required."
 
-Sections 03, H03 and V03 of _W4111 - Introduction to Databases_ focus on understanding and applying database technology, 
+This section of  _W4111 - Introduction to Databases_ focus on _understanding and applying_ database technology, 
 and deemphasizes the theory and algorithms. The course will cover underlying theory and algorithms
-but in less detail than other database sections at CU. The course will have for modules, each of which has
+but in less detail than other database sections at CU. The course will focus on implementing small SW projects
+using various database technology. 
+
+The course will have four modules, each of which has
 sub-modules. 
 Specific topics will often appear in more than one sub-module of a module and across modules. 
 For example, understanding data modeling and best practices, and data schema/query are intertwined. The modules
