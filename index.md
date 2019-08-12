@@ -36,19 +36,21 @@ The CU course description lists the following prerequisites:
 
 A course in data structures is helpful for sections 03, H03 and V03 but not essential.
 
-Java is an excellent language for learning algorithms, data structures and programming fundamentals. Sections 03,
+Java is an excellent language for learning algorithms, data structures and programming fundamentals. Python, however, is
+becoming the dominant language and toolset for database centric applications. Sections 03,
 H03 and V03 will use Python for examples. Python is recommended for homework assignments and exams.
 
 ## Sections and Registration
 
-There are 3 sections for Spring 2019, _COMS W4111 - Introduction to Databases_,
-sections 03, H03 and V03.
+There are 3 sections for Fall 2019, _COMS W4111 - Introduction to Databases_,
+sections 02, H02 and V02.
 The three sections __cover the same material, have the same homework assignments and exams, 
 have the same office hours and
 have the same teaching assistants/course assistants.__ 
 
-Section 03 is the "classic," in-person lecture format. H03 is a "hybrid section."
-Students do not need to attend the lecture and can watch recordings of the lectures. V03 is via the [Columbia Video
+Section 02 is the "classic," in-person lecture format. H02 is a "hybrid section."
+Students do not need to attend the lecture and can watch recordings of the lectures. 
+V03 is via the [Columbia Video
 Network.](https://cvn.columbia.edu/) Schools and departments have policies about elibility for the various sections,
 enrollment authorization and waitlist management. Jessica Rosa in the CS department manages the enrollment and
 waitlist. Please contact Jessica if you have questions. 
@@ -101,5 +103,7 @@ is below. Lecture material will typically be some combination of
 [iPython/Jupyter Notebook,](https://jupyter.org/), HTML version of the
 notebook and/or PDF of a PowerPoint presentation.
 
-- Lecture1 1:
+- Lecture1 1: Introduction
+    - [HTML Format](Lectures/Lecture_1/w4111-L1-f2019-Introduction.html)
+    - [Jupyter Notebook Format](Lectures/Lecture_1/w4111-L1-f2019-Introduction.ipynb)
     
