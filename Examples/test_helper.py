@@ -82,7 +82,54 @@ def t4():
         print("None.")
 
 
+def revenue_report(customer_number=None, order_number=None, order_status=None, country=None):
+    """
+    Returns the orders and total value (sum of value of order items).
+
+    :param customer_number: Customer to get orders for. None gets all.
+    :param order_number: Same for order number.
+    :param order_status: Same for order status.
+    :param country: Same for customer country
+    :return: Matching information.
+    """
+
+    sql = """
+        select
+	        customers.customerNumber, customerName, customers.country,
+            orders.orderNumber, orders.status, 
+            (select sum(orderdetails.quantityOrdered*orderdetails.priceEach)
+		        from classicmodels.orderdetails where orders.orderNumber = orderDetails.orderNumber) as order_value
+        from classicmodels.customers join classicmodels.orders
+        where 
+	    customers.customerNumber = orders.customerNumber
+    """
+
+    args = []
+    if customer_number is not None:
+        sql += " and customers.customerNumber = %s"
+        args.append(customer_number)
+    if order_number is not None:
+        sql += " and orderNumber = %s"
+        args.append(order_number)
+    if order_status is not None:
+        sql += " and status = %s"
+        args.append(order_status)
+    if country is not None:
+        sql += " and country = %s"
+        args.append(country)
+
+    result = SQLHelper.run_q(sql, args, fetch=True, commit=True)
+    return result
+
+def t5():
+
+    result = revenue_report(order_status="In Process", country="Belgium")
+    print("Result: number of rows = ", result[0])
+    print("Data = \n", json.dumps(result[1], indent=2, default=str))
+
 #t1()
 #t2()
 #t3()
-t4()
+#t4()
+
+t5()

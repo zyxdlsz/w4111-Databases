@@ -7,10 +7,12 @@ logger = logging.getLogger()
 The default DB connection information. You MUST use this connection information for your assignments
 unless we specify otherwise. This means that you will have to:
 1. Create the schema lahman2019raw. 
-2. Create a user dbuser with the password dbuserdbuser.
-
+2. 
 We will show how to do this.
+
+You MUST create a user dbuser with the password dbuserdbuser.
 '''
+
 
 def _get_default_connection():
     result = pymysql.connect(host='localhost',
