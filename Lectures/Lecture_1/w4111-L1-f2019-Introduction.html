@@ -13166,7 +13166,7 @@ Lecture 1: Introduction and Overview
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><em>Environment Setup:</em> <strong>Ignore for now.</strong></p>
+<p><em>Environment Setup:</em> <strong>Ignore for now.</strong> Wizard stuff.</p>
 
 </div>
 </div>
@@ -13827,7 +13827,7 @@ I suggest you do the same and use PyCharm.
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Examples-of-Data">Examples of Data<a class="anchor-link" href="#Examples-of-Data">&#182;</a></h3><table>
 <thead><tr>
-<th style="text-align:center"><img src="../../Images/Slide29.jpg" width="900px"></th>
+<th style="text-align:center"><img src="../../images/Slide29.jpg" width="900px"></th>
 </tr>
 </thead>
 <tbody>
@@ -17849,19 +17849,357 @@ It is a big, honking set of linked databases.</li>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>There does not appear to be much difference. The differences emerge when you examine some use cases.</li>
+<li>There does not appear to be much difference. <strong>The differences emerge when you examine some use cases.</strong></li>
 </ul>
-<h4 id="Use-Case-1:-Find-all-of-the-people-with-$first\_name$-&quot;Zeus.&quot;">Use Case 1: Find all of the people with $first\_name$ "Zeus."<a class="anchor-link" href="#Use-Case-1:-Find-all-of-the-people-with-$first\_name$-&quot;Zeus.&quot;">&#182;</a></h4><p><u>SQL</u></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="SQL-Statements">SQL Statements<a class="anchor-link" href="#SQL-Statements">&#182;</a></h3><h4 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h4><ul>
+<li>There are two classes of SQL statements: <em>data definition language</em> and <em>data manipulation language.</em></li>
+</ul>
+<hr style="height:1px;">
+
+<table>
+<thead><tr>
+<th style="text-align:center"><img src="../../images/dbms_end_to_end.jpg" width="900px"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>DBMS SQL Processing</strong></td>
+</tr>
+</tbody>
+</table>
+<hr style="height:1px;">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>When I execute the code cells in the notebook with <code>%sql</code> or <code>%%sql</code> and hit run,</p>
+<ul>
+<li>The browser send the text in the cell to the Jupyter notebook server.</li>
+<li>The notebook server passes the text to an embedded Python interpreter.</li>
+<li>The Python interpreter is the DBMS client.</li>
+</ul>
+</li>
+<li><p>When I use <em>MySQL Workbench,</em> the workbench is a program on my laptop that has a user interface.</p>
+<ul>
+<li>This is the client application.</li>
+<li>MySQL Workbench and MySQL Community Server are two different products, codebases and running programs.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>You can also write your own application that forms the SQL commands and sends to the DBMS through the connector.<ul>
+<li>The code cells with Python in them are a version of this model.</li>
+<li>The code cell is a little application.</li>
+<li>The browser and Jupyter notebook sever send the code to a Python interpreter to run the application.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Demo/Show:<ul>
+<li>MySQL</li>
+<li>PyCharm</li>
+<li>Various running processes.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Some-Helper-Code">Some Helper Code<a class="anchor-link" href="#Some-Helper-Code">&#182;</a></h4><ul>
+<li>You will write programs that use the database through a connector library.</li>
+</ul>
+<ul>
+<li>The programming can be a little tedious. I will provide some helper functions that you can use.</li>
+</ul>
+<ul>
+<li>I had the students implement these functions last semester. I decided that the details of Python string, args, etc. manipulation had little teaching value.</li>
+</ul>
+<ul>
+<li>All of the helper functions are in the GitHub project for the class. You can use for homework and exams.</li>
+</ul>
+<h5 id="Run-a-Query">Run a Query<a class="anchor-link" href="#Run-a-Query">&#182;</a></h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pymysql</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">The default DB connection information. You MUST use this connection information for your assignments</span>
+<span class="sd">unless we specify otherwise. This means that you will have to:</span>
+<span class="sd">1. Create the schema lahman2019raw. </span>
+<span class="sd">2. Create a user dbuser with the password dbuserdbuser.</span>
+
+<span class="sd">We will show how to do this.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="k">def</span> <span class="nf">_get_default_connection</span><span class="p">():</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+                                 <span class="n">user</span><span class="o">=</span><span class="s1">&#39;dbuser&#39;</span><span class="p">,</span>
+                                 <span class="n">password</span><span class="o">=</span><span class="s1">&#39;dbuserdbuser&#39;</span><span class="p">,</span>
+                                 <span class="n">db</span><span class="o">=</span><span class="s1">&#39;lahman2019raw&#39;</span><span class="p">,</span>
+                                 <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8mb4&#39;</span><span class="p">,</span>
+                                 <span class="n">cursorclass</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">cursors</span><span class="o">.</span><span class="n">DictCursor</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span> <span class="nf">run_q</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cur</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Helper function to run an SQL statement.</span>
+
+<span class="sd">    :param sql: SQL template with placeholders for parameters.</span>
+<span class="sd">    :param args: Values to pass with statement.</span>
+<span class="sd">    :param fetch: Execute a fetch and return data.</span>
+<span class="sd">    :param conn: The database connection to use. The function will use the default if None.</span>
+<span class="sd">    :param cur: The cursor to use. This is wizard stuff. Do not worry about it for now.</span>
+<span class="sd">    :param commit: This is wizard stuff. Do not worry about it.</span>
+
+<span class="sd">    :return: A tuple of the form (execute response, fetched data)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">cursor_created</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">connection_created</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">try</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">conn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">connection_created</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="n">_get_default_connection</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">cur</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cursor_created</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">log_message</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">mogrify</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log_message</span> <span class="o">=</span> <span class="n">sql</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing SQL = &quot;</span> <span class="o">+</span> <span class="n">log_message</span><span class="p">)</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">fetch</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Do not ask.</span>
+        <span class="k">if</span> <span class="n">commit</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Simple test.</li>
+</ul>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">sql</span> select * from sample_student_data where first_name=&#39;Zeus&#39;
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">t1</span><span class="p">():</span>
+
+    <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;select * from lahman2019raw.people where nameLast=</span><span class="si">%s</span><span class="s2"> and birthCity=</span><span class="si">%s</span><span class="s2">&quot;</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Williams&#39;</span><span class="p">,</span> <span class="s1">&#39;San Diego&#39;</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_q</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Return code = &quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data = &quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;None.&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t1</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>DEBUG:root:Executing SQL = select * from lahman2019raw.people where nameLast=&#39;Williams&#39; and birthCity=&#39;San Diego&#39;
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Return code =  2
+Data = 
+[
+  {
+    &#34;playerID&#34;: &#34;willite01&#34;,
+    &#34;birthYear&#34;: &#34;1918&#34;,
+    &#34;birthMonth&#34;: &#34;8&#34;,
+    &#34;birthDay&#34;: &#34;30&#34;,
+    &#34;birthCountry&#34;: &#34;USA&#34;,
+    &#34;birthState&#34;: &#34;CA&#34;,
+    &#34;birthCity&#34;: &#34;San Diego&#34;,
+    &#34;deathYear&#34;: &#34;2002&#34;,
+    &#34;deathMonth&#34;: &#34;7&#34;,
+    &#34;deathDay&#34;: &#34;5&#34;,
+    &#34;deathCountry&#34;: &#34;USA&#34;,
+    &#34;deathState&#34;: &#34;FL&#34;,
+    &#34;deathCity&#34;: &#34;Inverness&#34;,
+    &#34;nameFirst&#34;: &#34;Ted&#34;,
+    &#34;nameLast&#34;: &#34;Williams&#34;,
+    &#34;nameGiven&#34;: &#34;Theodore Samuel&#34;,
+    &#34;weight&#34;: &#34;205&#34;,
+    &#34;height&#34;: &#34;75&#34;,
+    &#34;bats&#34;: &#34;L&#34;,
+    &#34;throws&#34;: &#34;R&#34;,
+    &#34;debut&#34;: &#34;1939-04-20&#34;,
+    &#34;finalGame&#34;: &#34;1960-09-28&#34;,
+    &#34;retroID&#34;: &#34;willt103&#34;,
+    &#34;bbrefID&#34;: &#34;willite01&#34;
+  },
+  {
+    &#34;playerID&#34;: &#34;willitr01&#34;,
+    &#34;birthYear&#34;: &#34;1992&#34;,
+    &#34;birthMonth&#34;: &#34;4&#34;,
+    &#34;birthDay&#34;: &#34;25&#34;,
+    &#34;birthCountry&#34;: &#34;USA&#34;,
+    &#34;birthState&#34;: &#34;CA&#34;,
+    &#34;birthCity&#34;: &#34;San Diego&#34;,
+    &#34;deathYear&#34;: &#34;&#34;,
+    &#34;deathMonth&#34;: &#34;&#34;,
+    &#34;deathDay&#34;: &#34;&#34;,
+    &#34;deathCountry&#34;: &#34;&#34;,
+    &#34;deathState&#34;: &#34;&#34;,
+    &#34;deathCity&#34;: &#34;&#34;,
+    &#34;nameFirst&#34;: &#34;Trevor&#34;,
+    &#34;nameLast&#34;: &#34;Williams&#34;,
+    &#34;nameGiven&#34;: &#34;Trevor Anthony&#34;,
+    &#34;weight&#34;: &#34;230&#34;,
+    &#34;height&#34;: &#34;75&#34;,
+    &#34;bats&#34;: &#34;R&#34;,
+    &#34;throws&#34;: &#34;R&#34;,
+    &#34;debut&#34;: &#34;2016-09-07&#34;,
+    &#34;finalGame&#34;: &#34;2018-09-27&#34;,
+    &#34;retroID&#34;: &#34;willt002&#34;,
+    &#34;bbrefID&#34;: &#34;willitr01&#34;
+  }
+]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Select">Select<a class="anchor-link" href="#Select">&#182;</a></h5><ul>
+<li><code>SELECT</code> reads and returns database from a database.</li>
+</ul>
+<ul>
+<li>We will cover in lectures and use extensively.</li>
+</ul>
+<ul>
+<li><a href="https://www.w3schools.com/sql/sql_select.asp">w3schools</a> has a good tutorial that may help in the beginning.</li>
+</ul>
+<ul>
+<li>The <code>SELECT</code> format is:</li>
+</ul>
+
+<pre><code>SELECT column1, column2, ...
+FROM table_name
+WHERE condition;</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><u>Example</u></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select nameLast, nameFirst, birthCity, birthState, birthYear
+    from lahman2019raw.people
+    where birthCity=&#39;San Diego&#39; and nameLast=&#39;Williams&#39;
 </pre></div>
 
     </div>
@@ -17879,7 +18217,412 @@ It is a big, honking set of linked databases.</li>
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre> * mysql+pymysql://dbuser:***@localhost/w4111f19
-   mysql+pymysql://root:***@columbia8013.cqgsme1nmjms.us-east-1.rds.amazonaws.com
+2 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[8]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>nameLast</th>
+        <th>nameFirst</th>
+        <th>birthCity</th>
+        <th>birthState</th>
+        <th>birthYear</th>
+    </tr>
+    <tr>
+        <td>Williams</td>
+        <td>Ted</td>
+        <td>San Diego</td>
+        <td>CA</td>
+        <td>1918</td>
+    </tr>
+    <tr>
+        <td>Williams</td>
+        <td>Trevor</td>
+        <td>San Diego</td>
+        <td>CA</td>
+        <td>1992</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><strong>Ignore the <code>%sql</code> and <code>%%sql</code> stuff for now. You SQL statements in programs will not use it.</strong></li>
+</ul>
+<p><u>Some Helper Code</u></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">template_to_where_clause</span><span class="p">(</span><span class="n">template</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param template: One of those weird templates</span>
+<span class="sd">    :return: WHERE clause corresponding to the template.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">template</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">template</span> <span class="o">==</span> <span class="p">{}:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">terms</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">template</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">terms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="s2">&quot;=</span><span class="si">%s</span><span class="s2"> &quot;</span><span class="p">)</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+        <span class="n">w_clause</span> <span class="o">=</span> <span class="s2">&quot;AND&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span>
+        <span class="n">w_clause</span> <span class="o">=</span> <span class="s2">&quot; WHERE &quot;</span> <span class="o">+</span> <span class="n">w_clause</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">w_clause</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span> <span class="nf">create_select</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">order_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Produce a select statement: sql string and args.</span>
+
+<span class="sd">    :param table_name: Table name: May be fully qualified dbname.tablename or just tablename.</span>
+<span class="sd">    :param fields: Columns to select (an array of column name)</span>
+<span class="sd">    :param template: One of Don Ferguson&#39;s weird JSON/python dictionary templates.</span>
+<span class="sd">    :param order_by: Ignore for now.</span>
+<span class="sd">    :param limit: Ignore for now.</span>
+<span class="sd">    :param offset: Ignore for now.</span>
+<span class="sd">    :return: A tuple of the form (sql string, args), where the sql string is a template.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">fields</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">field_list</span> <span class="o">=</span> <span class="s2">&quot; * &quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">field_list</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
+
+    <span class="n">w_clause</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">template_to_where_clause</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+
+    <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;select &quot;</span> <span class="o">+</span> <span class="n">field_list</span> <span class="o">+</span> <span class="s2">&quot; from &quot;</span> <span class="o">+</span>  <span class="n">table_name</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">w_clause</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">t2</span><span class="p">():</span>
+
+    <span class="n">table_name</span> <span class="o">=</span> <span class="s2">&quot;lahman2019raw.people&quot;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;nameLast&#39;</span><span class="p">,</span> <span class="s1">&#39;nameFirst&#39;</span><span class="p">,</span> <span class="s1">&#39;birthYear&#39;</span><span class="p">,</span> <span class="s1">&#39;birthState&#39;</span><span class="p">,</span> <span class="s1">&#39;birthMonth&#39;</span><span class="p">]</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;nameLast&quot;</span><span class="p">:</span> <span class="s2">&quot;Williams&quot;</span><span class="p">,</span> <span class="s2">&quot;birthCity&quot;</span><span class="p">:</span> <span class="s2">&quot;San Diego&quot;</span><span class="p">}</span>
+    <span class="n">sql</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">create_select</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">fields</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SQL = &quot;</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="s2">&quot;, args = &quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_q</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;None.&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t2</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>DEBUG:root:Executing SQL = select  nameLast,nameFirst,birthYear,birthState,birthMonth  from lahman2019raw.people  WHERE  nameLast=&#39;Williams&#39; AND birthCity=&#39;San Diego&#39; 
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>SQL =  select  nameLast,nameFirst,birthYear,birthState,birthMonth  from lahman2019raw.people  WHERE  nameLast=%s AND birthCity=%s  , args =  [&#39;Williams&#39;, &#39;San Diego&#39;]
+[
+  {
+    &#34;nameLast&#34;: &#34;Williams&#34;,
+    &#34;nameFirst&#34;: &#34;Ted&#34;,
+    &#34;birthYear&#34;: &#34;1918&#34;,
+    &#34;birthState&#34;: &#34;CA&#34;,
+    &#34;birthMonth&#34;: &#34;8&#34;
+  },
+  {
+    &#34;nameLast&#34;: &#34;Williams&#34;,
+    &#34;nameFirst&#34;: &#34;Trevor&#34;,
+    &#34;birthYear&#34;: &#34;1992&#34;,
+    &#34;birthState&#34;: &#34;CA&#34;,
+    &#34;birthMonth&#34;: &#34;4&#34;
+  }
+]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Insert">Insert<a class="anchor-link" href="#Insert">&#182;</a></h5><ul>
+<li>The simple version of <code>INSERT</code> is:</li>
+</ul>
+
+<pre><code>INSERT INTO table_name ( field1, field2,...fieldN )
+   VALUES
+   ( value1, value2,...valueN );</code></pre>
+<ul>
+<li>If you do not include <code>( field1, field2,...fieldN )</code> in the statement, the default is all of the table's columns in the order defined in the table definition.</li>
+</ul>
+<ul>
+<li><strong>Note:</strong><ul>
+<li>I do not want to update the Lahman database because we will be analyzing it. So, I will use a different sample database: <a href="http://www.mysqltutorial.org/mysql-sample-database.aspx">MySQL Sample Database</a></li>
+<li>We will periodically use this schema, and I will discuss in the future.</li>
+<li>I jump around using different databases for various reasons, but this also highlights the flexibility of the relational model and SQL. A simple, core language and models supports a very broad set of data.</li>
+</ul>
+</li>
+</ul>
+<p><u>Example</u></p>
+<ul>
+<li>The current set of office locations for the company.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">sql</span> select * from classicmodels.offices
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * mysql+pymysql://dbuser:***@localhost/w4111f19
+8 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[16]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>officeCode</th>
+        <th>city</th>
+        <th>phone</th>
+        <th>addressLine1</th>
+        <th>addressLine2</th>
+        <th>state</th>
+        <th>country</th>
+        <th>postalCode</th>
+        <th>territory</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>San Francisco</td>
+        <td>+1 650 219 4782</td>
+        <td>100 Market Street</td>
+        <td>Suite 300</td>
+        <td>CA</td>
+        <td>USA</td>
+        <td>94080</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Boston</td>
+        <td>+1 215 837 0825</td>
+        <td>1550 Court Place</td>
+        <td>Suite 102</td>
+        <td>MA</td>
+        <td>USA</td>
+        <td>02107</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>NYC</td>
+        <td>+1 212 555 3000</td>
+        <td>523 East 53rd Street</td>
+        <td>apt. 5A</td>
+        <td>NY</td>
+        <td>USA</td>
+        <td>10022</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Paris</td>
+        <td>+33 14 723 4404</td>
+        <td>43 Rue Jouffroy D&#x27;abbans</td>
+        <td>None</td>
+        <td>None</td>
+        <td>France</td>
+        <td>75017</td>
+        <td>EMEA</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Tokyo</td>
+        <td>+81 33 224 5000</td>
+        <td>4-1 Kioicho</td>
+        <td>None</td>
+        <td>Chiyoda-Ku</td>
+        <td>Japan</td>
+        <td>102-8578</td>
+        <td>Japan</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Sydney</td>
+        <td>+61 2 9264 2451</td>
+        <td>5-11 Wentworth Avenue</td>
+        <td>Floor #2</td>
+        <td>None</td>
+        <td>Australia</td>
+        <td>NSW 2010</td>
+        <td>APAC</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>London</td>
+        <td>+44 20 7877 2041</td>
+        <td>25 Old Broad Street</td>
+        <td>Level 7</td>
+        <td>None</td>
+        <td>UK</td>
+        <td>EC2N 1HN</td>
+        <td>EMEA</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>New York</td>
+        <td>+1 212 555-1212</td>
+        <td>W 116th Street</td>
+        <td>and Broadway</td>
+        <td>NY</td>
+        <td>USA</td>
+        <td>10027</td>
+        <td>NA</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Add a new row.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+    insert into classicmodels.offices
+        (officeCode, city, phone, addressLine1, state, country, postalCode, territory)
+    values
+        (9, &quot;Boston&quot;, &quot;+1 617-555-1212&quot;, &quot;One Government Center&quot;, &quot;MA&quot;, &quot;USA&quot;, &quot;02102&quot;, &quot;NA&quot;)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * mysql+pymysql://dbuser:***@localhost/w4111f19
 1 rows affected.
 </pre>
 </div>
@@ -17887,27 +18630,13 @@ It is a big, honking set of linked databases.</li>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[43]:</div>
+    <div class="prompt output_prompt">Out[19]:</div>
 
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table>
-    <tr>
-        <th>last_name</th>
-        <th>first_name</th>
-        <th>email</th>
-        <th>phone</th>
-        <th>student_id</th>
-    </tr>
-    <tr>
-        <td>Shelton</td>
-        <td>Zeus</td>
-        <td>Vivamus.rhoncus.Donec@semeget.ca</td>
-        <td>1-129-127-4821</td>
-        <td>F727E942-5077-927C-151C-835D2A1FF7F4</td>
-    </tr>
-</table>
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[]</pre>
 </div>
 
 </div>
@@ -17915,82 +18644,13 @@ It is a big, honking set of linked databases.</li>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><u>Programming</u></p>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
-
-<span class="n">fn</span> <span class="o">=</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Users</span><span class="se">\\</span><span class="s2">dferguso</span><span class="se">\\</span><span class="s2">OneDrive - ANSYS, Inc</span><span class="se">\\</span><span class="s2">Columbia</span><span class="se">\\</span><span class="s2">W4111f19</span><span class="se">\\</span><span class="s2">w4111-Databases</span><span class="se">\\</span><span class="s2">Data</span><span class="se">\\</span><span class="s2">student_example.csv&quot;</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">the_file</span><span class="p">:</span>
-    <span class="n">csv_rdr</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">the_file</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">csv_rdr</span><span class="p">:</span>
-        <span class="n">f_name</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;first_name&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">f_name</span> <span class="o">==</span> <span class="s2">&quot;Zeus&quot;</span><span class="p">:</span>
-            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-            
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[OrderedDict([(&#39;last_name&#39;, &#39;Shelton&#39;), (&#39;first_name&#39;, &#39;Zeus&#39;), (&#39;email&#39;, &#39;Vivamus.rhoncus.Donec@semeget.ca&#39;), (&#39;phone&#39;, &#39;1-129-127-4821&#39;), (&#39;student_id&#39;, &#39;F727E942-5077-927C-151C-835D2A1FF7F4&#39;)])]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>SQL is much simpler and more productive than writing python functions to implement queries.<ul>
-<li>SQL allows you to <em>declare</em> the result you want, inteprets the query and produces the result.</li>
-<li>Imperative programming languages require writing functions every time you neeed a new query.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>All of the students whose email domain ends in ".uk" or whose phone area code is "411"</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">sql</span> select * from sample_student_data where email like &quot;%.uk&quot; or phone like &quot;1-411-%&quot;
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">sql</span> select * from classicmodels.offices
 </pre></div>
 
     </div>
@@ -18008,152 +18668,128 @@ It is a big, honking set of linked databases.</li>
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre> * mysql+pymysql://dbuser:***@localhost/w4111f19
-   mysql+pymysql://root:***@columbia8013.cqgsme1nmjms.us-east-1.rds.amazonaws.com
-18 rows affected.
+9 rows affected.
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[49]:</div>
+    <div class="prompt output_prompt">Out[20]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table>
     <tr>
-        <th>last_name</th>
-        <th>first_name</th>
-        <th>email</th>
+        <th>officeCode</th>
+        <th>city</th>
         <th>phone</th>
-        <th>student_id</th>
+        <th>addressLine1</th>
+        <th>addressLine2</th>
+        <th>state</th>
+        <th>country</th>
+        <th>postalCode</th>
+        <th>territory</th>
     </tr>
     <tr>
-        <td>Lyons</td>
-        <td>Kennedy</td>
-        <td>volutpat.Nulla@tellusNunc.co.uk</td>
-        <td>1-883-401-5587</td>
-        <td>791D59B7-EBDB-F783-B2C5-3C9B713130C9</td>
+        <td>1</td>
+        <td>San Francisco</td>
+        <td>+1 650 219 4782</td>
+        <td>100 Market Street</td>
+        <td>Suite 300</td>
+        <td>CA</td>
+        <td>USA</td>
+        <td>94080</td>
+        <td>NA</td>
     </tr>
     <tr>
-        <td>Gould</td>
-        <td>Ulysses</td>
-        <td>felis@SeddictumProin.co.uk</td>
-        <td>1-332-978-2811</td>
-        <td>49DCD5E2-32C8-5E66-21B2-F68306065E5A</td>
+        <td>2</td>
+        <td>Boston</td>
+        <td>+1 215 837 0825</td>
+        <td>1550 Court Place</td>
+        <td>Suite 102</td>
+        <td>MA</td>
+        <td>USA</td>
+        <td>02107</td>
+        <td>NA</td>
     </tr>
     <tr>
-        <td>English</td>
-        <td>Darius</td>
-        <td>amet@Cum.co.uk</td>
-        <td>1-662-884-5660</td>
-        <td>01D1C989-418E-BBD4-9476-613B1745D23A</td>
+        <td>3</td>
+        <td>NYC</td>
+        <td>+1 212 555 3000</td>
+        <td>523 East 53rd Street</td>
+        <td>apt. 5A</td>
+        <td>NY</td>
+        <td>USA</td>
+        <td>10022</td>
+        <td>NA</td>
     </tr>
     <tr>
-        <td>Hebert</td>
-        <td>Paloma</td>
-        <td>velit.Pellentesque.ultricies@hendrerita.co.uk</td>
-        <td>1-295-114-1637</td>
-        <td>C932014A-0698-F64E-CDC6-85467F9FA09E</td>
+        <td>4</td>
+        <td>Paris</td>
+        <td>+33 14 723 4404</td>
+        <td>43 Rue Jouffroy D&#x27;abbans</td>
+        <td>None</td>
+        <td>None</td>
+        <td>France</td>
+        <td>75017</td>
+        <td>EMEA</td>
     </tr>
     <tr>
-        <td>Dorsey</td>
-        <td>Chiquita</td>
-        <td>euismod.est.arcu@convallisdolor.co.uk</td>
-        <td>1-465-325-2986</td>
-        <td>6663196E-D7E1-5D41-4D3E-DDD8361CF391</td>
+        <td>5</td>
+        <td>Tokyo</td>
+        <td>+81 33 224 5000</td>
+        <td>4-1 Kioicho</td>
+        <td>None</td>
+        <td>Chiyoda-Ku</td>
+        <td>Japan</td>
+        <td>102-8578</td>
+        <td>Japan</td>
     </tr>
     <tr>
-        <td>Bates</td>
-        <td>Raja</td>
-        <td>torquent@Proineget.co.uk</td>
-        <td>1-917-477-8791</td>
-        <td>22BEF536-5350-A7CA-30C7-DAEBB2C52743</td>
+        <td>6</td>
+        <td>Sydney</td>
+        <td>+61 2 9264 2451</td>
+        <td>5-11 Wentworth Avenue</td>
+        <td>Floor #2</td>
+        <td>None</td>
+        <td>Australia</td>
+        <td>NSW 2010</td>
+        <td>APAC</td>
     </tr>
     <tr>
-        <td>Finch</td>
-        <td>Ursula</td>
-        <td>egestas.Sed.pharetra@Aliquamerat.com</td>
-        <td>1-411-282-3559</td>
-        <td>96F9A006-2BC0-D018-04AB-898E00EA46E2</td>
+        <td>7</td>
+        <td>London</td>
+        <td>+44 20 7877 2041</td>
+        <td>25 Old Broad Street</td>
+        <td>Level 7</td>
+        <td>None</td>
+        <td>UK</td>
+        <td>EC2N 1HN</td>
+        <td>EMEA</td>
     </tr>
     <tr>
-        <td>Workman</td>
-        <td>Camden</td>
-        <td>tellus.sem@acfeugiatnon.co.uk</td>
-        <td>1-500-685-8712</td>
-        <td>0327B041-CEE1-EC2A-DEF6-91E57DD71AED</td>
+        <td>8</td>
+        <td>New York</td>
+        <td>+1 212 555-1212</td>
+        <td>W 116th Street</td>
+        <td>and Broadway</td>
+        <td>NY</td>
+        <td>USA</td>
+        <td>10027</td>
+        <td>NA</td>
     </tr>
     <tr>
-        <td>Meadows</td>
-        <td>Zeph</td>
-        <td>dictum@NullamenimSed.co.uk</td>
-        <td>1-596-171-2425</td>
-        <td>36AC09A8-4E87-7B84-6B1C-E3F7A98554BE</td>
-    </tr>
-    <tr>
-        <td>Kennedy</td>
-        <td>Clio</td>
-        <td>Donec.est@cursusluctusipsum.co.uk</td>
-        <td>1-705-362-2302</td>
-        <td>A4A5240B-0775-B859-662D-C62C4B995268</td>
-    </tr>
-    <tr>
-        <td>Whitfield</td>
-        <td>Jolene</td>
-        <td>massa@tinciduntdui.co.uk</td>
-        <td>1-933-609-9740</td>
-        <td>8929C822-EF1C-20FC-F1B9-1145146A8ED1</td>
-    </tr>
-    <tr>
-        <td>Horton</td>
-        <td>Thane</td>
-        <td>tortor.Nunc@dolorquam.co.uk</td>
-        <td>1-654-343-4182</td>
-        <td>58B17C4E-5280-D7CD-CC6B-3689C19E428A</td>
-    </tr>
-    <tr>
-        <td>Ferrell</td>
-        <td>Aline</td>
-        <td>lectus.Nullam@ametante.co.uk</td>
-        <td>1-805-367-9518</td>
-        <td>52615E3A-7B8E-EA45-8A2F-654A0C12C3ED</td>
-    </tr>
-    <tr>
-        <td>Holder</td>
-        <td>Victoria</td>
-        <td>euismod.urna.Nullam@nibhDonec.co.uk</td>
-        <td>1-784-251-7889</td>
-        <td>0BAD3EBC-D9C4-F6DE-06C2-D8BA0C7CF2BF</td>
-    </tr>
-    <tr>
-        <td>Harvey</td>
-        <td>Ruth</td>
-        <td>sit.amet.faucibus@sodales.co.uk</td>
-        <td>1-664-460-9585</td>
-        <td>60B4324B-5504-31AB-9E93-5DC062A108A0</td>
-    </tr>
-    <tr>
-        <td>Sanchez</td>
-        <td>Diana</td>
-        <td>Cum.sociis@Fusce.co.uk</td>
-        <td>1-757-205-2566</td>
-        <td>7EBBA903-D5BA-6799-8C2A-8B5512A7EE4F</td>
-    </tr>
-    <tr>
-        <td>Hinton</td>
-        <td>Karly</td>
-        <td>tristique.senectus.et@sollicitudinorci.co.uk</td>
-        <td>1-173-635-6664</td>
-        <td>BB555BE4-6CCF-E9B8-4594-8789EFB8166A</td>
-    </tr>
-    <tr>
-        <td>Mann</td>
-        <td>Lucius</td>
-        <td>nec.metus.facilisis@montesnascetur.co.uk</td>
-        <td>1-905-698-5105</td>
-        <td>784CD3D5-6FDE-1ADB-7634-DE549C07FF1D</td>
+        <td>9</td>
+        <td>Boston</td>
+        <td>+1 617-555-1212</td>
+        <td>One Government Center</td>
+        <td>None</td>
+        <td>MA</td>
+        <td>USA</td>
+        <td>02102</td>
+        <td>NA</td>
     </tr>
 </table>
 </div>
@@ -18167,46 +18803,134 @@ It is a big, honking set of linked databases.</li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Writing the corresponding Python function would be annoying. The annoyance increases the more queries you have to make and the more complex the queries become.</li>
-</ul>
-<ul>
-<li>You could (and you will) write a framework/library that performs general queries in Python, but you have started down the path of implementing a relational database.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Use-Case-2:-Schema">Use Case 2: Schema<a class="anchor-link" href="#Use-Case-2:-Schema">&#182;</a></h4><ul>
-<li>Files do not have schema. Programmers can insert bad data. Tables do and enforce the schema.</li>
-</ul>
-<p><u>SQL</u></p>
+<p><u>Helper Code</u></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">)</span>
-<span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;insert into sample_student_data(shoe_size, iq, uni, email, title) &quot;</span> <span class="o">+</span> \
-    <span class="s2">&quot; values(</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">create_insert</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">cur</span> <span class="o">=</span><span class="n">db_cnx</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-<span class="n">stmt</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">mogrify</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I will attempt to run the query =&quot;</span><span class="p">,</span> <span class="n">stmt</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="sd">    :param table_name: A table name, which may be fully qualified.</span>
+<span class="sd">    :param row: A Python dictionary of the form: { ..., &quot;column_name&quot; : value, ...}</span>
+<span class="sd">    :return: SQL template string, args for insertion into the template</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">stmt</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Insert returned&quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Got exception = &quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The database prevented something bad from happening.&quot;</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;Insert into &quot;</span> <span class="o">+</span> <span class="n">table_name</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># This is paranoia. I know that calling keys() and values() should return in matching order,</span>
+    <span class="c1"># but in the long term only the paranoid survive.</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="n">col_clause</span> <span class="o">=</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;) &quot;</span>
+
+    <span class="n">no_cols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+    <span class="n">terms</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">no_cols</span>
+    <span class="n">terms</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span>
+    <span class="n">value_clause</span> <span class="o">=</span> <span class="s2">&quot; values (&quot;</span> <span class="o">+</span> <span class="n">terms</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+
+    <span class="n">result</span> <span class="o">+=</span> <span class="n">col_clause</span> <span class="o">+</span> <span class="n">value_clause</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">vals</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">t3</span><span class="p">():</span>
+
+    <span class="n">table_name</span> <span class="o">=</span> <span class="s2">&quot;classicmodels.offices&quot;</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;officeCode&quot;</span><span class="p">:</span> <span class="s2">&quot;13&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;Minas Tirith&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;Minas Tirith&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;addressLine1&quot;</span><span class="p">:</span> <span class="s2">&quot;23 Level 3&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;phone&quot;</span><span class="p">:</span> <span class="s2">&quot;Palatir&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;country&quot;</span><span class="p">:</span> <span class="s2">&quot;Gondor&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;postalCode&quot;</span><span class="p">:</span> <span class="s2">&quot;12345&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;territory&quot;</span><span class="p">:</span> <span class="s2">&quot;ME&quot;</span>
+    <span class="p">}</span>
+
+    <span class="n">sql</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">create_insert</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SQL = &quot;</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="s2">&quot;, args = &quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_q</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;None.&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t3</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>DEBUG:root:Executing SQL = Insert into classicmodels.offices (officeCode,city,state,addressLine1,phone,country,postalCode,territory)  values (&#39;13&#39;,&#39;Minas Tirith&#39;,&#39;Minas Tirith&#39;,&#39;23 Level 3&#39;,&#39;Palatir&#39;,&#39;Gondor&#39;,&#39;12345&#39;,&#39;ME&#39;)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>SQL =  Insert into classicmodels.offices (officeCode,city,state,addressLine1,phone,country,postalCode,territory)  values (%s,%s,%s,%s,%s,%s,%s,%s) , args =  [&#39;13&#39;, &#39;Minas Tirith&#39;, &#39;Minas Tirith&#39;, &#39;23 Level 3&#39;, &#39;Palatir&#39;, &#39;Gondor&#39;, &#39;12345&#39;, &#39;ME&#39;]
+None.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">sql</span> select * from classicmodels.offices
 </pre></div>
 
     </div>
@@ -18223,10 +18947,507 @@ It is a big, honking set of linked databases.</li>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>
-I will attempt to run the query = insert into sample_student_data(shoe_size, iq, uni, email, title)  values(&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;) 
+<pre> * mysql+pymysql://dbuser:***@localhost/w4111f19
+10 rows affected.
+</pre>
+</div>
+</div>
 
-Got exception =  (1054, &#34;Unknown column &#39;shoe_size&#39; in &#39;field list&#39;&#34;)
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[34]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>officeCode</th>
+        <th>city</th>
+        <th>phone</th>
+        <th>addressLine1</th>
+        <th>addressLine2</th>
+        <th>state</th>
+        <th>country</th>
+        <th>postalCode</th>
+        <th>territory</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>San Francisco</td>
+        <td>+1 650 219 4782</td>
+        <td>100 Market Street</td>
+        <td>Suite 300</td>
+        <td>CA</td>
+        <td>USA</td>
+        <td>94080</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>Minas Tirith</td>
+        <td>Palatir</td>
+        <td>23 Level 3</td>
+        <td>None</td>
+        <td>Minas Tirith</td>
+        <td>Gondor</td>
+        <td>12345</td>
+        <td>ME</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Boston</td>
+        <td>+1 215 837 0825</td>
+        <td>1550 Court Place</td>
+        <td>Suite 102</td>
+        <td>MA</td>
+        <td>USA</td>
+        <td>02107</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>NYC</td>
+        <td>+1 212 555 3000</td>
+        <td>523 East 53rd Street</td>
+        <td>apt. 5A</td>
+        <td>NY</td>
+        <td>USA</td>
+        <td>10022</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Paris</td>
+        <td>+33 14 723 4404</td>
+        <td>43 Rue Jouffroy D&#x27;abbans</td>
+        <td>None</td>
+        <td>None</td>
+        <td>France</td>
+        <td>75017</td>
+        <td>EMEA</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Tokyo</td>
+        <td>+81 33 224 5000</td>
+        <td>4-1 Kioicho</td>
+        <td>None</td>
+        <td>Chiyoda-Ku</td>
+        <td>Japan</td>
+        <td>102-8578</td>
+        <td>Japan</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Sydney</td>
+        <td>+61 2 9264 2451</td>
+        <td>5-11 Wentworth Avenue</td>
+        <td>Floor #2</td>
+        <td>None</td>
+        <td>Australia</td>
+        <td>NSW 2010</td>
+        <td>APAC</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>London</td>
+        <td>+44 20 7877 2041</td>
+        <td>25 Old Broad Street</td>
+        <td>Level 7</td>
+        <td>None</td>
+        <td>UK</td>
+        <td>EC2N 1HN</td>
+        <td>EMEA</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>New York</td>
+        <td>+1 212 555-1212</td>
+        <td>W 116th Street</td>
+        <td>and Broadway</td>
+        <td>NY</td>
+        <td>USA</td>
+        <td>10027</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>Boston</td>
+        <td>+1 617-555-1212</td>
+        <td>One Government Center</td>
+        <td>None</td>
+        <td>MA</td>
+        <td>USA</td>
+        <td>02102</td>
+        <td>NA</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Update">Update<a class="anchor-link" href="#Update">&#182;</a></h4><ul>
+<li>The <code>UPDATE</code> statement changes rows that match a condition.</li>
+</ul>
+<ul>
+<li>The simple version is:</li>
+</ul>
+
+<pre><code>UPDATE [LOW_PRIORITY] [IGNORE] table_name 
+SET 
+    column_name1 = expr1,
+    column_name2 = expr2,
+    ...
+[WHERE
+    condition];</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><u>Example</u></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+update classicmodels.offices
+    set phone=&quot;Broken Palantir&quot;, addressLine2=&quot;Apt. 2&quot;
+    where
+        city=&quot;Minas Tirith&quot;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * mysql+pymysql://dbuser:***@localhost/w4111f19
+1 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[35]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">sql</span> select * from classicmodels.offices
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * mysql+pymysql://dbuser:***@localhost/w4111f19
+10 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[36]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>officeCode</th>
+        <th>city</th>
+        <th>phone</th>
+        <th>addressLine1</th>
+        <th>addressLine2</th>
+        <th>state</th>
+        <th>country</th>
+        <th>postalCode</th>
+        <th>territory</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>San Francisco</td>
+        <td>+1 650 219 4782</td>
+        <td>100 Market Street</td>
+        <td>Suite 300</td>
+        <td>CA</td>
+        <td>USA</td>
+        <td>94080</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>Minas Tirith</td>
+        <td>Broken Palantir</td>
+        <td>23 Level 3</td>
+        <td>Apt. 2</td>
+        <td>Minas Tirith</td>
+        <td>Gondor</td>
+        <td>12345</td>
+        <td>ME</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Boston</td>
+        <td>+1 215 837 0825</td>
+        <td>1550 Court Place</td>
+        <td>Suite 102</td>
+        <td>MA</td>
+        <td>USA</td>
+        <td>02107</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>NYC</td>
+        <td>+1 212 555 3000</td>
+        <td>523 East 53rd Street</td>
+        <td>apt. 5A</td>
+        <td>NY</td>
+        <td>USA</td>
+        <td>10022</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Paris</td>
+        <td>+33 14 723 4404</td>
+        <td>43 Rue Jouffroy D&#x27;abbans</td>
+        <td>None</td>
+        <td>None</td>
+        <td>France</td>
+        <td>75017</td>
+        <td>EMEA</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Tokyo</td>
+        <td>+81 33 224 5000</td>
+        <td>4-1 Kioicho</td>
+        <td>None</td>
+        <td>Chiyoda-Ku</td>
+        <td>Japan</td>
+        <td>102-8578</td>
+        <td>Japan</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Sydney</td>
+        <td>+61 2 9264 2451</td>
+        <td>5-11 Wentworth Avenue</td>
+        <td>Floor #2</td>
+        <td>None</td>
+        <td>Australia</td>
+        <td>NSW 2010</td>
+        <td>APAC</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>London</td>
+        <td>+44 20 7877 2041</td>
+        <td>25 Old Broad Street</td>
+        <td>Level 7</td>
+        <td>None</td>
+        <td>UK</td>
+        <td>EC2N 1HN</td>
+        <td>EMEA</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>New York</td>
+        <td>+1 212 555-1212</td>
+        <td>W 116th Street</td>
+        <td>and Broadway</td>
+        <td>NY</td>
+        <td>USA</td>
+        <td>10027</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>Boston</td>
+        <td>+1 617-555-1212</td>
+        <td>One Government Center</td>
+        <td>None</td>
+        <td>MA</td>
+        <td>USA</td>
+        <td>02102</td>
+        <td>NA</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><u>Helper Code</u></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">create_update</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">new_values</span><span class="p">,</span> <span class="n">template</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param new_values: A dictionary containing cols and the new values.</span>
+<span class="sd">    :param template: A template to form the where clause.</span>
+<span class="sd">    :return: An update statement template and args.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">set_terms</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">new_values</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">set_terms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="s2">&quot;=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="n">s_clause</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">set_terms</span><span class="p">)</span>
+    <span class="n">w_clause</span><span class="p">,</span> <span class="n">w_args</span> <span class="o">=</span> <span class="n">template_to_where_clause</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+
+    <span class="c1"># There are %s in the SET clause and the WHERE clause. We need to form</span>
+    <span class="c1"># the combined args list.</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">w_args</span><span class="p">)</span>
+
+    <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;update &quot;</span> <span class="o">+</span> <span class="n">table_name</span> <span class="o">+</span> <span class="s2">&quot; set &quot;</span> <span class="o">+</span> <span class="n">s_clause</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">+</span> <span class="n">w_clause</span>
+
+    <span class="k">return</span> <span class="n">sql</span><span class="p">,</span> <span class="n">args</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">t4</span><span class="p">():</span>
+
+    <span class="n">table_name</span> <span class="o">=</span> <span class="s2">&quot;classicmodels.offices&quot;</span>
+    <span class="n">new_cols</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;Minas Morgul&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;Morgul Vale&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;addressLine1&quot;</span><span class="p">:</span> <span class="s2">&quot;1 Shelob Cave&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;phone&quot;</span><span class="p">:</span> <span class="s2">&quot;Ick&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;country&quot;</span><span class="p">:</span> <span class="s2">&quot;Mordor&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;postalCode&quot;</span><span class="p">:</span> <span class="s2">&quot;66666&quot;</span>
+    <span class="p">}</span>
+
+    <span class="n">template</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;Minas Tirith&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;Minas Tirith&quot;</span><span class="p">}</span>
+
+    <span class="n">sql</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">create_update</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">new_cols</span><span class="p">,</span> <span class="n">template</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SQL = &quot;</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="s2">&quot;, args = &quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_q</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;None.&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t4</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>DEBUG:root:Executing SQL = update classicmodels.offices set city=&#39;Minas Morgul&#39;,state=&#39;Morgul Vale&#39;,addressLine1=&#39;1 Shelob Cave&#39;,phone=&#39;Ick&#39;,country=&#39;Mordor&#39;,postalCode=&#39;66666&#39;  WHERE  city=&#39;Minas Tirith&#39; AND state=&#39;Minas Tirith&#39; 
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>SQL =  update classicmodels.offices set city=%s,state=%s,addressLine1=%s,phone=%s,country=%s,postalCode=%s  WHERE  city=%s AND state=%s  , args =  [&#39;Minas Morgul&#39;, &#39;Morgul Vale&#39;, &#39;1 Shelob Cave&#39;, &#39;Ick&#39;, &#39;Mordor&#39;, &#39;66666&#39;, &#39;Minas Tirith&#39;, &#39;Minas Tirith&#39;]
+None.
 </pre>
 </div>
 </div>
@@ -18235,29 +19456,586 @@ Got exception =  (1054, &#34;Unknown column &#39;shoe_size&#39; in &#39;field li
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">sql</span> select * from classicmodels.offices
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * mysql+pymysql://dbuser:***@localhost/w4111f19
+10 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[41]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>officeCode</th>
+        <th>city</th>
+        <th>phone</th>
+        <th>addressLine1</th>
+        <th>addressLine2</th>
+        <th>state</th>
+        <th>country</th>
+        <th>postalCode</th>
+        <th>territory</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>San Francisco</td>
+        <td>+1 650 219 4782</td>
+        <td>100 Market Street</td>
+        <td>Suite 300</td>
+        <td>CA</td>
+        <td>USA</td>
+        <td>94080</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>Minas Morgul</td>
+        <td>Ick</td>
+        <td>1 Shelob Cave</td>
+        <td>Apt. 2</td>
+        <td>Morgul Vale</td>
+        <td>Mordor</td>
+        <td>66666</td>
+        <td>ME</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Boston</td>
+        <td>+1 215 837 0825</td>
+        <td>1550 Court Place</td>
+        <td>Suite 102</td>
+        <td>MA</td>
+        <td>USA</td>
+        <td>02107</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>NYC</td>
+        <td>+1 212 555 3000</td>
+        <td>523 East 53rd Street</td>
+        <td>apt. 5A</td>
+        <td>NY</td>
+        <td>USA</td>
+        <td>10022</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Paris</td>
+        <td>+33 14 723 4404</td>
+        <td>43 Rue Jouffroy D&#x27;abbans</td>
+        <td>None</td>
+        <td>None</td>
+        <td>France</td>
+        <td>75017</td>
+        <td>EMEA</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Tokyo</td>
+        <td>+81 33 224 5000</td>
+        <td>4-1 Kioicho</td>
+        <td>None</td>
+        <td>Chiyoda-Ku</td>
+        <td>Japan</td>
+        <td>102-8578</td>
+        <td>Japan</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Sydney</td>
+        <td>+61 2 9264 2451</td>
+        <td>5-11 Wentworth Avenue</td>
+        <td>Floor #2</td>
+        <td>None</td>
+        <td>Australia</td>
+        <td>NSW 2010</td>
+        <td>APAC</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>London</td>
+        <td>+44 20 7877 2041</td>
+        <td>25 Old Broad Street</td>
+        <td>Level 7</td>
+        <td>None</td>
+        <td>UK</td>
+        <td>EC2N 1HN</td>
+        <td>EMEA</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>New York</td>
+        <td>+1 212 555-1212</td>
+        <td>W 116th Street</td>
+        <td>and Broadway</td>
+        <td>NY</td>
+        <td>USA</td>
+        <td>10027</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>Boston</td>
+        <td>+1 617-555-1212</td>
+        <td>One Government Center</td>
+        <td>None</td>
+        <td>MA</td>
+        <td>USA</td>
+        <td>02102</td>
+        <td>NA</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><u>Programming and Files</u></p>
+<h4 id="Delete">Delete<a class="anchor-link" href="#Delete">&#182;</a></h4><ul>
+<li>The <code>DELETE</code> statement deletes all rows matching a <code>WHERE</code> condition.</li>
+</ul>
+<ul>
+<li>The syntax is:</li>
+</ul>
+
+<pre><code>DELETE FROM table_name [WHERE Clause]</code></pre>
+<ul>
+<li><code>DELETE</code> is basically the same as a <code>SELECT</code> without the column list or an <code>UPDATE</code> without the <code>SET</code> clause.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><u>Example</u></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fn</span> <span class="o">=</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Users</span><span class="se">\\</span><span class="s2">dferguso</span><span class="se">\\</span><span class="s2">OneDrive - ANSYS, Inc</span><span class="se">\\</span><span class="s2">Columbia</span><span class="se">\\</span><span class="s2">W4111f19</span><span class="se">\\</span><span class="s2">w4111-Databases</span><span class="se">\\</span><span class="s2">Data</span><span class="se">\\</span><span class="s2">student_example.csv&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">sql</span> delete from classicmodels.offices where city=&quot;Minas Morgul&quot;
+</pre></div>
 
-<span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    </div>
+</div>
+</div>
 
-<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;shoe_size&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;iq&quot;</span><span class="p">:</span> <span class="s2">&quot;hopefully&quot;</span><span class="p">,</span> <span class="s2">&quot;something&quot;</span><span class="p">:</span> <span class="s2">&quot;else&quot;</span><span class="p">,</span> <span class="s2">&quot;else&quot;</span><span class="p">:</span> <span class="s2">&quot;something&quot;</span>
-<span class="p">}</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">the_file</span><span class="p">:</span>
-    <span class="n">csv_wtr</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">the_file</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;shoe_size&quot;</span><span class="p">,</span><span class="s2">&quot;iq&quot;</span><span class="p">,</span><span class="s2">&quot;something&quot;</span><span class="p">,</span> <span class="s2">&quot;else&quot;</span><span class="p">])</span>
-    <span class="n">csv_wtr</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * mysql+pymysql://dbuser:***@localhost/w4111f19
+1 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[42]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">sql</span> select * from classicmodels.offices
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * mysql+pymysql://dbuser:***@localhost/w4111f19
+9 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[44]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>officeCode</th>
+        <th>city</th>
+        <th>phone</th>
+        <th>addressLine1</th>
+        <th>addressLine2</th>
+        <th>state</th>
+        <th>country</th>
+        <th>postalCode</th>
+        <th>territory</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>San Francisco</td>
+        <td>+1 650 219 4782</td>
+        <td>100 Market Street</td>
+        <td>Suite 300</td>
+        <td>CA</td>
+        <td>USA</td>
+        <td>94080</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Boston</td>
+        <td>+1 215 837 0825</td>
+        <td>1550 Court Place</td>
+        <td>Suite 102</td>
+        <td>MA</td>
+        <td>USA</td>
+        <td>02107</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>NYC</td>
+        <td>+1 212 555 3000</td>
+        <td>523 East 53rd Street</td>
+        <td>apt. 5A</td>
+        <td>NY</td>
+        <td>USA</td>
+        <td>10022</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Paris</td>
+        <td>+33 14 723 4404</td>
+        <td>43 Rue Jouffroy D&#x27;abbans</td>
+        <td>None</td>
+        <td>None</td>
+        <td>France</td>
+        <td>75017</td>
+        <td>EMEA</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Tokyo</td>
+        <td>+81 33 224 5000</td>
+        <td>4-1 Kioicho</td>
+        <td>None</td>
+        <td>Chiyoda-Ku</td>
+        <td>Japan</td>
+        <td>102-8578</td>
+        <td>Japan</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Sydney</td>
+        <td>+61 2 9264 2451</td>
+        <td>5-11 Wentworth Avenue</td>
+        <td>Floor #2</td>
+        <td>None</td>
+        <td>Australia</td>
+        <td>NSW 2010</td>
+        <td>APAC</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>London</td>
+        <td>+44 20 7877 2041</td>
+        <td>25 Old Broad Street</td>
+        <td>Level 7</td>
+        <td>None</td>
+        <td>UK</td>
+        <td>EC2N 1HN</td>
+        <td>EMEA</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>New York</td>
+        <td>+1 212 555-1212</td>
+        <td>W 116th Street</td>
+        <td>and Broadway</td>
+        <td>NY</td>
+        <td>USA</td>
+        <td>10027</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>Boston</td>
+        <td>+1 617-555-1212</td>
+        <td>One Government Center</td>
+        <td>None</td>
+        <td>MA</td>
+        <td>USA</td>
+        <td>02102</td>
+        <td>NA</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><u>Help Code</u></p>
+<ul>
+<li>Umm, just modify/simplify the code for <code>SELECT.</code></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="CREATE-TABLE">CREATE TABLE<a class="anchor-link" href="#CREATE-TABLE">&#182;</a></h4><ul>
+<li>What was the code for creating the tables and loading the data in the first place?</li>
+</ul>
+<ul>
+<li>There are several approaches to creating a table.<ul>
+<li>Use the MySQL Workbench or similar tool. There are online tutorials. <strong>I will give a demo now.</strong></li>
+<li>Write and execute a <code>CREATE TABLE</code> statement. We will cover in the course.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>How did the data get in the table? There are several choices:<ul>
+<li>MySQL Workbench and others tools have data import wizards.</li>
+<li>There is a <code>LOAD TABLE FROM ...</code></li>
+<li>You can write code with <code>INSERT</code> statements.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>I will demo creating and importing some of the Lahman 2019 data now.</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Comments">Comments<a class="anchor-link" href="#Comments">&#182;</a></h3><ul>
+<li>When we discuss homework 1, you will see that you use these functions in the implementation.</li>
+</ul>
+<ul>
+<li>The code above is simple, but:<ul>
+<li>Asking you to figure it out by yourselves has little teaching value in a DB class.</li>
+<li>Some of you would get bogged down or overwhelmed having to figure out the string, dictionary, etc in addition to the HW and DB concepts.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>There may be some minor errors in the code. I cut out of my solution to the HW and simplified. I had to remove some code implementing concepts we will cover later in the semester, e.g. transactions.</li>
+</ul>
+<ul>
+<li>You can find the Python files in: <a href="https://github.com/donald-f-ferguson/w4111-Databases/tree/master/Examples">https://github.com/donald-f-ferguson/w4111-Databases/tree/master/Examples</a>.</li>
+</ul>
+<ul>
+<li>If we find mistakes, I will update in the GitHub repository.</li>
+</ul>
+<ul>
+<li>If you complain about any errors, remember that I did not give prior years ANY code.</li>
+</ul>
+<ul>
+<li><strong>Finally,</strong> the complete versions of the <code>SELECT, INSERT, UPDATE,</code> and <code>DELETE</code> statement are much more complex and have significant additional capabilities, some of which we will cover.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Motivating-Use-Cases">Motivating Use Cases<a class="anchor-link" href="#Motivating-Use-Cases">&#182;</a></h3><h4 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h4><ul>
+<li>When people first start using databases,<ul>
+<li>The concept seems complex, because it is and because the concept is new.</li>
+<li>The examples are simple.</li>
+<li>Students wonder why someone would use the DB instead of just writing simple code.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>We will see some very hard things to do with "code" and the value of databases this semester.</li>
+</ul>
+<ul>
+<li>I want go give a few motivating example now, however.</li>
+</ul>
+<h4 id="Full-Data-Model">Full Data Model<a class="anchor-link" href="#Full-Data-Model">&#182;</a></h4><ul>
+<li>Lahman 2019 is large and relatively complex. I will use the <a href="http://www.mysqltutorial.org/mysql-sample-database.aspx">Classic Models</a> to provide some simple motivation.</li>
+</ul>
+<ul>
+<li>The data model is below. We will cover the meanings of the symbols later.</li>
+</ul>
+<hr style="height:2pm;">
+
+
+<table>
+<thead><tr>
+<th style="text-align:center"><img src="../../images/classicmodels_schema.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Classic Models Data Model</strong></td>
+</tr>
+</tbody>
+</table>
+<hr style="height:2pm;">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>The schema consists of the following tables:<ul>
+<li>Customers: stores customer’s data.</li>
+<li>Products: stores a list of scale model cars.</li>
+<li>ProductLines: stores a list of product line categories.</li>
+<li>Orders: stores sales orders placed by customers.</li>
+<li>OrderDetails: stores sales order line items for each sales order.</li>
+<li>Payments: stores payments made by customers based on their accounts.</li>
+<li>Employees: stores all employee information as well as the organization structure such as who reports to whom.</li>
+<li>Offices: stores sales office data.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Motivating-Example">Motivating Example<a class="anchor-link" href="#Motivating-Example">&#182;</a></h4><ul>
+<li>Write a function that produces <code>customerNumber, orderNumber, total_value, status, country</code> where <code>total_value</code> is the sum of the <code>quantityOrdered</code> and ``priceEach``` for all entries in an order.</li>
+</ul>
+<ul>
+<li>Support filtering the answer by <code>customerNumber, orderNumber, status</code> and/or <code>country.</code></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">revenue_report</span><span class="p">(</span><span class="n">customer_number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order_number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order_status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">country</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the orders and total value (sum of value of order items).</span>
+
+<span class="sd">    :param customer_number: Customer to get orders for. None gets all.</span>
+<span class="sd">    :param order_number: Same for order number.</span>
+<span class="sd">    :param order_status: Same for order status.</span>
+<span class="sd">    :param country: Same for customer country</span>
+<span class="sd">    :return: Matching information.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        select</span>
+<span class="s2">	        customers.customerNumber, customerName, customers.country,</span>
+<span class="s2">            orders.orderNumber, orders.status, </span>
+<span class="s2">            (select sum(orderdetails.quantityOrdered*orderdetails.priceEach)</span>
+<span class="s2">		        from classicmodels.orderdetails where orders.orderNumber = orderDetails.orderNumber) as order_value</span>
+<span class="s2">        from classicmodels.customers join classicmodels.orders</span>
+<span class="s2">        where </span>
+<span class="s2">	    customers.customerNumber = orders.customerNumber</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">customer_number</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sql</span> <span class="o">+=</span> <span class="s2">&quot; and customers.customerNumber = </span><span class="si">%s</span><span class="s2">&quot;</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">customer_number</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">order_number</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sql</span> <span class="o">+=</span> <span class="s2">&quot; and orderNumber = </span><span class="si">%s</span><span class="s2">&quot;</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">order_number</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">order_status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sql</span> <span class="o">+=</span> <span class="s2">&quot; and status = </span><span class="si">%s</span><span class="s2">&quot;</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">order_status</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">country</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sql</span> <span class="o">+=</span> <span class="s2">&quot; and country = </span><span class="si">%s</span><span class="s2">&quot;</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">country</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_q</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
 </pre></div>
 
     </div>
@@ -18265,26 +20043,556 @@ Got exception =  (1054, &#34;Unknown column &#39;shoe_size&#39; in &#39;field li
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">t5</span><span class="p">():</span>
+
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Result: number of rows = &quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARN</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">revenue_report</span><span class="p">(</span><span class="n">order_status</span><span class="o">=</span><span class="s2">&quot;In Process&quot;</span><span class="p">,</span> <span class="n">country</span><span class="o">=</span><span class="s2">&quot;Belgium&quot;</span><span class="p">)</span>
+
+<span class="n">rep</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">rep</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[52]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>customerName</th>
+      <th>customerNumber</th>
+      <th>orderNumber</th>
+      <th>order_value</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Belgium</td>
+      <td>Petit Auto</td>
+      <td>314</td>
+      <td>10423</td>
+      <td>8597.73</td>
+      <td>In Process</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result2</span> <span class="o">=</span> <span class="n">revenue_report</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s2">&quot;France&quot;</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="n">rep2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">rep2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>DEBUG:root:Executing SQL = 
+        select
+	        customers.customerNumber, customerName, customers.country,
+            orders.orderNumber, orders.status, 
+            (select sum(orderdetails.quantityOrdered*orderdetails.priceEach)
+		        from classicmodels.orderdetails where orders.orderNumber = orderDetails.orderNumber) as order_value
+        from classicmodels.customers join classicmodels.orders
+        where 
+	    customers.customerNumber = orders.customerNumber
+     and country = &#39;France&#39;
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[54]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>customerName</th>
+      <th>customerNumber</th>
+      <th>orderNumber</th>
+      <th>order_value</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>France</td>
+      <td>Atelier graphique</td>
+      <td>103</td>
+      <td>10123</td>
+      <td>14571.44</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>France</td>
+      <td>Atelier graphique</td>
+      <td>103</td>
+      <td>10298</td>
+      <td>6066.78</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>France</td>
+      <td>Atelier graphique</td>
+      <td>103</td>
+      <td>10345</td>
+      <td>1676.14</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>France</td>
+      <td>La Rochelle Gifts</td>
+      <td>119</td>
+      <td>10275</td>
+      <td>47924.19</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>France</td>
+      <td>La Rochelle Gifts</td>
+      <td>119</td>
+      <td>10315</td>
+      <td>19501.82</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>France</td>
+      <td>La Rochelle Gifts</td>
+      <td>119</td>
+      <td>10375</td>
+      <td>49523.67</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>France</td>
+      <td>La Rochelle Gifts</td>
+      <td>119</td>
+      <td>10425</td>
+      <td>41623.44</td>
+      <td>In Process</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>France</td>
+      <td>Saveley &amp; Henriot, Co.</td>
+      <td>146</td>
+      <td>10194</td>
+      <td>39712.10</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>France</td>
+      <td>Saveley &amp; Henriot, Co.</td>
+      <td>146</td>
+      <td>10208</td>
+      <td>49614.72</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>France</td>
+      <td>Saveley &amp; Henriot, Co.</td>
+      <td>146</td>
+      <td>10227</td>
+      <td>40978.53</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>France</td>
+      <td>Daedalus Designs Imports</td>
+      <td>171</td>
+      <td>10180</td>
+      <td>42783.81</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>France</td>
+      <td>Daedalus Designs Imports</td>
+      <td>171</td>
+      <td>10224</td>
+      <td>18997.89</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>France</td>
+      <td>La Corne D'abondance, Co.</td>
+      <td>172</td>
+      <td>10114</td>
+      <td>33383.14</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>France</td>
+      <td>La Corne D'abondance, Co.</td>
+      <td>172</td>
+      <td>10286</td>
+      <td>1960.80</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>France</td>
+      <td>La Corne D'abondance, Co.</td>
+      <td>172</td>
+      <td>10336</td>
+      <td>51209.58</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>France</td>
+      <td>Mini Caravy</td>
+      <td>209</td>
+      <td>10241</td>
+      <td>36069.26</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>France</td>
+      <td>Mini Caravy</td>
+      <td>209</td>
+      <td>10255</td>
+      <td>4632.31</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>France</td>
+      <td>Mini Caravy</td>
+      <td>209</td>
+      <td>10405</td>
+      <td>35157.75</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>France</td>
+      <td>Alpha Cognac</td>
+      <td>242</td>
+      <td>10136</td>
+      <td>14232.70</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>France</td>
+      <td>Alpha Cognac</td>
+      <td>242</td>
+      <td>10178</td>
+      <td>33818.34</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>France</td>
+      <td>Alpha Cognac</td>
+      <td>242</td>
+      <td>10397</td>
+      <td>12432.32</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>France</td>
+      <td>Lyon Souveniers</td>
+      <td>250</td>
+      <td>10134</td>
+      <td>23419.47</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>France</td>
+      <td>Lyon Souveniers</td>
+      <td>250</td>
+      <td>10356</td>
+      <td>26311.63</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>France</td>
+      <td>Lyon Souveniers</td>
+      <td>250</td>
+      <td>10395</td>
+      <td>17928.09</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>France</td>
+      <td>Auto Associés &amp; Cie.</td>
+      <td>256</td>
+      <td>10216</td>
+      <td>5759.42</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>France</td>
+      <td>Auto Associés &amp; Cie.</td>
+      <td>256</td>
+      <td>10304</td>
+      <td>53116.99</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>France</td>
+      <td>Marseille Mini Autos</td>
+      <td>350</td>
+      <td>10122</td>
+      <td>50824.66</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>France</td>
+      <td>Marseille Mini Autos</td>
+      <td>350</td>
+      <td>10344</td>
+      <td>18888.31</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>France</td>
+      <td>Marseille Mini Autos</td>
+      <td>350</td>
+      <td>10364</td>
+      <td>1834.56</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>France</td>
+      <td>Reims Collectables</td>
+      <td>353</td>
+      <td>10121</td>
+      <td>16700.47</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>France</td>
+      <td>Reims Collectables</td>
+      <td>353</td>
+      <td>10137</td>
+      <td>13920.26</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>France</td>
+      <td>Reims Collectables</td>
+      <td>353</td>
+      <td>10343</td>
+      <td>17104.91</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>France</td>
+      <td>Reims Collectables</td>
+      <td>353</td>
+      <td>10359</td>
+      <td>32600.61</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>France</td>
+      <td>Reims Collectables</td>
+      <td>353</td>
+      <td>10398</td>
+      <td>46656.94</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>France</td>
+      <td>Auto Canal+ Petit</td>
+      <td>406</td>
+      <td>10211</td>
+      <td>49165.16</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>France</td>
+      <td>Auto Canal+ Petit</td>
+      <td>406</td>
+      <td>10252</td>
+      <td>25080.96</td>
+      <td>Shipped</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>France</td>
+      <td>Auto Canal+ Petit</td>
+      <td>406</td>
+      <td>10402</td>
+      <td>12190.85</td>
+      <td>Shipped</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr style="height:1px;">
+<ul>
+<li>The function and SQL statement may seem complex.</li>
+</ul>
+
+<pre><code>select
+    customers.customerNumber, customerName, customers.country,
+    orders.orderNumber, orders.status, 
+    (select sum(orderdetails.quantityOrdered*orderdetails.priceEach)
+        from classicmodels.orderdetails where orders.orderNumber = orderDetails.orderNumber) as order_value
+from classicmodels.customers join classicmodels.orders
+where 
+    customers.customerNumber = orders.customerNumber
+    and country = 'France'</code></pre>
+<ul>
+<li>But, you need to compare to the alternative. The query execution steps that the DB performs for this query are:</li>
+</ul>
+<hr style="height:2px;">
 
 <table>
 <thead><tr>
-<th style="text-align:center"><img src="../../images/file_after_insert.jpg" width="900px"></th>
+<th style="text-align:center"><img src="../../images/query_example_plan.jpg" ></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><strong>File After Insert</strong></td>
+<td style="text-align:center"><strong>Sample Query Execution</strong></td>
 </tr>
 </tbody>
 </table>
-<hr style="height:1px;">
-
 <ul>
-<li>The basic file system and libraries let me add nonsense to the file.</li>
+<li>Each of the symbols corresponds to a Python function you would have to write. I did not write the actual code because I am lazy and know the value of SQL.</li>
+</ul>
+<ul>
+<li>If any of you think SQL is not simpler, please raise your hand. What could happen?</li>
 </ul>
 
 </div>
@@ -19112,594 +21420,13 @@ ablesha01,1883,10,4,USA,TX,Terrell,1951,2,8,USA,TX,San Antonio,Harry,Ables,Harry
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Implementation-Hints">Implementation Hints<a class="anchor-link" href="#Implementation-Hints">&#182;</a></h3><ul>
-<li>The core table in the data model is <em>People.</em></li>
+<li>You have all of the functions you need for the <code>RDBDataTable</code> except for the ones with keys. We will understand how to do keys in the next lecture, but is extremely simple.</li>
 </ul>
 <ul>
-<li>What does the data in this table look like?</li>
+<li>What about the <code>CSVDataTale?</code> Well, looking at the <code>RDBDataTable,</code> the core concept what forming a <code>WHERE</code> clause.</li>
 </ul>
 <ul>
-<li>To help you get started, I am going to provide some code that you can use in your implementations.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
-<span class="n">new_db_cnx</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
-                             <span class="n">user</span><span class="o">=</span><span class="s1">&#39;dbuser&#39;</span><span class="p">,</span>
-                             <span class="n">password</span><span class="o">=</span><span class="s1">&#39;dbuserdbuser&#39;</span><span class="p">,</span>
-                             <span class="n">db</span><span class="o">=</span><span class="s1">&#39;lahman2017&#39;</span><span class="p">,</span>
-                             <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8mb4&#39;</span><span class="p">,</span>
-                             <span class="n">cursorclass</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">cursors</span><span class="o">.</span><span class="n">DictCursor</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[75]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">run_q</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A helper method for running queries.</span>
-<span class="sd">    - sql is the query template.</span>
-<span class="sd">    - args go into the where clause.</span>
-<span class="sd">    - If fetch is True, perform a fetch.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-    
-    <span class="n">cur</span> <span class="o">=</span> <span class="n">new_db_cnx</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-    <span class="n">stmt</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">mogrify</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">I will attempt to run the query =&quot;</span><span class="p">,</span> <span class="n">stmt</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">stmt</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">fetch</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">res</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Got exception = &quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The database prevented something bad from happening.&quot;</span><span class="p">)</span>
-        
-    <span class="k">return</span> <span class="n">result</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>And, now the let's look at the table.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[76]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;describe People&quot;</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">=</span> <span class="n">run_q</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">The result is </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-I will attempt to run the query = describe People 
-
-
-The result is 
- [
-  {
-    &#34;Field&#34;: &#34;playerID&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;birthYear&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;birthMonth&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;birthDay&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;birthCountry&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;birthState&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;birthCity&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;deathYear&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;deathMonth&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;deathDay&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;deathCountry&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;deathState&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;deathCity&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;nameFirst&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;nameLast&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;nameGiven&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;weight&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;height&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;bats&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;throws&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;debut&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;finalGame&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;retroID&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  },
-  {
-    &#34;Field&#34;: &#34;bbrefID&#34;,
-    &#34;Type&#34;: &#34;text&#34;,
-    &#34;Null&#34;: &#34;YES&#34;,
-    &#34;Key&#34;: &#34;&#34;,
-    &#34;Default&#34;: null,
-    &#34;Extra&#34;: &#34;&#34;
-  }
-]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>This is the metadata that describes the table. There are a lot of columns.</li>
-</ul>
-<ul>
-<li>How many rows are there in the table?</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[78]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;select count(*)  as no_of_player from People&quot;</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">=</span> <span class="n">run_q</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">The result is </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-I will attempt to run the query = select count(*)  as no_of_player from People 
-
-
-The result is 
- [
-  {
-    &#34;no_of_player&#34;: 19617
-  }
-]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>OK. There are a lot of rows and a lot of columns. Maybe I am only interested in a subset.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[79]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;select nameLast, nameFirst, birthYear, birthCity, birthCountry from people where birthCity=</span><span class="si">%s</span><span class="s2"> and nameLast=</span><span class="si">%s</span><span class="s2">&quot;</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">run_q</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;San Diego&#39;</span><span class="p">,</span> <span class="s1">&#39;Williams&#39;</span><span class="p">),</span> <span class="n">fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">The result is </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-I will attempt to run the query = select nameLast, nameFirst, birthYear, birthCity, birthCountry from people where birthCity=&#39;San Diego&#39; and nameLast=&#39;Williams&#39; 
-
-
-The result is 
- [
-  {
-    &#34;nameLast&#34;: &#34;Williams&#34;,
-    &#34;nameFirst&#34;: &#34;Ted&#34;,
-    &#34;birthYear&#34;: &#34;1918&#34;,
-    &#34;birthCity&#34;: &#34;San Diego&#34;,
-    &#34;birthCountry&#34;: &#34;USA&#34;
-  },
-  {
-    &#34;nameLast&#34;: &#34;Williams&#34;,
-    &#34;nameFirst&#34;: &#34;Trevor&#34;,
-    &#34;birthYear&#34;: &#34;1992&#34;,
-    &#34;birthCity&#34;: &#34;San Diego&#34;,
-    &#34;birthCountry&#34;: &#34;USA&#34;
-  }
-]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>The core type in this style of manipulating data is a <em>dictionary.</em></li>
-</ul>
-<ul>
-<li>Our data access objects will manipulate dictionaries.<ul>
-<li>A table is a list of dictionaries.</li>
-<li>A template is a subset pattern to match in a table of dictionaries.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>What is an example?</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[90]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">form_select_q</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    
-    <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;select &quot;</span>
-    
-    <span class="k">if</span> <span class="n">columns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">column_list</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">column_list</span> <span class="o">=</span> <span class="s2">&quot; * &quot;</span>
-        
-    <span class="n">sql</span> <span class="o">+=</span> <span class="n">column_list</span> <span class="o">+</span> <span class="s2">&quot; from &quot;</span> <span class="o">+</span> <span class="n">table</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
-        
-    <span class="k">if</span> <span class="n">template</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">col_value</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">args</span> <span class="o">=</span> <span class="p">[]</span>
-        
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">template</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">col_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="s2">&quot;=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-            
-        <span class="n">where_clause</span> <span class="o">=</span> <span class="s2">&quot; where &quot;</span> <span class="o">+</span> <span class="s2">&quot; and &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">col_value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
-        <span class="n">sql</span> <span class="o">+=</span> <span class="n">where_clause</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">args</span><span class="o">=</span><span class="kc">None</span>
-        
-    <span class="k">return</span> <span class="n">sql</span><span class="p">,</span> <span class="n">args</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[91]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">template</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;birthCity&quot;</span><span class="p">:</span> <span class="s2">&quot;San Diego&quot;</span><span class="p">,</span> <span class="s2">&quot;nameLast&quot;</span><span class="p">:</span> <span class="s2">&quot;Williams&quot;</span><span class="p">}</span>
-<span class="n">col_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;playerID&quot;</span><span class="p">,</span> <span class="s2">&quot;nameLast&quot;</span><span class="p">,</span> <span class="s2">&quot;nameFirst&quot;</span><span class="p">,</span> <span class="s2">&quot;birthCity&quot;</span><span class="p">,</span> <span class="s2">&quot;birthYear&quot;</span><span class="p">]</span>
-<span class="n">sql</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">form_select_q</span><span class="p">(</span><span class="s2">&quot;People&quot;</span><span class="p">,</span> <span class="n">col_list</span><span class="p">,</span> <span class="n">template</span><span class="p">)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;SQL is &quot;</span><span class="p">,</span> <span class="n">sql</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Args are = &quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>SQL is  select playerID,nameLast,nameFirst,birthCity,birthYear  from People  where birthCity=%s and nameLast=%s 
-Args are =  [&#39;San Diego&#39;, &#39;Williams&#39;]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[92]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">q_result</span> <span class="o">=</span> <span class="n">run_q</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Query result is </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">q_result</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-I will attempt to run the query = select playerID,nameLast,nameFirst,birthCity,birthYear  from People  where birthCity=&#39;San Diego&#39; and nameLast=&#39;Williams&#39;  
-
-Query result is 
- [
-  {
-    &#34;playerID&#34;: &#34;willite01&#34;,
-    &#34;nameLast&#34;: &#34;Williams&#34;,
-    &#34;nameFirst&#34;: &#34;Ted&#34;,
-    &#34;birthCity&#34;: &#34;San Diego&#34;,
-    &#34;birthYear&#34;: &#34;1918&#34;
-  },
-  {
-    &#34;playerID&#34;: &#34;willitr01&#34;,
-    &#34;nameLast&#34;: &#34;Williams&#34;,
-    &#34;nameFirst&#34;: &#34;Trevor&#34;,
-    &#34;birthCity&#34;: &#34;San Diego&#34;,
-    &#34;birthYear&#34;: &#34;1992&#34;
-  }
-]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Umm, OK, but how am I supposed to use this?</li>
-</ul>
-<ul>
-<li>Well, this is the basic pattern for implementing<br><br>
-<code>def find_by_template(self, template, field_list=None, limit=None, offset=None, order_by=None):</code></li>
-</ul>
-<ul>
-<li><strong>For now, do not worry about limit, offset or order_by.</strong></li>
-</ul>
-<ul>
-<li>The code above is the basis for  <code>find_by_template()</code> for <code>RDBDataTable.</code></li>
-</ul>
-<ul>
-<li>What is the basis for the <code>CSVDataTable</code> implementation? You have to implement the query function by iterating through a list of dictionaries.</li>
+<li>How to load the data?</li>
 </ul>
 
 </div>
@@ -20232,6 +21959,52 @@ Query result is
 </div>
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>You have all the building blocks now, and I have given you started code that eliminates the need to do a lot of weird, tricky Python stuff.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="But-Wait,-There-is-More!">But Wait, There is More!<a class="anchor-link" href="#But-Wait,-There-is-More!">&#182;</a></h3><ul>
+<li>The project folder contains CSV files for customers, orders and order_details.</li>
+</ul>
+<ul>
+<li>Implement and test a CSV version of the function:</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">revenue_report_csv</span><span class="p">(</span><span class="n">customer_number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order_number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order_status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">country</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the orders and total value (sum of value of order items).</span>
+
+<span class="sd">    :param customer_number: Customer to get orders for. None gets all.</span>
+<span class="sd">    :param order_number: Same for order number.</span>
+<span class="sd">    :param order_status: Same for order status.</span>
+<span class="sd">    :param country: Same for customer country</span>
+<span class="sd">    :return: Matching information.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
