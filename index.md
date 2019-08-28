@@ -106,4 +106,6 @@ notebook and/or PDF of a PowerPoint presentation.
 - Lecture1 1: Introduction
     - [HTML Format](Lectures/Lecture_1/w4111-L1-f2019-Introduction.html)
     - [Jupyter Notebook Format](Lectures/Lecture_1/w4111-L1-f2019-Introduction.ipynb)
-    
+- Lecture1 2: Databases, Connection, Introduction to Relational Model
+    - [HTML Format](Lectures/Lecture_2/w4111-L2-s2019-ModelRelational-V2.2.html)
+    - [Jupyter Notebook Format](Lectures/Lecture_2/w4111-L2-s2019-ModelRelational-V2.2.ipynb)    
