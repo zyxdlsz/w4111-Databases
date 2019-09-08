@@ -92,6 +92,18 @@ class CSVDataTable(BaseDataTable):
         :return: None
         """
 
+    @staticmethod
+    def matches_template(row, template):
+
+        result = True
+        if template is not None:
+            for k, v in template.items():
+                if v != row.get(k, None):
+                    result = False
+                    break
+
+        return result
+
     def find_by_primary_key(self, key_fields, field_list=None):
         """
 
